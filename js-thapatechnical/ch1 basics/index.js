@@ -120,8 +120,8 @@
 // console.log(123 + '456'); //123456
 
 // swap two num
-let a  = 12;
-let b  = 15;
+// let a  = 12;
+// let b  = 15;
 // console.log(`before swap a: ${a} and b: ${b}`);
 // let c = a;
 // a = b;
@@ -147,10 +147,221 @@ let b  = 15;
 // console.log(typeof(num1));
 // console.log(typeof(num2));
 
-console.log(num1 == num2);
+// console.log(num1 == num2);
 // OUT:
 // number
 // string
 // true
 
 // console.log(num1 === num2); // false
+
+
+//        CONTROL STATEMENTS AND LOOPS
+
+
+
+// 1 if else
+
+// let rain = false;
+
+// if(rain){
+//     console.log("don't go to school");
+// } else {
+//     console.log('go to school');
+// }
+
+// let year = 2400;
+// // debugger;
+// if(year % 4 === 0){
+//     if(year % 100 === 0){
+//         if(year % 400 === 0){
+//             console.log('a leap year');
+//         }else{
+//             console.log('not a leap year');
+//         }
+//     }else{
+//         console.log('a leap year');
+//     }
+// }else{
+//     console.log('not a leap year');
+// }
+
+// let year = 2400;
+
+// if (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) {
+//     console.log('a leap year');
+// } else {
+//     console.log('not a leap year');
+// }
+
+
+
+
+
+// WHATA ARE TRUTHY AND FALSY IN JS
+
+// FALSEY : - (total 6)
+// 0, "", undefined, null, NaN, false
+
+// if(NaN){
+//     console.log('hay');
+// }else{
+//     console.log('hoo');
+// }
+
+
+// 2 condetinal ternery operator (only operator that thake three operend)
+
+//   syntex:- varname = (condition) ? value1 : value2
+// ex:-
+
+// let age = 25;
+// let message = (age >= 18) ? 'able to vote' : 'not able to vote';
+// console.log(message);
+
+
+
+// 3 switch statement
+
+// let day = 7;
+// let dayName = '';
+
+// switch(day){
+//     case 1:
+//         dayName = 'monday';
+//         break;
+//     case 2:
+//         dayName = 'tuesday';
+//         break;
+//     case 3:
+//         dayName = 'wednesday';
+//         break;
+//     case 4:
+//         dayName = 'thursday';
+//         break;
+//     case 5:
+//         dayName = 'friday';
+//         break;
+//     case 6:
+//         dayName = 'saturday';
+//         break;
+//     case 7:
+//         dayName = 'sunday';
+//         break;
+//     default:
+//         console.log("Entered wrong No of a Day"); 
+// }
+// console.log(dayName);
+
+
+
+
+// 4 WHILE LOOP
+
+// let i = 1;
+// while(i<=10){
+//     console.log(i++);
+// }
+
+
+// let count = 0;
+
+// while (true) {
+//     console.log(`Count is ${count}`);
+//     count++;
+
+//     if (count === 5) {
+//         break;  // Break out of the loop when count reaches 5
+//     }
+// }
+
+
+
+// 5 DO WHILE
+
+// let i=0;
+
+// do{
+//     console.log(i++);
+// }while(i <= 10);
+
+
+// 6 FOR LOOP
+
+
+//   initilizer is only visited one
+// for (initilizer; condition ; iterator){
+//     //code
+// }
+
+
+// for(i=0;i<=10;i++){
+//     console.log(i);
+// }
+
+
+// print table of 8,9,12,15 using foor loop
+
+// let x = 9;
+// for(let i=1;i<=10;i++){
+//     console.log(`${x} * ${i} = ${x*i}`);
+// }
+
+
+
+//       FUNCTIONS
+
+
+// syntex:-  function funName ( param1, param2 ){
+    // body
+// }
+
+
+// function greet(name){
+//     console.log(`hello ${name}`);
+// }
+
+// greet('cpgl');    
+
+
+// function sum (a=5,b=5){
+//     return a + b;
+// }
+
+// let result = sum(1,2);
+// let result = sum();
+// console.log(result);
+
+
+// 4 FUNCTION EXPRESSION
+
+// function sum (a=5,b=5){
+//     return a + b;
+// }
+
+// let funExpression = sum(1,2);
+// console.log(funExpression);
+
+// 5 Anynomous function 
+
+// let funExp = function(a,b){
+//     return a + b;
+// }
+
+// console.log('sum is: ' + funExp(1,2));
+
+// 6 arrow function
+
+/**************************************************************************/
+
+//                    MODERN JS ( ES 6 )
+
+// 1 let and const
+// 2 templet String
+// 3 default arguments
+// 4 destructuring
+// 5 object properties
+// 6 arrow functions
+// 7 spread operator
+// 8 rest operator
+
