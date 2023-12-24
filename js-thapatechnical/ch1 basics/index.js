@@ -731,10 +731,36 @@
     // return element from newArray after executing somthing
 // }[, thisArg]);
 
-// 
+// Returns a new array contaning the reesult of calling a 
+// function on element in this array
+// do not change in orignal array
 
 
+const arr1 = [1,4,9,16,25];
 
+// let newArr = arr1.map((e,index,arr1)=>{
+//     return e > 9;
+// })
+
+// console.log(newArr); // [ false, false, false, true, true ]
+// console.log(arr1); // [ 1, 4, 9, 16, 25 ]
+
+
+const newValArray = arr1.map((curentElementValue, currentIndex, currentPassedArray)=>{
+    return `index: ${currentIndex} and it's value: ${curentElementValue} of passed array: [ ${currentPassedArray} ] `
+});
+
+console.log(newValArray);
+
+// OUTPUT: -
+// [
+    // "index: 0 and it's value: 1 of passed array: [ 1,4,9,16,25 ] ",
+    // "index: 1 and it's value: 4 of passed array: [ 1,4,9,16,25 ] ",
+    // "index: 2 and it's value: 9 of passed array: [ 1,4,9,16,25 ] ",
+    // "index: 3 and it's value: 16 of passed array: [ 1,4,9,16,25 ] ",
+    // "index: 4 and it's value: 25 of passed array: [ 1,4,9,16,25 ] "
+// ]
+    
 
 
 
