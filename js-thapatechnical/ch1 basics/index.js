@@ -735,8 +735,9 @@
 // function on element in this array
 // do not change in orignal array
 
+// it is channable
 
-const arr1 = [1,4,9,16,25];
+// const arr1 = [1,4,9,16,25];
 
 // let newArr = arr1.map((e,index,arr1)=>{
 //     return e > 9;
@@ -746,11 +747,11 @@ const arr1 = [1,4,9,16,25];
 // console.log(arr1); // [ 1, 4, 9, 16, 25 ]
 
 
-const newValArray = arr1.map((curentElementValue, currentIndex, currentPassedArray)=>{
-    return `index: ${currentIndex} and it's value: ${curentElementValue} of passed array: [ ${currentPassedArray} ] `
-});
+// const newValArray = arr1.map((curentElementValue, currentIndex, currentPassedArray)=>{
+//     return `index: ${currentIndex} and it's value: ${curentElementValue} of passed array: [ ${currentPassedArray} ] `
+// });
 
-console.log(newValArray);
+// console.log(newValArray);
 
 // OUTPUT: -
 // [
@@ -762,5 +763,44 @@ console.log(newValArray);
 // ]
     
 
+// find the square root of the each element in an array:-
+
+// let arr = [25,36,49,64,81];
+
+// let squaredArr = arr.map(e => e * e); // [ 625, 1296, 2401, 4096, 6561 ]
+// let squaredRootArr = arr.map(e => Math.sqrt(e));
+
+// console.log(squaredRootArr); // [ 5, 6, 7, 8, 9 ]
+
+// multiply each element by 2 and return only those element which are greater then 10
+
+// let arr = [2,3,4,6,8];
+
+// let newArr = arr.map(e => e * 2).filter(e => (e > 10));
+// ALSO :- let newArr = arr.map(e => e * 2).filter(e => (e > 10)).reduce((accumulator, currentElement) => accumulator += currentElement);
+
+// console.log(newArr); // [ 12, 16 ]
 
 
+/************************** reduce()   ************************/
+
+// its is used to flaten an multi dimentional array into one dimentional array
+
+// The reduce() method executes a reducer function ( that you provide ) on each element of the array, resulting in single output value
+
+// it take four arguments: 
+
+// Accumulator
+// current value
+// current Index
+// source array
+
+
+// let arr = [5,6,2];
+
+// let sum = arr.reduce((accumulator, currentElement, currentIndex, sourceArray) => {
+//     return accumulator += currentElement;
+// },5 ) // 13 + 5
+// let sum = arr.reduce((accumulator, currentElement) => accumulator += currentElement,5)
+
+// console.log(sum);
