@@ -804,3 +804,146 @@
 // let sum = arr.reduce((accumulator, currentElement) => accumulator += currentElement,5)
 
 // console.log(sum);
+
+// flatten the 2d array using reduce
+
+// let twoDimArray = 
+// [
+//     ['zone_1','zone_2'],
+//     ['zone_3','zone_4'],
+//     ['zone_5','zone_6'],
+//     ['zone_7','zone_8']
+// ];
+
+// let oneDimArray = twoDimArray.reduce((acc, elem) => {
+//      return acc.concat(elem);
+// });
+// console.log(oneDimArray);
+// OUTPUT: 
+// [
+//     'zone_1', 'zone_2',
+//     'zone_3', 'zone_4',
+//     'zone_5', 'zone_6',
+//     'zone_7', 'zone_8'
+// ]
+
+// Creating New Data Structures:
+// reduce can be used to create new data structures based on the elements of an array. For example, transforming an array of objects into an object with key-value pairs.
+
+// const people = [
+//     { id: 1, name: 'Alice' },
+//     { id: 2, name: 'Bob' },
+//     { id: 3, name: 'Charlie' }
+// ];
+
+// // Creating an object with id as keys and names as values
+// const idNameMap = people.reduce(function(accumulator, person) {
+//     accumulator[person.id] = person.name;
+//     return accumulator;
+// }, {});
+
+// console.log(idNameMap);
+// { '1': 'Alice', '2': 'Bob', '3': 'Charlie' }
+
+
+/******************************** STRINGS ****************************************/
+
+// A javascript string is zero or more character written inside quotes.
+// js string is used to storing and manuplating text.
+// you can use single or double quotes
+// STring can be created as primitives.
+// from string literals , or as objects, using String() constructor.
+
+
+// let nameOfMe = 'Chanadra Prakash';
+// let collName = "IPS'Acad"; OR 'IPS"Acad';
+
+// let naam = new String("cpgl");
+
+// console.log(nameOfMe); // Chanadra Prakash
+// console.log(collName); // IPS'Acad
+// console.log(naam); // [String: 'cpgl']
+
+// LENGTH : - ( it also count white spaces)
+// console.log(nameOfMe.length); // 16
+
+
+                    // 1 Back slash spacial character
+                    
+// \'
+// \"
+// \\
+
+// console.log('hsd\'h\'fh\"d\"s\\f'); // hsd'h'fh"d"s\f
+
+
+                    // 2 Finding a String in a String
+                    
+// index start with 0
+                    
+// .indexOf():- It is a case Senstative
+// returns the first occurence index
+
+// let bioData = 'i am a computer programer code on computer';
+
+// let index = bioData.indexOf('computer');
+// let index = bioData.indexOf('computer', 8); // start searching after index 7 // 34
+// let index = bioData.indexOf('Computer'); // - 1 due to case sensative
+// console.log(index); // 7
+// console.log(bioData[index]); // c
+
+// .lastIndexOf():-
+
+// let lastIndex = bioData.lastIndexOf("computer"); // 34
+// let lastIndex = bioData.lastIndexOf("on"); // 31
+// let lastIndex = bioData.lastIndexOf("on",5); // -1 serach direction <-----5__'on'
+// let lastIndex = bioData.lastIndexOf("on",34); // 31 serach direction <------'on'--34
+// console.log(lastIndex);
+
+
+                    // 3 Searching for a String in a String
+                    
+                    
+// let bioData = 'i am a computer programer code on computer';
+
+// let searchedData = bioData.search('computer'); // no 2nd argoument also case sensative
+// console.log(searchedData);
+
+
+                    // 4 Extracting Strings Part
+
+// There are 3 methods for extracting a part of string:
+
+// slice(start, end)
+// substring(start, end)
+// substr(start, length)
+
+
+// 1 slice() method: it returns the extracted part in the new string
+
+// let str = 'Apple, Kiwi, Bannana';
+            //    7  10  
+
+// let slicedStr = str.slice(8,10); // iw
+// let slicedStr = str.slice(7,11); // Kiwi ---> (start, end+1)
+// let slicedStr = str.slice(12); // Kiwi ---> (start, .....)
+// console.log(str.slice(-7)); // Bannana
+// console.log(str.slice(543)); // ""
+// console.log(slicedStr);
+
+// 2 substring() method: it take two parameters start and end ( end param not neccessory )
+
+// let str = 'Apple, Kiwi, Bannana';
+
+
+
+// Disly only 280 char of string like twitter
+
+// let myTweet = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio aliquam architecto magni? Magnam earum laboriosam reprehenderit natus excepturi itaque ab perferendis sint facere corrupti enim fugit consequatur, dicta facilis, fugiat error modi sunt ullam porro quidem ea mollitia tempora, soluta quas. Eaque nemo assumenda recusandae repudiandae asperiores velit! Reprehenderit architecto est sit impedit sed nesciunt, deserunt minus rerum eveniet iusto cum at commodi facere dolores, nobis quas. Quaerat, facere debitis obcaecati, quod unde praesentium asperiores sit iure quisquam commodi, cumque maiores.";
+
+// console.log('my tweet : ' + myTweet.length);
+
+
+// let only280 = myTweet.slice(0,280);
+// console.log(only280); // it returns array [ '....................' ]
+// console.log(only280.length); // it returns array [ '....................' ]
