@@ -931,11 +931,8 @@
 // console.log(str.slice(543)); // ""
 // console.log(slicedStr);
 
-// 2 substring() method: it take two parameters start and end ( end param not neccessory )
 
 // let str = 'Apple, Kiwi, Bannana';
-
-
 
 // Disly only 280 char of string like twitter
 
@@ -947,3 +944,61 @@
 // let only280 = myTweet.slice(0,280);
 // console.log(only280); // it returns array [ '....................' ]
 // console.log(only280.length); // it returns array [ '....................' ]
+
+
+
+// 2 substring() method: it take two parameters start and end ( end param not neccessory )
+// it can not accepts negative indexes 
+
+// let str = 'Apple, Kiwi, Bannana';
+// let res = str.substring(0,4); // Appl
+// let res = str.substring(0,5); // Apple
+// console.log(res);
+
+// if we give negative value then the characters are counted from 0th position
+// console.log(str.substring(8,-2)); // Apple K ( it also count white spaces ' Apple_K ' )
+
+// substr(): - the only difference is tha the second parametter specifies the length of the extracted part
+
+// let res = str.substr(0,4); // Appl
+// let res = str.substr(0,5); // Apple
+// let res = str.substr(7,-2); // ""
+// let res = str.substr(-7); // Bannana ( extrect data from back )
+// console.log(res);
+
+
+
+
+// 3 .replace() : - 
+
+// syntex:- str.replace(searchFor, replaceWith)
+
+let myBio = 'I am chandra prakash chandra';
+
+// points to remember:
+// 1: the rplace() method does not change the string it is colled on. it returns a new string
+// 2: by default it replaces on the first match
+// 3: it is case sensitive
+// 1:
+// 1:
+// 1:
+
+// let myNewBio = myBio.replace('chandra','ghrit lahare');
+// console.log(myNewBio); // I am ghrit lahare prakash chandra
+
+// let myNewBio = myBio.replace('chandra','Chandra');
+// console.log(myNewBio); // I am Chandra prakash chandra
+// console.log('orignal str: ' + myBio);
+
+// it is case sensative
+// let myNewBio = myBio.replace('Chandra','CHANDRA');
+// console.log('changed str: ' + myNewBio); // I am chandra prakash chandra
+// console.log('orignal str: ' + myBio);
+// OUT:-
+// changed str: I am chandra prakash chandra
+// orignal str: I am chandra prakash chandra
+
+
+// it does not work:- ( work with regex )
+//let myNewBio = myBio.replaceAll('chandra','Chandra');
+
