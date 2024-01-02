@@ -973,15 +973,12 @@
 
 // syntex:- str.replace(searchFor, replaceWith)
 
-let myBio = 'I am chandra prakash chandra';
+// let myBio = 'I am chandra prakash chandra';
 
 // points to remember:
 // 1: the rplace() method does not change the string it is colled on. it returns a new string
 // 2: by default it replaces on the first match
 // 3: it is case sensitive
-// 1:
-// 1:
-// 1:
 
 // let myNewBio = myBio.replace('chandra','ghrit lahare');
 // console.log(myNewBio); // I am ghrit lahare prakash chandra
@@ -1001,4 +998,125 @@ let myBio = 'I am chandra prakash chandra';
 
 // it does not work:- ( work with regex )
 //let myNewBio = myBio.replaceAll('chandra','Chandra');
+
+//--------------------------------------------------------------
+
+
+// Extracting String character
+
+// here 3 methods to do so:
+
+// 1: charAt(position)
+// 2: charCodeAt(position)
+// 3: Property access []
+
+
+// 1: charAt(position) => it returns the character at specified index (position) in a string
+
+// let str = 'HELLO WORLD';
+
+// console.log(str.charAt(0)); // H 
+// console.log(str.charAt(78)); // _ (white space beacouse string index out of bound)
+// console.log(str.charAt(1)); // E
+// console.log(str.charAt(5)); // _ (white space)
+// console.log(str.charAt(str.length - 1)); // D
+
+// 2: charCodeAt(position) => it returns the unicode of the charcter at specific index in a string:
+
+// The methode returns a UTF-16 code
+// an integer between (0 and 65535)
+
+// console.log(str.charCodeAt(0)); // 72   (H)
+// console.log(str.charCodeAt(78)); // NaN   (index out of bound)
+// console.log(str.charCodeAt(1)); // 69   (E)
+// console.log(str.charCodeAt(5)); // 32   (white space)
+// console.log(str.charCodeAt(str.length - 1)); // 68   (D)
+
+
+// 3: Property access [] => ES 5 allows property access on strings
+// acess string same as just like an array
+
+// console.log(str[0]); // H
+// console.log(str[1]); // E
+// console.log(str[-1]); // undefined
+// console.log(str[61]); // undefined
+// console.log(str[str.length - 1]); // D 
+
+
+//======================================================================
+
+// OTHER USEFUL METHODS :-
+
+// let myName = 'chandra prakash';
+// console.log(myName.toLocaleUpperCase()); // CHANDRA PRAKASH
+// console.log(myName.toLocaleLowerCase()); // chandra prakash
+
+// let fname = 'chandra'
+// let lname = 'prakash'
+
+// console.log(fname + lname); // chandraprakash
+// console.log(fname + ' ' + lname); // chandra prakash
+// console.log(`${fname} ${lname}`); // chandra prakash
+// console.log(fname.concat(lname)); // chandraprakash
+// console.log(fname.concat(' ',lname)); // chandra prakash
+
+
+// trim (trime method removes white spaces from start and end of the string)
+
+// let str = '      Hello world              ';
+
+// console.log(str.trim());
+// console.log(str.trimEnd());
+// console.log(str.trimStart());
+// out:-
+// Hello world
+//       Hello world
+// Hello world
+
+
+// let str = '      Hello           world              ';
+
+// console.log(str.trim());
+// console.log(str.trimEnd());
+// console.log(str.trimStart());
+// out:-
+// Hello           world
+//       Hello           world
+// Hello           world
+
+
+// SPLIT:-
+
+// converting string into array:-
+
+
+// let txt = 'a,b,c,d,e'; // string
+// console.log(txt.split(',')); // (Split on commas) [ 'a', 'b', 'c', 'd', 'e' ]
+// console.log(txt.split(' ')); // (Split on spaces) [ 'a,b,c,d,e' ] (if we add two spaces then three array element)
+// console.log(txt.split('|')); // (Split on pipes) [ 'a,b,c,d,e' ] (if we add three pipes then four array element)
+
+
+// *******************************************************************
+
+//               DATE AND TIME OBJECTS IN JS
+
+
+
+// JS Dtae objects reperesents a single moment in time in a platform-indipendent format. Date object contain a number that represents milliseconds since 1st January 1970 UTC.
+
+// Creating Date Objrcts:-
+// ther are 4 ways:-
+
+// 1: new Date()
+// 2: new Date(year, month, day, hours, minuts, seconds, milliseconds) (it tkae max 7 argument and less)
+// 3: new Date(milliseconds) (we can not avoid month section)
+// 4: new Date(date string)
+
+
+// 1: new Date()
+// Date objects are created with the new Date() constructor.
+
+let currDate = new Date();
+console.log(currDate); // 2024-01-02T11:47:17.823Z
+
 
