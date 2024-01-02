@@ -1108,15 +1108,116 @@
 // ther are 4 ways:-
 
 // 1: new Date()
-// 2: new Date(year, month, day, hours, minuts, seconds, milliseconds) (it tkae max 7 argument and less)
+// 2: new Date(year, month, day, hours, minuts, seconds, milliseconds) (it tkae max 7 argument and minimum is two args (year,months) wher month is compoulsery )
 // 3: new Date(milliseconds) (we can not avoid month section)
 // 4: new Date(date string)
 
 
-// 1: new Date()
+// 1: new Date():-
 // Date objects are created with the new Date() constructor.
 
-let currDate = new Date();
-console.log(currDate); // 2024-01-02T11:47:17.823Z
+// let currDate = new Date();
+// console.log(currDate); // 2024-01-02T11:47:17.823Z
+
+// console.log(new Date());
+// console.log(new Date().toDateString());
+// console.log(new Date().toISOString());
+// console.log(new Date().toJSON());
+// console.log(new Date().toLocaleDateString());
+// console.log(new Date().toLocaleString()); // imp
+// console.log(new Date().toLocaleTimeString());
+// console.log(new Date().toString()); // imp
+// console.log(new Date().toTimeString());
+// console.log(new Date().toUTCString());
+
+// out:-
+// Tue Jan 02 2024
+// 2024-01-02T12:03:35.947Z
+// 2024-01-02T12:03:35.947Z
+// 2/1/2024
+// 2/1/2024, 5:33:35 pm
+// 5:33:35 pm
+// Tue Jan 02 2024 17:33:35 GMT+0530 (India Standard Time)
+// 17:33:35 GMT+0530 (India Standard Time)
+// Tue, 02 Jan 2024 12:03:35 GMT
+
+// 2:
+// console.log(Date.now()); // it returns ms since 1st jan 1970 --> 1704197160988
 
 
+// 3:
+//new Date(year,month, ....) [it is used to set time like in any party website]
+//(year, month, day, hours, minuts, seconds, milliseconds)
+//it tkae max 7 argument and minimum is two args (year,months) wher month is compoulsery
+// Note: JS count month from (Jan) 0 to 11 (Dec)
+
+// let d = new Date(2024,0,2,10,33,25,8);
+// let d = new Date(2024,0); // minimum two args
+// console.log(d); // 2024-01-02T05:03:25.008Z
+// console.log(d.toString()); // Tue Jan 02 2024 10:33:25 GMT+0530 (India Standard Time)
+
+
+
+// 4:
+// new Date(dateString):-
+
+// let d = new Date('January 2, 2024 11:13:34')
+// console.log(d); // 2024-01-02T05:43:34.000Z
+// console.log(d.toLocaleString()); // 2/1/2024, 11:13:34 am
+
+
+
+
+//5:
+// new Date(milliseconds):-
+// let d = new Date(1704197160988); // get milliseconds from --> console.log(Date.now())
+// console.log(d); // 2024-01-02T12:06:00.988Z
+// console.log(d.toLocaleString()); // 2/1/2024, 5:36:00 pm
+
+// let d = new Date(1704197160988 * 2); // get milliseconds from --> console.log(Date.now())
+// console.log(d); // 2078-01-03T00:12:01.976Z
+// console.log(d.toLocaleString()); // 2078-01-03T00:12:01.976Z
+
+// let d = new Date(0); // get milliseconds from --> console.log(Date.now())
+// console.log(d); // 1970-01-01T00:00:00.000Z
+// console.log(d.toLocaleString()); // 1/1/1970, 5:30:00 am
+
+
+// //     DATES METHODS:-
+
+
+// const currDate = new Date();
+
+// console.log(currDate.toLocaleString());
+// console.log(currDate.getFullYear());
+// console.log(currDate.getMonth());
+// console.log(currDate.getHours());
+// console.log(currDate.getMinutes());
+// console.log(currDate.getDate());
+// console.log(currDate.getDay());
+// console.log(currDate.getUTCDay());
+
+// OUTPUT:-
+
+// 2/1/2024, 6:24:03 pm
+// 2024
+// 0
+// 18
+// 24
+// 2
+// 2
+// 2
+
+// how to set individual date
+
+// console.log(currDate.setFullYear(2024)); //1704200202809 in ms
+// console.log(currDate.setFullYear(2024,0,2)); //1704200202809 in ms
+// console.log(currDate.setMonth(0)); //1704200202809 in ms
+// console.log(currDate.toLocaleString()); // 2/1/2024, 6:28:24 pm
+
+//     TIMES METHODS:-
+
+
+// const currTime = new Date();
+
+// smae as above (get and set methods)
