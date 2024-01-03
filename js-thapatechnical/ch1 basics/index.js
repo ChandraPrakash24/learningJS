@@ -1221,3 +1221,9 @@
 // const currTime = new Date();
 
 // smae as above (get and set methods)
+
+
+//********************************************************/ 
+
+//                    JS MATH OBJECT
+
