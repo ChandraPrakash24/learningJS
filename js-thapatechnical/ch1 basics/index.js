@@ -1227,3 +1227,59 @@
 
 //                    JS MATH OBJECT
 
+// The JS Math Object allows you to perform mathematical tasks on numbers
+
+// console.log(Math.PI); // 3.141592653589793
+// console.log(Math.floor(55.55)); // 55
+
+// round to nearest intiger by half 5.6 --> 6 && 5.4 -->5
+// console.log(Math.round(10.2565)); // 10
+// console.log(Math.round(10.5565)); // 11
+
+// console.log(Math.pow(2,3)); // 2^3 --> 8
+// console.log(Math.pow(3,4)); // 3^4 --> 81
+
+
+// console.log(Math.sqrt(25)); // 5
+// console.log(Math.sqrt(81)); // 9
+// console.log(Math.sqrt(66)); // 8.12403840463596
+
+
+
+// convert -ve to +ve
+// console.log(Math.abs(-55)); // 55
+// console.log(Math.abs(-55.5)); // 55.5
+// console.log(Math.abs(-955)); // 955
+// console.log(4-6); // -2
+// console.log(Math.abs(4-6)); // 2
+
+
+
+// console.log(Math.ceil(4.45)); // 5
+// console.log(Math.floor(4.4)); // 4
+// console.log(Math.floor(99.1)); // 99
+// console.log(Math.ceil(99.1)); // 100
+
+
+// console.log(Math.min(0,150,30,20,4.4,-8,-200)); // -200
+// console.log(Math.max(0,150,30,20,4.4,-8,-200)); // 150
+
+
+
+// console.log(Math.random()); // 0.9902624420149353
+// console.log(Math.random()*10); // 8.673350314341324
+// console.log(Math.floor(Math.random()*10)); // 0 to 9
+
+
+
+// truncate it only return initer part of number
+// console.log(Math.trunc(4.6)); // 4 OR Math.floor()
+// console.log(Math.trunc(-99)); // -99
+// console.log(Math.trunc(-99.99)); // -99 
+// console.log(Math.trunc(4.876986)); // 4
+
+
+// practice:-
+
+// if the argument is a positive number, Math.trunc() is equivalent to Math.floor(),
+// otherwise Math.trunc() is equivalent to Math.ceil().
