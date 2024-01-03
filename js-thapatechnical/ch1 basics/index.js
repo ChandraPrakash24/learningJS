@@ -1289,4 +1289,4 @@
 
 //                     DOM IN JS
 
-// 1st and
+// 1st and its 
