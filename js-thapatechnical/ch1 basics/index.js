@@ -1289,4 +1289,88 @@
 
 //                     DOM IN JS
 
-// 1st and its 
+// 1: Window VS Document
+
+// window is the global object to entire browser
+// Document is the child object of Window Object
+
+
+// window needs not to explicitly reffer (objects,methods and properties) for ex:- history or url, etc. code ex:- type window in browser console or window.location.href (for url)
+// document needs to explicitly reffer (objects,methods and properties) ex:- document.get....
+
+// window methods like setTimeout() , setInterval()
+// document has all html elements for manipulation
+
+
+
+
+////////////////////// 
+
+// 2: DOM (Document object model) vs BOM (Browser object model)
+//      |-> DOM has document
+//      |-> BOM has navigator, screen , location, frame , histor, XML http request
+//      |-> JS has Object , array, functions
+
+
+
+// 3: DOM Nevagation
+
+
+// in console
+// document (to get whole document)
+// document.documentEliment (to get root element i.e., <html>)
+// document.head 
+// document.body 
+// document.body.childNodes (to know all the child nodes it also includes tab, enters and whiteSpaces) 
+// document.body.children (to know all the child nodes) 
+// document.body.children.length (to know the lenght child nodes) 
+// document.body.hasChildNodes() (to know that any tag or div or node has child node or not it returns bool value) 
+
+
+
+// how to Find child in DOM tree
+// firstChild (it get text and tab, whitespaces and enter) vs firstElementChild (only nodes and it is chanable or nested-able)
+// cons childOne = document.body.firstElementChild.firstElementChild
+// childOne.style.color = "green"
+
+// lastChild vs lastElementChild
+
+
+// cons childTwo = document.querySelector('.child-two')
+// childTwo.style.color = "yellow"
+
+
+// document.body.parentNode (i.e., <html>)
+
+
+// document.body.previousElementSibling (i.e., <head>)
+
+
+
+
+// 4: search the element and its refferences
+
+// by searching:
+// document.getElementById('headng').innerHTML = 'welcome to new heading';
+
+// by refference:
+// const heading = document.getElementById('headng');
+// heading.innerHTML = 'welcome to new heading';
+
+
+// console.log( document.getElementsByClassName('paragraph'));
+// console.log( document.getElementsByTagName('p')); // for paragraph tag
+
+
+// document.getElementsByName('email'); // nameTag of input under form validation
+
+
+// it changes first matching parameter
+// doument.querySelector('#heading').innerHTML = 'changed heading';
+// doument.querySelector('.heading').innerHTML = 'changed heading';
+
+
+
+// it returns only all matching value do not use to change any content
+// doument.querySelectorAll('#heading').innerHTML = 'changed heading';
+// doument.querySelectorAll('.heading').innerHTML = 'changed heading';
