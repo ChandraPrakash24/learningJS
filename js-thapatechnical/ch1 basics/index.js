@@ -1569,3 +1569,105 @@
 
 // QUES: diff b/t onClick and Event listionar (ex above)?
 // ANS: onClick is OVERWRITABLE where as EventListener is not overwritable when calling on same event with same function name
+
+
+//             TIME BASED EVENTS IN JS
+
+// the window object alow us to execute any event in an specific time interval and this is called timing based events or timing events
+
+// there are two key methods:
+
+// a: ex: giveaway
+// setTimeout(function,milliseconds);
+// execute a function after waiting a specific millisecondes
+
+// b: ex: guess countdown
+// setInterval(function,milliseconds);
+// same as setTimeout(), but repeat thje execution of the functin contionously
+
+// 1: setTimeout(()={},ms);
+
+// <div>
+//      <p>Want to know my Name</p>
+//      <p id="showMyName"></p>
+//      <br>
+//      <button id="btn"> Click here </button>
+// </div>
+
+// SCRIPT:
+
+// const myName = document.getElementById('showMyname');
+// const btn = document.querySelector('#btn');
+
+// const showMyName = () => {
+//     myName.innerHTML = "Loading ....";
+//     setTimeout(()=>{ myName.innerHTML = "cpgl"; },2000);
+// }
+
+// btn.addEventListener('click', showMyName);
+
+
+
+// 2: clearTimeout(setTimeoutRefferenceVariable);
+
+// it is used to stome the execution of setTimeout() within the duretion
+// where refference variable of settime out is must
+// like: const myVar = setTimeout(()=>{},1000); --> now that myVar is passed into clearTimeout(myVar);   
+
+// <div>
+//  <p>Click "Try it". Wait 3 seconds. The page will alert "Hello".</p>
+//  <p>Click "Stop" to prevent the first function to execute.</p>
+//  <p>(You must click "Stop" before the 2 seconds are up.)</p>
+//  <button onclick="myVar = setTimeout(myFunction, 2000)">Try it</button>
+//  <button onclick="clearTimeout(myVar)">Stop it</button>
+// </div>
+
+//script:
+
+// function myFunction(){
+//     alert("hello");
+// }
+
+
+
+
+
+
+// 3: setInterval(()=>{},ms); and clearInterval(setIntervalRefferenceVariable);
+
+// <div class="main-div"> 
+//     <div> 
+//        <p>can you stop me when I reach at 5  </p>
+//        <br> 
+//        <button id="btn"> Click here </button> 
+//        <button id="btn2"> Stop </button> 
+//     </div> 
+// </div> 
+
+
+// <script> 
+    // const displayNum = document.querySelector('p');
+    // const triggerBtn = document.querySelector('#btn');
+    // const stopBtn = document.querySelector('#btn2');
+    // let num=0;
+    // let setIntervalReff;
+
+    // function displayCount(){
+    //     displayNum.innerHTML= "Loading ...."
+        
+    //     setIntervalReff = setInterval(()=>{
+    //         displayNum.innerHTML= `${num}`
+    //         num++;
+    //     },1000); 
+    // }
+
+    // triggerBtn.addEventListener('click',displayCount);
+
+    // stopBtn.addEventListener('click',()=>{
+    //     clearInterval(setIntervalReff);
+    // });
+// </script> 
+
+
+// QUES: diff bw setTimeout() and setInterval()?
+// ANS: setTimeout cal only one time and setInterval calls continously
