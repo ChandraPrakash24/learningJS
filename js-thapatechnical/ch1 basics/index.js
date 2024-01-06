@@ -1374,3 +1374,198 @@
 // it returns only all matching value do not use to change any content
 // doument.querySelectorAll('#heading').innerHTML = 'changed heading';
 // doument.querySelectorAll('.heading').innerHTML = 'changed heading';
+
+
+//****************************************************/
+
+//                    EVENTS IN JS
+
+
+// DEFINATION
+
+// HTML events are the thing that happen to html elemnts
+// when jasascript is used in html pages, JavaScript care react on this events
+
+
+// HTML Events: (html event can be somthing a browser does or user does)
+
+
+//here is an example of html events:
+
+// an html web page has finish loding
+// an html input field was changes
+// an html button was clicked
+// often when an event happen you want to do somthing
+
+// JS lets you execute code when an event are detected
+
+
+// html allows event handler attributes, with javascript code , to be added to html element
+
+
+
+// Section 1: Four ways of writting event in JS
+
+// 1: inline events like alerts()
+// 2: by calling a function
+// 3: using inline evnts ( HTML onClick="" prpoerty and element.onclick )
+// 4: using even Listeners ( addEventListener and IE's attachEvenet )
+
+// CDDE EX:-
+
+// 1: inline events like alerts()
+
+// <a href="#" onclick="alert('awesome')" > It's a simple Inline alert() </a>
+
+
+// 2: by calling a function
+
+// <a href="#" onclick="callingFunction()" > by calling a function </a>
+// <script>
+//      const callingFunction = () => {
+//          alert('alert from function');
+//      }   
+// </script>
+
+// 3: using inline events ( HTML onClick="" prpoerty and element.onclick ) OVERWRITEABLE
+
+// <a href="#" id="thirdWay" > by calling a function </a>
+// <script>
+//      const temp = document.getElementById('thirdWay');
+//      temp.onclick = function() {
+//          alert('alert by using inline events');
+//      }   
+// </script>
+
+
+// 4: using even Listeners ( addEventListener and IE's attachEvenet )
+
+// <a href="#" id="fourthWay" > by calling a function </a>
+// <script>
+//      const temp = document.getElementById('fourthWay');
+//      temp.addEventListener('click', () => {
+//          alert('alert by using addEventListener and IE's attachEvenet');
+//           }   
+//      );
+// </script>
+
+
+// Section 2: What is event Object?
+
+// Event object is the parent object of the event object
+// for ex:
+// mouseEvent, focusEvent, keyboardEven, etc.
+
+// <a href="#" id="eventObject" > Event Listener </a>
+// <script>
+//      const temp = document.getElementById('eventObject');
+// const ceckEvent = () =>{
+//      console.log(event); // whole Event Object
+//      console.log(event.target); // targeted element like button
+//      console.log(event.type); // type of event like click, hover, etc.
+//   }
+//      temp.addEventListener('click', checkEvent => {
+//          alert('alert by using addEventListener and IE's attachEvenet');
+//           }   
+//      );
+// </script>
+
+
+// Section 3: Mouce Event in JS
+
+
+// <p id="myP" onmousedown="mouseDown()" onmouseup="mouseUp()">
+//    click to this text.
+// </p>
+// <script>
+//  mouse Down is click and Hold
+//  mouse Up is relising mouse click
+//
+//  function mouseDown(){
+//        document.getElementById('myP').style.color="green";
+//    }
+//    function mouseUp(){
+//        document.getElementById('myP').style.color="white";
+//                   OR
+//        document.getElementById('myP').style.color="white";
+//    }
+// </script>
+
+// another mathod: mouseenetr and mouseleave
+
+// Section 4: Keyboard Events in JS
+
+// <div>
+//  <p> A function is trigger when user presses any key in input field </p>
+//  <br>
+//  <input type="text" onkeypress="ketPress()" onkeydown="keyDown()" onkeyup="keyUp()">
+//  <br>
+//  <p id="keys"></p>
+// </div>
+// 
+// <script>
+//  cons keyPress = () => {
+//    document.getElementById('keys').innerHTML = `you press ${event.key} and it's key code is ${event.code}`; 
+//  }
+//
+//  cons keyDown = () => {
+//    document.getElementById('keys').innerHTML = `key is down`; 
+//  }
+//
+//  cons keyUp = () => {
+//    document.getElementById('keys').innerHTML = `key is Up`; 
+//  }
+// 
+// </script>
+
+
+// Section 5: Input Events in JS
+
+// The on changed event occure when the when the value of an elemnt has been changed
+
+// for radiobuttons or ckeckbox, the onchange event occure when the check state has been changed.
+
+
+// <div>
+//  <lable for=""> Youre Name: </lable>
+//  <input type="text" name="" id="ice">
+//  <br>
+//  <lable> Choose an icecream flavour
+//      <select id="iceCreams" name="iceCreams" onchange="selectItems()">
+//         <option value="">Select One ....</option>
+//         <option value="choclate">choclate</option>
+//         <option value="sardine">sardine</option>
+//         <option value="vanilla">vanilla</option>
+//      </select>
+//  </lable>
+//  <br>
+//  <div id="result"></div>
+// </div>
+// 
+// <script>
+//  const selectItems = () => {    
+//      const inputChange = document.getElementById("ice").value;
+//      const iceCreams = document.getElementById("iceCreams").value;
+//      const result = document.getElementById("result");
+// 
+//      result.innerHTML = `Mr. ${inputChange} has selected ${iceCreams} ice cream flavour.`;
+//      console.log(`${inputChange} and ${iceCreams}`);
+//  }
+//                  OR above same using addEventListionar
+//
+//      const iceCreams = document.getElementById("iceCreams");
+//         iceCreams.addEventListener('change', () => {
+//         const inputChange = document.getElementById("ice").value;
+//         const iceCreams = document.getElementById("iceCreams").value;
+//         const result = document.getElementById("result");
+// 
+//         result.innerHTML = `Mr. ${inputChange} has selected ${iceCreams} ice cream flavour.`;
+//         console.log(`${inputChange} and ${iceCreams}`);
+//      }    
+//       );
+//
+// </script>
+
+
+// QUES: diff b/t onClick and Event listionar (ex above)?
+// ANS: onClick is OVERWRITABLE where as EventListener is not overwritable when calling on same event with same function name
