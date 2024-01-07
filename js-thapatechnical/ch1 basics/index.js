@@ -1671,3 +1671,7 @@
 
 // QUES: diff bw setTimeout() and setInterval()?
 // ANS: setTimeout cal only one time and setInterval calls continously
+
+/**********************************************/
+
+//                    OOPS in JS
