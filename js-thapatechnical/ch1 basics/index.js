@@ -1675,3 +1675,109 @@
 /**********************************************/
 
 //                    OOPS in JS
+
+// 1 what is Object Literals?
+// Ans: Object literal is simply a key:value pair data structure.
+
+//                    OR
+
+// Storing variable and functions together in one container, we canreffer this as objectr.
+
+
+//                 How to create Object:-
+
+// 1st way
+
+// let bioData = {
+//     "name": 'cpgl',
+//     'age': 22,
+//     'getData': function(){
+//         console.log(`my name is ${bioData.name} and age is ${bioData.age}`);
+//     }  
+// }
+
+// console.log(bioData.name);
+// console.log(bioData.age);
+// console.log(bioData.getData());
+
+//                       OR
+
+// let bioData = {
+//     name: 'cpgl',
+//     age: 22,
+//     getData: function(){
+//         console.log(`my name is ${bioData.name} and age is ${bioData.age}`);
+//     }  
+// }
+
+// console.log(bioData.name);
+// console.log(bioData.age);
+// // console.log(bioData.getData()); // it also pprints undefine so we can directly call object method like:
+// bioData.getData();  // like this it do not log undefine
+
+//             2nd way to write object here no need to write function
+
+
+// let bioData = {
+//     name: 'cpgl',
+//     age: 22,
+//     // getData: function(){  // change
+//     getData() {
+//         console.log(`my name is ${bioData.name} and age is ${bioData.age}`);
+//     }  
+// }
+
+// console.log(bioData.name);
+// console.log(bioData.age);
+// bioData.getData();  // like this it do not log undefine
+
+//           OBJECT UNDER OBJECT
+
+// let bioData = {
+//     name: {
+//         fname : 'chandra prakash',
+//         lname : 'ghrit lahare'
+//     },
+//     age: 22,
+//     // getData: function(){  // change
+//     getData() {
+//         console.log(`my name is ${bioData.name} and age is ${bioData.age}`);
+//     }  
+// }
+
+// console.log(`${bioData.name.fname} ${bioData.name.lname}`);
+
+// console.log(bioData.name);
+// console.log(bioData.age);
+// bioData.getData();  // like this it do not log undefine
+
+
+//                        THIS OBJECT
+
+
+// the definition of "this" object is  that it contain the current context.
+
+
+// The this object can have different value depending on wher it is placed
+
+// for ex 1:
+// console.log(this); // {} --> in terminal
+// console.log(this); // {Window} --> in console
+// // it reffer to the current context and that is window global object beacouse console is part of the window object no JS
+// // above thing can be use as:
+
+// console.log(this.alert('awesome')); // in console
+// //       OR
+// this.alert('awesome'); // in console
+
+
+
+// for ex 2:
+
+// function myName(){
+//     console.log(this); // still Window not function 'myName'
+// }
+// myName();
+
+
+// for ex 3:
