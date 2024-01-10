@@ -1876,7 +1876,7 @@ To fix this issue, you should use a regular function expression for getData so t
 // 1 Array Destructuring 
 // it is a way of using array values in very easy way by dividing it into small pieces and reducing no of lines of code to be written by devloper
 
-let arr = ['chandraprakash', 'ghritlahare', 22];
+// let arr = ['chandraprakash', 'ghritlahare', 22];
 
 // let fname = arr[0];
 // let lname = arr[1];
@@ -1903,11 +1903,11 @@ let arr = ['chandraprakash', 'ghritlahare', 22];
 //      Object Destructuring:
 
 
-const myBioData = {
-    fname : 'chandraprakash',
-    lname : 'ghritlahare',
-    age : 22
-}
+// const myBioData = {
+//     fname : 'chandraprakash',
+//     lname : 'ghritlahare',
+//     age : 22
+// }
 
 // console.log(myBioData.fname);
 // console.log(myBioData.lname);
@@ -1915,11 +1915,58 @@ const myBioData = {
 
 // insted:
 
-let {fname,lname,age,edu="Btech"} = myBioData;
+// let {fname,lname,age,edu="Btech"} = myBioData;
 
-console.log(fname); // chandraprakash
-console.log(edu); // Btech
+// console.log(fname); // chandraprakash
+// console.log(edu); // Btech
 
 /*****************************************************/
 
-// Object Properties
+//               Object Properties
+
+
+// 1: how can we use dynamic properties
+
+// let myName = 'cpgl';
+
+// const bioData = {
+//     myName : 'how are you?',
+//     22 : 'is my age'
+// }
+
+// console.log(bioData); // { '22': 'is my age', myName: 'how are you?' }
+
+// now making it dynamic -->
+
+// let myName = 'cpgl';
+
+// const bioData = {
+//     [myName] : 'how are you?',
+//     [20 + 2] : 'is my age' // even we can perform mathamtical operations by jus enclosing 'key' into "[]"" hence -->[keyVar]
+// }
+
+// console.log(bioData); // { '22': 'is my age', cpgl: 'how are you?' }
+
+
+// 2 if the 'variable names' of key and value both are same the no need to write just write val var name
+// ex:-
+
+// let myName = 'chandra prakash';
+// let age = 22;
+
+// let myBio = {
+//     myName : myName,
+//     age : age 
+// }
+// console.log(myBio); // { myName: 'chandra prakash', age: 22 }
+
+// insted -->
+
+// let myName = 'chandra prakash';
+// let age = 22;
+
+// let myBio = {
+//     myName,
+//     age 
+// }
+// console.log(myBio); // { myName: 'chandra prakash', age: 22 }
