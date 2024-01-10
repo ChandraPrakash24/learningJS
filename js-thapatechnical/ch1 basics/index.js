@@ -1870,3 +1870,56 @@ To fix this issue, you should use a regular function expression for getData so t
 // console.log(bioData.getData());
 
 // ANS: my name is chandraprakash ghritlahare and my age is 22
+
+//                     DESTRUCTURING
+
+// 1 Array Destructuring 
+// it is a way of using array values in very easy way by dividing it into small pieces and reducing no of lines of code to be written by devloper
+
+let arr = ['chandraprakash', 'ghritlahare', 22];
+
+// let fname = arr[0];
+// let lname = arr[1];
+// let age = arr[2];
+
+// console.log(lname);
+
+// waht if in above array we have thousend elements ho long we can assign every value to an varibale which is not possible hence we use array destructuring e.e..,
+
+// let [fname,lname,age] = arr = ['chandraprakash', 'ghritlahare', 22];
+
+// let [fname,lname,age] = ['chandraprakash', 'ghritlahare', 22];
+
+// let [fname,lname,age] = arr;
+
+// console.log(fname);
+
+// --> we can add value too:
+
+// let [fname,lname,age,edu="Btech"] = arr;
+// console.log(edu); //Btech
+
+
+//      Object Destructuring:
+
+
+const myBioData = {
+    fname : 'chandraprakash',
+    lname : 'ghritlahare',
+    age : 22
+}
+
+// console.log(myBioData.fname);
+// console.log(myBioData.lname);
+// console.log(myBioData.age);
+
+// insted:
+
+let {fname,lname,age,edu="Btech"} = myBioData;
+
+console.log(fname); // chandraprakash
+console.log(edu); // Btech
+
+/*****************************************************/
+
+// Object Properties
