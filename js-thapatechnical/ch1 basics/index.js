@@ -1781,3 +1781,92 @@
 
 
 // for ex 3:
+
+
+// let nameoo = 'cpgl';
+// const nameoo = 'cpgl'; // 'let' and 'const' won't work here beacouse they have no global scope only 'var' has
+
+// var nameoo = 'cpgl';
+// function myName() {
+//     console.log(this.nameoo);
+// }
+// myName(); //( only work in browser console )
+// output(in browser console)--> cpgl
+
+// for ex 4:
+// const obj = {
+//     name : 'cpgl',
+//     getData(){
+//         // return this.name; // undefined
+//         console.log(this.name); // cpgl --> when 'this' is used under any object that the context of that 'this' keyword changes to that object insted of global object window
+//     }
+// }
+// obj.getData();
+
+// ex 5: IMP: 'this' with arrow function always reffer to 'window' object
+
+// const obj = {
+//     name : 'cpgl',
+//     getData : () => {
+//         // return this.name; // undefined
+//         console.log(this.name); // undefined
+//         console.log(this); // {}
+//     }
+// }
+// obj.getData();
+
+// EX 6: ( WITH RETURN )
+
+/* YOU:
+
+const obj = {
+    name : 'cpgl',
+    getData : () => {
+return this.name; // undefined
+    }
+}
+obj.getData();
+
+why this is diplaying undefined
+
+
+In your code, you're using an arrow function as a method within the obj object. Arrow functions do not have their own this context; instead, they inherit it from the surrounding scope. In this case, the arrow function inherits the this from the global scope, and in a regular browser environment, that would be the window object.
+
+So, when you use this.name inside the arrow function, it's attempting to access the name property of the global object (window), which is likely undefined.
+
+To fix this issue, you should use a regular function expression for getData so that it has its own this context and can correctly refer to the name property of the obj object. Here's the corrected code:
+*/
+
+
+// const obj = {
+//     name: 'cpgl',
+//     getData: function () {
+//         return this.name;
+//     }
+// };
+
+// console.log(obj.getData()); // Outputs 'cpgl'
+// let nameObj = obj.getData();
+// console.log(nameObj); // cpgl
+
+
+// INTERVIEW QUES: what is the output of this:
+
+// let bioData = {
+//     myName : {
+//         fname : 'chandraprakash',
+//         lname : 'ghritlahare'
+//     },
+//     age : 22,
+//     getData(){
+//         // console.log(`my name is ${this.myName.fname + " " + this.myName.lname} and my age is ${this.age}`);
+//         // console.log(`my name is ${this.myName.fname} ${this.myName.lname} and my age is ${this.age}`);
+//         return (`my name is ${this.myName.fname} ${this.myName.lname} and my age is ${this.age}`);
+//         // return `my name is ${this.myName.fname} ${this.myName.lname} and my age is ${this.age}`;
+//     }
+// }
+
+// bioData.getData();
+// console.log(bioData.getData());
+
+// ANS: my name is chandraprakash ghritlahare and my age is 22
