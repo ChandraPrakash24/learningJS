@@ -1970,3 +1970,18 @@ To fix this issue, you should use a regular function expression for getData so t
 //     age 
 // }
 // console.log(myBio); // { myName: 'chandra prakash', age: 22 }
+
+
+/*********************************************************/
+
+//                              SPREAD OPERATOR
+
+// let colors = ['red','green','blue','white'];
+
+// let myFavColors = ['yellow', 'black',...colors]; //[ 'yellow', 'black', 'red', 'green', 'blue', 'white' ]
+// let myFavColors = [...colors,'yellow', 'black']; //[ 'red', 'green', 'blue', 'white', 'yellow', 'black' ]
+
+// console.log(myFavColors); // [ 'red', 'green', 'blue', 'white', 'yellow', 'black' ]
+// order matters
+// any changes (addition or deletion in above color array is automaticaly get rflected to myFavColors) in 
+
