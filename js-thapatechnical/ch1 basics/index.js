@@ -1985,3 +1985,133 @@ To fix this issue, you should use a regular function expression for getData so t
 // order matters
 // any changes (addition or deletion in above color array is automaticaly get rflected to myFavColors) in 
 
+// ES 8 Features:-
+
+
+// string padding :
+// only work in console
+// let myName = "chandraprakash".padStart(7);
+// let myName = "chandraprakash".padEnd(7);
+// console.log(myName);
+
+
+// Console loging only the values of object without using any loop using "Object.value(ObjectVar);" --> it convert object into array
+
+// let person = {
+//     name : 'fred',
+//     age : '87'
+// }
+
+// console.log(Object.values(person)); // [ 'fred', '87' ]
+// console.log(Object.entries(person)); // [ [ 'name', 'fred' ], [ 'age', '87' ] ]
+
+
+// ES2018
+
+// let person = {
+//     name : 'fred',
+//     age : '87'
+// };
+
+// let sPerson = {
+//     ...person
+// };
+
+// console.log(person); // { name: 'fred', age: '87' }
+// console.log(sPerson); // { name: 'fred', age: '87' }
+
+// ES2019
+
+// let arr = [
+//     ['zone1','zone2'],
+//     ['zone1','zone2'],
+//     ['zone1','zone2'],
+//     ['zone1',['zone01','zone02']]
+// ]
+
+// console.log(arr.flat());
+// OUT:-
+// [
+    //     'zone1',
+    //     'zone2',
+    //     'zone1',
+    //     'zone2',
+    //     'zone1',
+    //     'zone2',
+//     'zone1',
+//     [ 'zone01', 'zone02' ]
+// ]
+
+
+// console.log(arr.flat(2));
+// out:
+// [
+    //     'zone1',  'zone2',
+//     'zone1',  'zone2',
+//     'zone1',  'zone2',
+//     'zone1',  'zone01',
+//     'zone02'
+// ]
+// console.log(arr.flat(Infinity));
+
+
+
+
+
+// const person = {
+//     name : 'fred',
+//     age : '87'
+// }
+
+// let arrObj = Object.entries(person); // [ [ 'name', 'fred' ], [ 'age', '87' ] ] --> it convertes object into array
+// console.log(Object.fromEntries(arrObj)); // { name: 'fred', age: '87' } --> it convert array into Objected which was must be an specific output of the "Object.rntries();"
+
+
+// SE2020
+
+// 1: bigInt
+// ex : - 
+// let oldNum = Number.MAX_SAFE_INTEGER;
+// console.log(oldNum); // 9007199254740991
+// console.log(oldNum + 15); // 9007199254741006 (which is wrong calculation)
+
+// henc we need bigInt
+// by just puting 'n' we can make any number into bigInt
+// ex:-
+// console.log(9007199254740991n + 15n); // 9007199254741006n (which is correct)
+// let newNum = 9007199254740991n + 15n;
+// console.log(typeof(newNum)); // bigint
+
+
+
+
+
+
+// Nullish Coalescing:
+
+// const foo = null ?? 'default string or num';
+// const foo = false ?? 'default string or num'; // false
+// console.log(foo); //default string or num
+
+// const foo = null || 'default string or num';
+
+// ES2014
+// without use strict
+// x = 3.14;
+// console.log(x); // 3.14 
+// with:
+// "use strict";
+// x = 3.14;
+// console.log(x); 
+// err:
+// x = 3.14;
+//   ^
+
+// ReferenceError: x is not defined
+
+// beacouse we are not defining x via nay let or const same for any thing like function, etc.
+
+// correct way:-
+// "use strict";
+// let x = 3.14;
+// console.log(x); // 3.14 
