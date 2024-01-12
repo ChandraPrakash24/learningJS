@@ -2115,3 +2115,136 @@ To fix this issue, you should use a regular function expression for getData so t
 // "use strict";
 // let x = 3.14;
 // console.log(x); // 3.14 
+
+
+/************************************************************/
+
+//                      ADVANCE JS
+
+
+// 1: Event propogation => Tghe event propogatrion mode determine in which order the elemnets recieve the event.
+
+// Bubble phase OR Event Bubbling : child to parent OR bottom to top 
+// Capture phase OR trickling : parent to child OR top to bottom
+
+// target phase : targeted elemnt
+
+
+// ex of bubbling:-
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//   <meta charset="UTF-8">
+//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//   <title>Event Bubbling Example</title>
+//   <style>
+//     .outer {
+//       padding: 20px;
+//       background-color: #f0f0f0;
+//     }
+
+//     .inner {
+//       padding: 20px;
+//       background-color: #e0e0e0;
+//     }
+
+//     .button {
+//       padding: 10px;
+//       background-color: #c0c0c0;
+//       cursor: pointer;
+//     }
+//   </style>
+// </head>
+// <body>
+
+// <div class="outer" id="outerDiv">
+//   <div class="inner" id="innerDiv">
+    
+//   </div>
+// </div>
+
+// <script>
+//   // JavaScript code for event handling
+//   const outerDiv = document.getElementById('outerDiv');
+//   const innerDiv = document.getElementById('innerDiv');
+
+
+//   // Event handler function
+//   parentdiv = () => {
+//     alert('parent div call');
+//   }
+//  childdiv = () => {
+//     alert('child div call');
+//     event.stopPropagation(); // to stop propogation
+//   }
+//   // Attach click event listeners to elements
+ 
+//   innerDiv.addEventListener('click', childdiv);
+//    outerDiv.addEventListener('click', parentdiv);
+
+// </script>
+
+// </body>
+// </html>
+
+
+// Now, when you click on the inner div (innerDiv), the click event will first trigger the event listener on the inner div (childdiv). After that, due to event bubbling, the click event will propagate up to the outer div (outerDiv), triggering its event listener (parentdiv). As a result, you'll see two alert messages: 'child div call' followed by 'parent div call'. [by default event propogation mode is always event bubbling it means from bottom to top if and only if when child was triggered]
+
+
+
+// EVENT CAPTURING: (just set third arg of addEventListnior to 'true')
+
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//   <meta charset="UTF-8">
+//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//   <title>Event Bubbling Example</title>
+//   <style>
+//     .outer {
+//       padding: 20px;
+//       background-color: #f0f0f0;
+//     }
+
+//     .inner {
+//       padding: 20px;
+//       background-color: #e0e0e0;
+//     }
+
+//     .button {
+//       padding: 10px;
+//       background-color: #c0c0c0;
+//       cursor: pointer;
+//     }
+//   </style>
+// </head>
+// <body>
+
+// <div class="outer" id="outerDiv">
+//   <div class="inner" id="innerDiv">
+    
+//   </div>
+// </div>
+
+// <script>
+//   // JavaScript code for event handling
+//   const outerDiv = document.getElementById('outerDiv');
+//   const innerDiv = document.getElementById('innerDiv');
+
+
+//   // Event handler function
+//   parentdiv = () => {
+//     alert('parent div call');
+//   }
+//  childdiv = () => {
+//     alert('child div call');
+//     event.stopPropagation(); // to stop propogation
+//   }
+//   // Attach click event listeners to elements
+ 
+//   innerDiv.addEventListener('click', childdiv, true);
+//    outerDiv.addEventListener('click', parentdiv, true);
+
+// </script>
+
+// </body>
