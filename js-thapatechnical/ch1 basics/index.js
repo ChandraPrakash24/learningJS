@@ -2252,26 +2252,53 @@ To fix this issue, you should use a regular function expression for getData so t
 
 // 2 : Higher Order Function => function who accepts another function as an argument 
 
-const add = (a,b) => {
-    return a + b;
-} 
-const sub = (a,b) => {
-    return Math.abs(a - b);
-} 
-const mult = (a,b) => {
-    return a * b;
-} 
-const div = (a,b) => {
-    return a / b;
-} 
+// const add = (a,b) => {
+//     return a + b;
+// } 
+// const sub = (a,b) => {
+//     return Math.abs(a - b);
+// } 
+// const mult = (a,b) => {
+//     return a * b;
+// } 
+// const div = (a,b) => {
+//     return a / b;
+// } 
 
 // add,sub,etc. are callback function beacouse it get pass as a argument in an another function
 
-const calculator = (num1, num2, operator) => {
-    return operator(num1, num2);
-}
+// const calculator = (num1, num2, operator) => {
+//     return operator(num1, num2);
+// }
 
-console.log(calculator(1,2,add)); // 3
-console.log(calculator(1,2,sub)); // 1
-console.log(calculator(1,2,mult)); // 2
-console.log(calculator(1,2,div)); // 0.5
+// console.log(calculator(1,2,add)); // 3
+// console.log(calculator(1,2,sub)); // 1
+// console.log(calculator(1,2,mult)); // 2
+// console.log(calculator(1,2,div)); // 0.5
+
+
+//***********************************************************/
+
+//            3 : Asyncronous JS Programming
+
+// a : WHat is Hoisting in JS =>
+
+// in js we have first Creation phase and then Execution Phase
+
+// Hoisting in JS is a machanisam where variables and functions declearation are moved to top of there scope before the code execute.
+
+//ex:= (only work with var so histing is avoided by using let and const)
+// console.log(myName); // undefined
+// var myName;
+// myName = 'cpgl';
+
+// how the above code will be evaluated during the creation phase due to hoisting or under hoisting rule
+
+// step 1: var myName; // by hoisting rule any variable and function decleration is moved at the top on there scope
+// step 2: console.log(myName); // it prints undefined beacouse only var declareation is 'undefined by default'
+// step 3: myName = 'cpgl'; // user has assig it value after loging
+
+
+//========================================================//
+
+// b : what is scope chain and lexical schoping in js
