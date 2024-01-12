@@ -2302,3 +2302,32 @@ To fix this issue, you should use a regular function expression for getData so t
 //========================================================//
 
 // b : what is scope chain and lexical schoping in js
+
+// The Scope Chain is used to resolve the value of variable names in js
+
+// scope chain in js is lexically defined, which means that we can see what the scope chain will be by looking at the code.
+// ex: what is the value of PI?
+// const PI = 3.14;
+
+// also at the top we have the Global Scope, which is the Window Object in the browser.
+
+
+
+
+// Lexical scoping means now, that he inner function can get access to parant function variable; but the vice-versa is ot true.
+//ex:-
+// let a = 'Hello guys ';
+
+// const first = () => {
+//     let b = 'How are you? ';
+
+//     const second = () => {
+//         let c = ' I am fine, thank you.';
+//         // console.log(a+b+c); // Hello guys How are you?  I am fine, thank you.
+//     }
+//     second();
+
+//     console.log(a+b+c); // her i can access var a and b but i can not access var c --> ReferenceError: c is not defined
+
+// }
+// first();
