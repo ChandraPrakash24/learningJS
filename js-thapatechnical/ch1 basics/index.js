@@ -2248,3 +2248,30 @@ To fix this issue, you should use a regular function expression for getData so t
 // </script>
 
 // </body>
+
+
+// 2 : Higher Order Function => function who accepts another function as an argument 
+
+const add = (a,b) => {
+    return a + b;
+} 
+const sub = (a,b) => {
+    return Math.abs(a - b);
+} 
+const mult = (a,b) => {
+    return a * b;
+} 
+const div = (a,b) => {
+    return a / b;
+} 
+
+// add,sub,etc. are callback function beacouse it get pass as a argument in an another function
+
+const calculator = (num1, num2, operator) => {
+    return operator(num1, num2);
+}
+
+console.log(calculator(1,2,add)); // 3
+console.log(calculator(1,2,sub)); // 1
+console.log(calculator(1,2,mult)); // 2
+console.log(calculator(1,2,div)); // 0.5
