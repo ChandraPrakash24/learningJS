@@ -2422,7 +2422,68 @@ To fix this issue, you should use a regular function expression for getData so t
 /*********************************************************/
 
 // all the below are the part of asynchronous js
-//                     
 
 
-//
+//                      FUNCTION CURRYING                     
+
+// currying is a technique of evaluation function with multiple arguments into sequence of functions with single arguments
+
+//In other words, when a function, instead of taking all arguments at one time, takes the first one and return a new function that takes the second one and returns a new function which takes the third one, and so forth, until all arguments have been fulfilled.
+
+// That is, when we turn a function call add(1,2,3) into add(1)(2)(3) . By using this technique, the little piece can be configured and reused with ease.
+
+// Why it’s useful ?
+
+// - Currying helps you to avoid passing the same variable again and again.
+// - It helps to create a higher order function. It extremely helpful in event handling. See the blog post for more information.
+
+// -Little pieces can be configured and reused with ease.
+
+// QUES: output of sum(5)(3)(8)?
+// ANS: it can be solve by currying ex below
+
+// WRONG WAY OF WRITING:
+// const sum = (a) => {
+//     return (a,b) => {
+//         return (a,b,c) => {
+//             // console.log(a,b,c); // 8 undefined undefined
+//             return a + b + c;
+//         }
+//     } ;
+// }
+
+// let ans = sum(5)(3)(8);
+// console.log(ans); // NaN
+
+// corect only one arg:
+// const sum = (a) => {
+//     return (b) => {
+//         return (c) => {
+//             return a + b + c;
+//         }
+//     }
+// }
+
+// let ans = sum(5)(3)(8);
+// console.log(ans); // 16
+
+
+// more clean way of above code i.e., if there is only one line of code to be return no need to eritr return in fat arrow function:
+// const sum = (a) => (b) => (c) => a + b + c;
+
+// let ans = sum(5)(3)(8);
+// console.log(ans); // 16
+
+// CORRECT:
+// function sum(n1){
+//     console.log(n1); // 5
+//     return function(n2){
+//         console.log(n1,n2); // 5 3
+//         return function(n3){
+//             console.log(n1,n2,n3); // 5 3 8
+//             console.log(n1+n2+n3); // 16
+//         }
+//     }
+// }
+
+// sum(5)(3)(8);
