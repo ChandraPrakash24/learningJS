@@ -2487,3 +2487,25 @@ To fix this issue, you should use a regular function expression for getData so t
 // }
 
 // sum(5)(3)(8);
+
+
+//                         CALLBACK HELL
+
+
+// setTimeout(()=>{
+//     setTimeout(()=>{
+//         setTimeout(()=>{
+//             setTimeout(()=>{
+//                 setTimeout(()=>{
+//                     setTimeout(()=>{
+//                         setTimeout(()=>{
+//                             console.log('foo 7 second');
+//                         },1000)
+//                     },1000)
+//                 },1000)
+//             },1000)
+//         },1000)
+//     },1000)
+// },1000)
+
+
