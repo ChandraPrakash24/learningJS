@@ -2509,3 +2509,4 @@ To fix this issue, you should use a regular function expression for getData so t
 // },1000)
 
 
+//                           PROMISES
