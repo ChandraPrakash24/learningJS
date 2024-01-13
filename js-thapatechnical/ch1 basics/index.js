@@ -2281,6 +2281,55 @@ To fix this issue, you should use a regular function expression for getData so t
 
 //            3 : Asyncronous JS Programming
 
+// const fun2 = () => {
+//     console.log('Fun 2 was called');
+// }
+
+// const fun1 = () => {
+//     console.log('Fun 1 was called');
+//     fun2();
+//     console.log('Fun 1 was called');
+// }
+// fun1();
+
+// out: (output in synchronous correct order at which they are called)
+// Fun 1 was called
+// Fun 2 was called
+// Fun 1 was called
+
+//            4 : Asyncronous JS Programming
+
+// const fun2 = () => {
+//     setTimeout(()=>{ // setTimeout method is asynchronous in nature
+//         console.log('Fun 2 was called');
+//     },2000)
+// }
+
+// const fun1 = () => {
+//     console.log('Fun 1 was called');
+//     fun2();
+//     console.log('Fun 1 was called');
+// }
+// fun1();
+
+
+
+// out: (asynchronous method or code are moved to heap memory stack; out from call stack real world ex is like instagram youtube where like vedio is playing, views is updating realtime, live chat is going, all things are happening at the same time asynchronously)
+// Fun 1 was called
+// Fun 1 was called
+// Fun 2 was called
+
+
+// EVENT LOOP:-
+// 3 components of event loop : 
+//        a) Execution Stack (global execution Context)
+//        b) Web APIs like setTimeout(),DOM,AJAX/aAPI request, etc
+//        c) Message Queue
+
+// the above program run like fun1() enter into global execution Context the console.log() also get its global execution Context and prints 'Fun 1 is called' then log imidetely after printing output go out from global execution Context; then fun2() go into global execution Context then it encounter setTimeout which is asynchronous in nature so setTimeout function go to Web APIs Stack and wait util given time; then another log with same process ; then after time ends for setTimeout() it come into Message Queue at FIFO basis and as soon as main global execution Context is empty any task in our case setTimeout() moves to global execution Context and compete tere operation and produces the output as above.   
+
+//---------------------------------------------
+
 // a : WHat is Hoisting in JS =>
 
 // in js we have first Creation phase and then Execution Phase
@@ -2331,3 +2380,46 @@ To fix this issue, you should use a regular function expression for getData so t
 
 // }
 // first();
+
+
+// c : Closure => 
+
+// A closure is the combination of the function bundles together (enclosed) with refference to its surrounding states (lexical envirnment) 
+
+
+// In Other word, a closure give you access to outer function's scope from inner function.
+
+
+// In JS, a closure is created every time a function is created, at function creation time.
+
+// for ex:-
+
+// const outerFun = (a) => { // sam as lexical scoping
+//     let b = 5;
+//     const innerFun = () => {
+//         let sum = a + b;
+//         console.log(sum);
+//     }
+//     innerFun();
+// }
+// outerFun(1);
+
+//      OR 
+// const outerFun = (a) => {
+//     let b = 5;
+//     const innerFun = () => {
+//         let sum = a + b;
+//         console.log(sum);
+//     }
+//     return innerFun; // returning a closure of inner function here
+// }
+// let catchClosure = outerFun(1); // storing or catching that returned closure to var
+// console.log(catchClosure); // [Function: innerFun] --> loging only the closure not calling it
+// console.dir(catchClosure); // in console
+// catchClosure(); // 6 --> calling that closure it work completely fine even thoug above outerFun, innerFun and tere var a and b are distroyed from memory
+
+
+/*********************************************************/
+
+// all the below are the part of asynchronous js
+//                     
