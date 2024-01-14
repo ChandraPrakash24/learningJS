@@ -2510,3 +2510,45 @@ To fix this issue, you should use a regular function expression for getData so t
 
 
 //                           PROMISES
+
+
+
+
+
+
+//                           XMLHtttpRequest
+
+
+// Ajax => Asynchronous JavaScript and XML (Ajax, or AJAX) is a web development technique in which a web app fetches content from the server by making asynchronous HTTP requests, and uses the new content to update the relevant parts of the page without requiring a full page load. This can make the page more responsive, because only the parts that need to be updated are requested.
+
+
+// XMLHttpRequest (XHR) objects are used to interact with servers. You can retrieve data from a URL without having to do a full page refresh. This enables a Web page to update just part of a page without disrupting what the user is doing.
+
+
+// EventTarget <-- XMLHttpRequestEventTarget <-- XMLHttpRequest
+
+// Despite its name, XMLHttpRequest can be used to retrieve any type of data, not just XML.
+
+const container = document.querySelector('#container');
+
+const request = new XMLHttpRequest('GET','https://restcountries.com/v2/name/nepal');
+
+// const data = request.send();
+request.send();
+
+// to get the response
+request.addEventListener('load',function (){
+    // console.log(this.responseText);
+    const [data] = JSON.parse();
+
+    const htmlData = `<div class="card">
+    <img class="flag" src="${data.flags.svg}" alt="Country Flag">
+    <h2>${data.name}</h2>
+    <p class="capital">${data.capital}</p>
+    <p>Native Language: ${data.languages.name}</p>
+    <p>Population: ${data.population}</p>
+    <p>Currency: ${data.currencies.name}</p>
+</div>`;
+
+container.insertAdjacentElement('afterbegin',htmlData)
+});
