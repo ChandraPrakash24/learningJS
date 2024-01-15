@@ -2529,26 +2529,129 @@ To fix this issue, you should use a regular function expression for getData so t
 
 // Despite its name, XMLHttpRequest can be used to retrieve any type of data, not just XML.
 
-const container = document.querySelector('#container');
+//     NOT WORKING OLD CODE BELOW
 
-const request = new XMLHttpRequest('GET','https://restcountries.com/v2/name/nepal');
+
+// const container = document.querySelector('#container');
+
+// const request = new XMLHttpRequest('GET','https://restcountries.com/v2/name/nepal');
+
+// // const data = request.send();
+// request.send();
+
+// // to get the response
+// request.addEventListener('load',function (){
+//     // console.log(this.responseText);
+//     const [data] = JSON.parse();
+
+//     const htmlData = `<div class="card">
+//     <img class="flag" src="${data.flags.svg}" alt="Country Flag">
+//     <h2>${data.name}</h2>
+//     <p class="capital">${data.capital}</p>
+//     <p>Native Language: ${data.languages.name}</p>
+//     <p>Population: ${data.population}</p>
+//     <p>Currency: ${data.currencies.name}</p>
+// </div>`;
+
+// container.insertAdjacentElement('afterbegin',htmlData)
+// });
+
+
+
+
+//            WORKING NEW CODE BELOW :- (in codepen)
+ 
+// html:-
+// <div id='container'> </div>
+
+
+// css:-
+
+/*
+
+body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .flag {
+            width: 120px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            margin: 10px 0;
+            color: #333333;
+        }
+
+        p {
+            margin: 5px 0;
+            color: #555555;
+        }
+
+        .capital {
+            font-style: italic;
+            color: #888888;
+        }
+
+
+
+*/
+
+
+
+// js:-
+
+/*
+
+const request = new XMLHttpRequest();
+request.open('GET', 'https://restcountries.com/v2/name/bharat');
 
 // const data = request.send();
-request.send();
+request.send(); // error here:- Uncaught InvalidStateError: Failed to execute 'send' on 'XMLHttpRequest': The object's state must be OPENED.
+
+// request.addEventListener('load', () => {
+//     const [data] = JSON.parse(request.responseText);
+
+//      OR
 
 // to get the response
 request.addEventListener('load',function (){
     // console.log(this.responseText);
-    const [data] = JSON.parse();
+const [data] = JSON.parse(this.responseText);
 
     const htmlData = `<div class="card">
     <img class="flag" src="${data.flags.svg}" alt="Country Flag">
     <h2>${data.name}</h2>
-    <p class="capital">${data.capital}</p>
-    <p>Native Language: ${data.languages.name}</p>
+    <p class="capital">Capital:- ${data.capital}</p>
+    <p>Native Language: ${data.languages[0].name}</p>
     <p>Population: ${data.population}</p>
-    <p>Currency: ${data.currencies.name}</p>
+    <p>Currency: ${data.currencies[0].name}</p>
 </div>`;
 
-container.insertAdjacentElement('afterbegin',htmlData)
+document.getElementById('container').insertAdjacentHTML('afterbegin', htmlData);
 });
+
+
+
+*/
