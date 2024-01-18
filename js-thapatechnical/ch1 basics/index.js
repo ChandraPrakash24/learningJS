@@ -2655,3 +2655,41 @@ document.getElementById('container').insertAdjacentHTML('afterbegin', htmlData);
 
 
 */
+
+
+
+
+//                    JSON (javascript object notation)
+
+// json is kind of same as js object only difference is that here
+// key is also in double pair and value is also:- "key":"value" and it treate whole data as string (thats why we use "" all over)
+// ex:- {
+//  "name" : "cpgl",
+//  "currentWorkingStatus" : ["jr dev"]
+//}
+
+// a: JSON.stringify converts sj object into JSON text and store that JSON text into string, ex :-
+
+// let myObj = {key_1 : "some text" , key_2 : true, key_3 : 5}
+
+
+// converting obj to JSON string:-
+// let obj_to_string = JSON.stringify(myObj);
+// out: "{"key_1" : "some text" , "key_2" : true, "key_3" : 5}" [OLD FORMATE]
+
+
+// console.log(typeof(obj_to_string)); // string
+// console.log(obj_to_string); // new:-
+// {"key_1":"some text","key_2":true,"key_3":5}
+
+
+// now converting JSON to js object
+
+// let json_to_object = JSON.parse(obj_to_string);
+
+// console.log(typeof(json_to_object)); // object
+// console.log(json_to_object);
+// { key_1: 'some text', key_2: true, key_3: 5 }
+
+
+// we use json as a standerd data format to talk to different servers and services (may be of different tech stack), histrocialy xml was used
