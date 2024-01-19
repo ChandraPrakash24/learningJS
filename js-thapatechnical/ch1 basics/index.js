@@ -2693,3 +2693,134 @@ document.getElementById('container').insertAdjacentHTML('afterbegin', htmlData);
 
 
 // we use json as a standerd data format to talk to different servers and services (may be of different tech stack), histrocialy xml was used
+
+
+/******************************************************/
+
+//                          PROMISES
+
+// 90 percent of the time we only consume the promisess that means that some methods like featch() returns the promise and we consume that promise, very rarely we have to create an promise by ourself that is the part of advance js
+// it has only two states:-
+// 1: fulfilled --> (word has done, staust code 200, data mil gaya, etc.)
+// 2: rejected --> server error, internal error, etc.
+//3: ongoing --> optional third state
+
+// we use promises to geting stuck in call back hell (it use to in treditional way)
+
+// .then, .catch, .finally  (we use for promise)
+
+// advance version of '.then' is 'asinc await'
+
+// PROJECT:-
+
+//GET https://icanhazdadjoke.com/
+
+
+/*
+
+<div class="joke-container">
+    <h2>Joke of the Day</h2>
+    <p id="joke-text">Jokes are loading....</p>
+    <button id="next-joke">Next Joke</button>
+</div>
+
+body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, #3498db, #6b5b95);
+            font-family: 'Roboto', sans-serif;
+            color: #ffffff;
+        }
+
+        .joke-container {
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.9);
+            transition: transform 0.3s;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .joke-container:hover {
+            transform: scale(1.05);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #3498db;
+            font-size: 24px;
+        }
+
+        p {
+            margin: 10px 0;
+            color: #555555;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #297fb8;
+        }
+
+
+
+    
+    const setHeader = {
+  headers: {
+    Accept: 'application/json'
+  }
+}
+
+const getJokes = () => {
+  fetch('https://icanhazdadjoke.com/', setHeader)
+  .then(res => res.json())
+  .then((data) => {
+    document.getElementById('joke-text').innerHTML = data.joke;
+  })
+  .catch(err => console.error(err))
+        }
+
+document.getElementById('next-joke').addEventListener('click', getJokes);
+getJokes();
+
+                    OR
+
+
+const setHeader = {
+  headers: {
+    Accept: 'application/json'
+  }
+}
+
+const getJokes = async () => {
+  try {
+    const response = await fetch('https://icanhazdadjoke.com', setHeader);
+    const data = await response.json();
+    document.getElementById('joke-text').innerHTML = data.joke;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+document.getElementById('next-joke').addEventListener('click', getJokes);
+getJokes();
+
+
+*/
+
+//Americans can't switch from pounds to kilograms overnight. That would cause mass confusion.
