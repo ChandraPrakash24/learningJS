@@ -2824,3 +2824,70 @@ getJokes();
 */
 
 //Americans can't switch from pounds to kilograms overnight. That would cause mass confusion.
+
+
+
+/**********************************************/
+
+
+//                     ASYNC & AWAIT
+
+// async-await is also used to handle promisies but it makes it more essior we do not need to use '.then(get data)','.catch(err)' any more, as it provide native support to 'try-catch'
+
+
+//        CONVERTING ABOVE JS CODE TOO ASYNC-AWAIT
+
+
+// const setHeader = {
+//     headers: {
+//       Accept: 'application/json'
+//     }
+//   }
+  
+//   // making getJokes function to async function
+//   const getJokes = async () => {
+//     // we are waiting 'await' and whatever result comes store it to res. (no need to use .then(get anything like res) then chaining it to another .then)
+//     try{
+//     const res = await fetch('https://icanhazdadjoke.com/', setHeader)
+
+//     const data = await res.json(); // .json() also return promisies
+//     document.getElementById('joke-text').innerHTML = data.joke;
+//   }
+//   catch(err){
+//      console.error(`the error is ${err}`)
+//     }
+// }
+//   document.getElementById('next-joke').addEventListener('click', getJokes);
+//   getJokes();
+
+
+
+//   code pen consise code:
+
+/*
+
+<div class="joke-container">
+    <h2>Joke of the Day</h2>
+    <p id="joke-text">Loading...</p>
+    <button id="next-joke-btn">Next Joke</button>
+</div>
+
+
+
+const getJokes = async () =>
+{
+  try{
+    const res = await fetch('https://icanhazdadjoke.com/', {headers: {Accept: 'application/json'}})
+    const data = await res.json(); 
+    document.getElementById('joke-text').innerHTML = data.joke;
+  }
+  catch(err){
+     console.error(err)
+  }
+}
+
+document.getElementById('next-joke-btn').addEventListener('click', getJokes);
+
+getJokes();
+
+*/
