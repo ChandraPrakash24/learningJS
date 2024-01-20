@@ -347,3 +347,122 @@ setInterval(change, 1000);
 
 */
 
+/****************************************************/
+
+//                   TEMPRATURE CONVERTER
+
+// Version 1: (by myself)
+
+/*
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .converter-container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      text-align: center;
+      width: 300px;
+    }
+
+    h1 {
+      color: #3498db;
+    }
+
+    .input-container {
+      margin-top: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #ffffff;
+      border: none;
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #297fb8;
+    }
+  </style>
+</head>
+<body>
+
+<div class="converter-container">
+  <h1>Temperature Converter</h1>
+  
+  <div class="input-container">
+    <input type="number" placeholder="Enter temperature" id="temperatureInput">
+    <select id="unitSelect">
+      <option value="celsius">Celsius</option>
+      <option value="fahrenheit">Fahrenheit</option>
+    </select>
+  </div>
+
+  <button onclick="convertTemperature()">Convert</button>
+</div>
+
+</body>
+</html>
+
+
+
+const temp = document.getElementById('temperatureInput');
+ const parameter = document.getElementById('unitSelect');
+const button = document.querySelector('button');
+
+const convertTemperature = () => {
+    if (temp.value === "") {
+        button.innerText = `Please Enter Temprature`;
+        button.style.backgroundColor = 'red';
+    } else if(parameter.value == 'celsius') {
+        let celsius = temp.value;
+        let fahrenheit = (celsius * 9/5) + 32;
+        button.innerText = `${fahrenheit.toFixed(2)} °F`;
+    }else {
+        let fahrenheitt = temp.value;
+        let celsius = (fahrenheitt - 32) * (5 / 9);
+        button.innerText = `${celsius.toFixed(2)} °C`;
+    }
+}
+
+
+*/
