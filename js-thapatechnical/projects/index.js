@@ -280,3 +280,70 @@ toogle.addEventListener('click', function () {
 
 
 //******************  PROJECT 2 ******************
+
+
+//                 THERMOMETER ANIMATION
+
+// VERSION 1: (create by me) (only problem is at can caouse stack overflow due to endless recursive call)
+
+/*
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <h1>I am Thermometer <span id="temp" class='fa'></span></h1>
+
+
+let arr = ['&#xf2cb','&#xf2ca','&#xf2c9','&#xf2c8','&#xf2c7'];
+
+
+const change = (index) => {
+  
+  if(index === arr.length){ index = 0; }
+  
+  const icon = document.getElementById('temp');
+  icon.innerHTML = arr[index];
+  
+  setTimeout(function(){change(index+1)},1000);
+}
+
+
+change(0);
+
+*/
+
+// VERSION 2: (create by me) ( solved stack overflow problem using setInterval() inseted of setTimeout() )
+
+/*
+
+html same as above
+
+
+body{
+  text-align:center;
+  margin-top: 50vh;
+}
+
+
+let arr = ['&#xf2cb', '&#xf2ca', '&#xf2c9', '&#xf2c8', '&#xf2c7'];
+
+let index = 0;
+
+const change = () => {
+  const icon = document.getElementById('temp');
+  icon.innerHTML = arr[index];
+  if(index <= 1){
+  icon.style.color = 'green';
+  } else if(index > 1 && index <= 3){
+    icon.style.color = 'orange';
+  }else{
+    icon.style.color = 'red';
+  }
+
+  index = (index + 1) % arr.length;
+}
+
+// Call change every 1000 milliseconds (1 second)
+setInterval(change, 1000);
+
+*/
+
