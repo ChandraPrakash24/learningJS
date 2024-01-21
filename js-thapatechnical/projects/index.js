@@ -466,3 +466,185 @@ const convertTemperature = () => {
 
 
 */
+
+
+
+/*****************************************************************/
+
+//                  INCRIMENT COUNTER
+
+
+// VERSION 1:- (tutorial way)
+
+/*
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Increment Counter</title>
+  
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+       background-color: #A1EEBD;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .counter-container {
+      text-align: center;
+      margin-bottom: 10px;
+       margin-top: 230px;
+    }
+
+    .counter {
+      font-size: 48px;
+      color: #1abc9c;
+      margin: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .counter i {
+      font-size: 24px;
+      margin-right: 5px;
+      color: #16a085;
+    }
+
+    .section-container {
+      display: flex;
+      justify-content: space-around;
+      width: 80%;
+    }
+
+    .section {
+       border-radius: 12px;
+      text-align: center;
+      padding: 20px;
+      background-color: #FECDA6;
+<!--             background-color: black; -->
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+      width: 250px;
+    }
+
+    h2 {
+      color: #1abc9c;
+    }
+
+    p {
+      margin: 0;
+      font-size: 18px;
+      color: #555555;
+    }
+    
+    .first-section {
+      margin-top: 35px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="section-container">
+  <div class="counter-container">
+    <div class="section first-section ">
+<i class="fa-solid fa-list-check fa-beat fa-3x" style="color: #1abc9c;"></i>
+      <div class="counter" data-target='4000' id="completedCounter">
+      </div>
+      <h2>Project Completed</h2>
+      <p>Projects successfully completed</p>
+    </div>
+
+    <div class="section " style="padding-top:38px;">
+<i class="fa-regular fa-face-smile-beam fa-bounce fa-3x" style="color: #1abc9c;"></i>
+      <div class="counter" data-target='15000' id="clientsCounter">
+      </div>
+      <h2>Our Happy Clients</h2>
+      <p>Clients satisfied with our work</p>
+    </div>
+
+    <div class="section">
+        <i class="fa-solid fa-spinner fa-3x fa-spin-pulse" style="color: #1abc9c;"></i>
+      <div class="counter" data-target='500' id="ongoingCounter">
+      </div>
+      <h2>Ongoing Projects</h2>
+      <p>Projects currently in progress</p>
+    </div>
+  </div>
+</div>
+</script>
+
+<script>
+  const counters = document.querySelectorAll('.counter');
+
+  counters.forEach((counter) => {
+    counter.innerHTML = '0';
+
+    const updateCounter = () => {
+      const target = +counter.getAttribute('data-target');
+      const startingCount = Number(counter.innerHTML);
+      const increment = target / 100;
+
+      if (startingCount < target) {
+        counter.innerHTML = `${Math.round(startingCount + increment)}`;
+        setTimeout(updateCounter, 10); // Adjust the delay as needed
+      }
+    };
+
+    updateCounter();
+  });
+</script>
+
+
+</body>
+</html>
+
+
+*/
+
+
+// VERSION: 2 (chat gpt way)
+
+
+/*
+
+<script>
+  // Function to gradually increase the counter value
+  function startCounterAnimation(counterElement, targetValue) {
+    let currentValue = 0;
+    const increment = 1;
+
+    function updateCounter() {
+      counterElement.innerText = currentValue;
+      if (currentValue < targetValue) {
+        currentValue += increment;
+        requestAnimationFrame(updateCounter);
+      }
+    }
+
+    updateCounter();
+  }
+
+  // Call the animation for each counter element on page load
+  document.addEventListener("DOMContentLoaded", function() {
+    const completedCounter = document.getElementById("completedCounter");
+    const clientsCounter = document.getElementById("clientsCounter");
+    const ongoingCounter = document.getElementById("ongoingCounter");
+
+    startCounterAnimation(completedCounter, 150); // Set the target value for completed projects
+    startCounterAnimation(clientsCounter, 500);   // Set the target value for happy clients
+    startCounterAnimation(ongoingCounter, 10);    // Set the target value for ongoing projects
+  });
+</script>
+
+*/
