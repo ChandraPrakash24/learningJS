@@ -1,0 +1,543 @@
+
+body, h1, h2, p, button, textarea {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.heading {
+    background-color: #3498db;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.heading h1 {
+    font-size: 1.5em;
+    color: #fff;
+    margin: 0;
+}
+
+#container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.create-new {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    color: #3498db;
+    padding: 0.5px 0.5px;
+    border: 2px solid #3498db;
+    border-radius: 25px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.create-new:hover {
+    background-color: #3498db;
+    border: 2px solid #00c3ff;
+    /* border: 2px solid #0099ff; */
+    color: #fff;
+}
+
+.note {
+    max-width: 460px;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.operation {
+    background-color: #3498db;
+    padding: 10px;
+    text-align: right;
+}
+
+.operation button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.operation button i {
+    color: #fff;
+}
+
+.main {
+    padding: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+.edit, .delete {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.edit:hover, .delete:hover {
+    background-color: #2980b9;
+}
+
+
+
+
+
+/* side boxes style */
+/* body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+.heading {
+    background-color: #4285f4;
+    color: #ffffff;
+    text-align: center;
+    padding: 1em 0;
+    margin-bottom: 20px;
+}
+
+#container {
+    text-align: center;
+}
+
+.learn-more {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #4285f4;
+    font-weight: bold;
+    border: 2px solid #4285f4;
+    padding: 10px 20px;
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+    transition: background 0.3s;
+}
+
+.learn-more:hover {
+    background: #4285f4;
+    color: #ffffff;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #4285f4;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-left: -6px;
+    margin-top: -3px;
+    border-width: 0 3px 3px 0;
+    border-style: solid;
+    display: inline-block;
+    padding: 3px;
+}
+
+.button-text {
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.note {
+    width: 30%;
+    min-width: 200px;
+    margin: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.operation {
+    text-align: right;
+    padding: 5px;
+}
+
+.edit,
+.delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #757575;
+    transition: color 0.3s;
+}
+
+.edit:hover,
+.delete:hover {
+    color: #4285f4;
+}
+
+.main {
+    padding: 10px;
+}
+
+textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 14px;
+    line-height: 1.5;
+} */
+
+
+
+/* Google keep style */
+/* body, h1, h2, p, button, textarea {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.heading {
+    background-color: #ffcc80;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.heading h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+#container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.learn-more {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.learn-more:hover {
+    background-color: #45a049;
+}
+
+.note {
+    max-width: 400px;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.operation {
+    background-color: #4CAF50;
+    padding: 8px;
+    text-align: right;
+}
+
+.operation button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+.operation button i {
+    color: #fff;
+}
+
+.main {
+    padding: 10px;
+}
+
+textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 14px;
+    padding: 8px;
+}
+
+.edit, .delete {
+    cursor: pointer;
+}
+
+.edit:hover, .delete:hover {
+    background-color: #ddd;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.heading {
+    background-color: #3498db;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.heading h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+#container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.learn-more {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    color: #3498db;
+    padding: 10px 20px;
+    border: 2px solid #3498db;
+    border-radius: 25px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.learn-more:hover {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.note {
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.operation {
+    text-align: right;
+    padding: 10px;
+}
+
+.edit, .delete {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.edit:hover, .delete:hover {
+    background-color: #2980b9;
+}
+
+.main {
+    padding: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+/* Responsive Styles */
+/* @media (max-width: 600px) {
+    .note {
+        margin: 10px;
+    }
+}  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* CREATE NEW NOTE BUTTON */
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Mukta:700');
+
+:root {
+  --bg: #f3f8fa;
+  --white: #fff;
+  --black: #282936;
+}
+
+button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+button.create-new {
+  width: 12.4rem;
+  height: auto;
+}
+
+button.create-new .circle {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 3rem;
+  height: 3rem;
+  background: var(--black);
+  border-radius: 1.625rem;
+}
+
+button.create-new .circle .icon {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: var(--white);
+}
+
+button.create-new .circle .icon.arrow {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+
+button.create-new .circle .icon.arrow::before {
+  position: absolute;
+  content: '';
+  top: -0.25rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid var(--white);
+  border-right: 0.125rem solid var(--white);
+  transform: rotate(45deg);
+}
+
+button.create-new .button-text {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.75rem 0;
+  margin: 0 0 0 1.85rem;
+  color: var(--black);
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+button:hover .circle {
+  width: 100%;
+}
+
+button:hover .circle .icon.arrow {
+  background: var(--white);
+  transform: translate(1rem, 0);
+}
+
+button:hover .button-text {
+  color: var(--white);
+} 
+/* CREATE NEW NOTE BUTTON */
