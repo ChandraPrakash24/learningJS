@@ -36,10 +36,10 @@ addNewNote = (text = '') => {
 
     // Function to toggle between "Save" and "Edit" icons
     const toggleIcons = () => {
-        if (editBtn.innerHTML === '<i class="fas fa-save"></i>') {
+        if (editBtn.innerHTML === '<i title="Save" class="fas fa-save"></i>') {
             textarea.style.outline = 'none'; // or use 'initial'
             console.log('none');
-        } else if (editBtn.innerHTML === '<i class="fas fa-edit"></i>') {
+        } else if (editBtn.innerHTML === '<i title="Edit" class="fas fa-edit"></i>') {
             textarea.style.outline = 'auto';
             // textarea.classList.add('auto');
             console.log('auto');
@@ -50,12 +50,12 @@ addNewNote = (text = '') => {
             // If textarea is currently readonly (in "Save" mode)
             textarea.removeAttribute('readonly');
             // textarea.classList.add('fa-save');
-            editBtn.innerHTML = '<i class="fas fa-save"></i>';
+            editBtn.innerHTML = '<i title="Save" class="fas fa-save"></i>';
         } else {
             // If textarea is currently editable (in "Edit" mode)
             textarea.setAttribute('readonly', true);
             // textarea.classList.remove("fa-save");
-            editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+            editBtn.innerHTML = '<i title="Edit" class="fas fa-edit"></i>';
         }
     };
 
@@ -72,17 +72,24 @@ addNewNote = (text = '') => {
 
 
     if(text === ''){
-        editBtn.innerHTML = '<i class="fas fa-save"></i>';
+        editBtn.innerHTML = '<i title="Save" class="fas fa-save"></i>';
         // textarea.style.outline = 'auto';
         // // textarea.classList.add('auto');
         // console.log('auto');
     }
-    if(text !== '' && editBtn.innerHTML === '<i class="fas fa-edit"></i>'){
+    if(text !== '' && editBtn.innerHTML === '<i title="Edit" class="fas fa-edit"></i>'){
         // editBtn.innerHTML = '<i class="fas fa-save"></i>';
         textarea.style.outline = 'none';
         // // textarea.classList.add('auto');
         console.log('hello');
     }
+
+
+
+    // Event listener for changes in the textarea
+    textarea.addEventListener('input', updateLocalStorageData);
+
+
 
     if(text === ''){
         setTimeout(() => {
@@ -118,8 +125,14 @@ addNewNote = (text = '') => {
     trashBtn.addEventListener('click', () => {
         // Remove the entire notesMainDiv when the delete button is clicked
         document.querySelector('body').removeChild(notesMainDiv);
+        updateLocalStorageData(); // Update local storage after deleting a note
     });
 
+
+
+
+
+   
 
 
 
@@ -128,6 +141,32 @@ addNewNote = (text = '') => {
     
 
 };
+
+
+
+// Function to update local storage data
+updateLocalStorageData = () => {
+    const textareaElements = document.querySelectorAll('textarea');
+    const notesArray = [];
+
+    textareaElements.forEach(textarea => {
+        const trimmedValue = textarea.value.trim();
+        if (trimmedValue !== '') {
+            notesArray.push(trimmedValue);
+        }
+    });
+
+
+    localStorage.setItem('notesKey', JSON.stringify(notesArray));
+};
+
+// Load existing notes from localStorage on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const storedNotes = localStorage.getItem('notesKey');
+    const notesArray = storedNotes ? JSON.parse(storedNotes) : [];
+
+    notesArray.forEach(note => addNewNote(note));
+});
 
 
 addButtton.addEventListener('click', () => {
