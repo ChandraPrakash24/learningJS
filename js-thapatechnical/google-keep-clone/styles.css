@@ -104,6 +104,10 @@ textarea {
 
 
 
+.fa-save{
+    /* border: none; */
+    outline: none;
+}
 
 
 /* side boxes style */

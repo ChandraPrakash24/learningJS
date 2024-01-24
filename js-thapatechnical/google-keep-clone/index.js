@@ -10,7 +10,7 @@ addNewNote = (text = '') => {
     <button class="delete"><i class="fas fa-trash"></i></button>
 </div>
 <div class="main">
-    <textarea autofocus id="notesTextarea"></textarea>
+    <textarea id="notesTextarea" ${text ? 'readonly' : ''}></textarea>
 </div>`;
 
     notesMainDiv.insertAdjacentHTML('afterbegin',htmlNotesData);
@@ -24,6 +24,66 @@ addNewNote = (text = '') => {
     
     document.querySelector('body').appendChild(notesMainDiv);
     
+
+    // const withoutText = () => {
+
+    // }
+
+
+
+
+    const editBtn = notesMainDiv.querySelector('.edit');
+
+    // Function to toggle between "Save" and "Edit" icons
+    const toggleIcons = () => {
+        if (editBtn.innerHTML === '<i class="fas fa-save"></i>') {
+            textarea.style.outline = 'none'; // or use 'initial'
+            console.log('none');
+        } else if (editBtn.innerHTML === '<i class="fas fa-edit"></i>') {
+            textarea.style.outline = 'auto';
+            // textarea.classList.add('auto');
+            console.log('auto');
+        }
+        
+        
+        if (textarea.hasAttribute('readonly')) {
+            // If textarea is currently readonly (in "Save" mode)
+            textarea.removeAttribute('readonly');
+            // textarea.classList.add('fa-save');
+            editBtn.innerHTML = '<i class="fas fa-save"></i>';
+        } else {
+            // If textarea is currently editable (in "Edit" mode)
+            textarea.setAttribute('readonly', true);
+            // textarea.classList.remove("fa-save");
+            editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+        }
+    };
+
+
+
+    // toggleIcons();
+
+    // // // Event listener for the edit button
+    // editBtn.addEventListener('click', toggleIcons);
+
+
+        // Event listener for the edit button
+        editBtn.addEventListener('click', toggleIcons);
+
+
+    if(text === ''){
+        editBtn.innerHTML = '<i class="fas fa-save"></i>';
+        // textarea.style.outline = 'auto';
+        // // textarea.classList.add('auto');
+        // console.log('auto');
+    }
+    if(text !== '' && editBtn.innerHTML === '<i class="fas fa-edit"></i>'){
+        // editBtn.innerHTML = '<i class="fas fa-save"></i>';
+        textarea.style.outline = 'none';
+        // // textarea.classList.add('auto');
+        console.log('hello');
+    }
+
     if(text === ''){
         setTimeout(() => {
             textarea.focus();
@@ -65,7 +125,9 @@ addNewNote = (text = '') => {
 
 
 
-}
+    
+
+};
 
 
 addButtton.addEventListener('click', () => {
