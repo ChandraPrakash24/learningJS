@@ -7,7 +7,7 @@ addNewNote = (text = '') => {
     // console.log(notesMainDiv);
     const htmlNotesData = `<div class="operation">
     <button class="edit"><i class="fas fa-edit"></i></button>
-    <button class="delete"><i class="fas fa-trash"></i></button>
+    <button class="delete"><i title="Delete" class="fas fa-trash"></i></button>
 </div>
 <div class="main">
     <textarea id="notesTextarea" ${text ? 'readonly' : ''}></textarea>
