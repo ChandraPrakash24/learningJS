@@ -25,9 +25,6 @@ addNewNote = (text = '') => {
     document.querySelector('body').appendChild(notesMainDiv);
     
 
-    // const withoutText = () => {
-
-    // }
 
 
 
