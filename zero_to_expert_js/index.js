@@ -489,3 +489,283 @@
 // console.log(`what a time you have spend and ${retirementYear(2001,"cpgl")} `);
 
 
+/************************ coding challenege *************************/
+
+// const calcAverage = (num1, num2, num3) => (num1 + num2 + num3) / 3;
+
+// const avgDolphin = calcAverage(44,24,71);
+// const avgKoalas = calcAverage(65,54,49);
+
+// const checkWinner = function(dolphinAvg, koalaAvg){
+//     console.log(dolphinAvg, koalaAvg, "yo");
+    
+//     if(dolphinAvg > koalaAvg * 2){
+//         return `Dolphins wins (${dolphinAvg} vs ${koalaAvg * 2})`;
+//     } else if (koalaAvg > dolphinAvg * 2){
+//         return `Koala wins (${dolphinAvg * 2} vs ${koalaAvg})`;
+//     } else {
+//         return `it's a draw`;
+//     }
+// }
+
+
+
+// console.log(checkWinner(calcAverage(44,24,71), calcAverage(65,54,49))); // draw
+// console.log(checkWinner(calcAverage(85,54,41), calcAverage(23,34,47))); // draw
+// console.log(checkWinner(calcAverage(85,84,96), calcAverage(23,34,47))); // Dolphins wins (88.33333333333333 vs 69.33333333333333)
+// console.log(checkWinner(calcAverage(25,34,46), calcAverage(93,94,107)));
+// Koala wins (70 vs 98)
+
+
+
+// console.log(checkWinner(avgDolphin, avgKoalas));
+
+// const result = checkWinner(avgDolphin,avgKoalas);
+// console.log(result);
+
+
+// all the functions are complete as stand alone function so we can also callthis function with randome values like:
+// console.log(checkWinner(545, 111)); // Dolphi wins
+
+/************************** ARRAYS ********************************/
+
+
+// const friendsArray = ['ajju','bajju','yoyo']; // literal syntex
+// console.log(friendsArray);
+
+// console.log(typeof friendsArray); // object
+// console.log(typeof friendsArray[0]); // string
+
+// const numbersArr = new Array(2, 5, 56, 6);
+// console.log(numbersArr); // object
+// console.log(typeof numbersArr[2]); // numbers
+
+// console.log(friendsArray.length); // .length --> property
+// console.log(friendsArray[friendsArray.length - 1]);
+
+// friendsArray[2] = "bobo";
+// console.log(friendsArray);
+
+// friendsArray = ['pam','param']; // not allowed
+// TypeError: Assignment to constant variable.
+
+
+// array just expect an expression as the position of its value which reduces to value ex friendsArray[friendsArray.length - 1] here "friendsArray.length - 1" is a expression which ereduces too value and also for array decleration ex below:
+// const myDataArray = [/* any expression */, /* any expression */];
+
+// const firstName = 'chandraprakash';
+// const myDataArray = [firstName, 'ghritlahare', 2024-2001, friendsArray];
+
+// console.log(myDataArray);
+
+// // exercise
+// const calcAge = birthYear => 2024 - birthYear;
+
+// const years = [2001, 2007, 2012, 2015, 2020, 2021, 2023, 2024];
+
+// calcAge(years); // well you can do operations with whole array at once you can pass an entire aerray but not do opertions at once like 2024 - (whole array) as currently we are doing
+// also
+// console.log(calcAge(years)); // NaN
+// console.log(years + 10); // 2001,2007,2012,2015,2020,2021,2023,202410 (+ --> string --> "array" + "10" --> "array10")
+// console.log(years - 10); // NaN
+
+// const age1 = calcAge(years[0]);
+// const age2 = calcAge(years[1]);
+// const age3 = calcAge(years[years.length - 1]);
+
+// console.log(age1, age2, age3); // 23 17 0
+
+// also we can do like this
+
+// const ages = [calcAge(years[0]), calcAge(years[1]), calcAge(years[years.length - 1])];
+// console.log(ages); // [ 23, 17, 0 ]
+
+
+
+// let myArray = [42, "Hello", true, undefined, null, Symbol("foo")];
+// console.log(myArray[5]); // Symbol(foo)
+// let myObject = { name: "John", age: 30 };
+// // let myFunction = function() { console.log("Hello, World!"); };
+// let myFunction = () => { console.log("Hello, World!"); };
+
+// let myArrayCombined = [myObject, myFunction];
+
+// console.log(myArrayCombined[1]()); //it loged undefined coz it not returning any thing
+// myArrayCombined[1](); // it run the function (myFunction)
+
+
+/***************** Arrays Methods ****************/
+
+// Add elements
+// let nameArr = ['bbbb','cccc','dddd'];
+
+// const newLength = nameArr.push('eeee');
+// console.log(newLength); // 4 --> push() method returns the new length of an array
+// console.log(nameArr); // [ 'bbbb', 'cccc', 'dddd', 'eeee' ]
+
+// add elemnt to the front of an array
+// console.log(nameArr.unshift('aaaa')); // 5 --> unshift() method returns the new length of an array
+// console.log(nameArr); // [ 'aaaa', 'bbbb', 'cccc', 'dddd', 'eeee' ]
+
+// remove element (back)
+
+// console.log(nameArr.pop()); // eeee --> it returns the elemen that has been poped
+// console.log(nameArr); // [ 'aaaa', 'bbbb', 'cccc', 'dddd' ]
+
+// remove from front
+// console.log(nameArr.shift()); // aaaa --> it returns the elemen that has been poped from front of an array
+// console.log(nameArr); // [ 'bbbb', 'cccc', 'dddd' ]
+
+// Index of (strict check)
+// it returns the index (zero based) of that element if found and -1 if not found
+
+// nameArr.push(22);
+// console.log(nameArr); // [ 'bbbb', 'cccc', 'dddd', 22 ]
+
+// console.log(nameArr.indexOf('cccc')); // 1
+// console.log(nameArr.indexOf('ccc')); // -1
+// console.log(nameArr.indexOf(22)); // 3
+// console.log(nameArr.indexOf("22")); // -1
+
+// is Element include or not (strict check)
+// it returns the bool value if include then true else false
+
+// console.log(nameArr.includes('cccc')); // true
+// console.log(nameArr.includes("ccc")); // false
+// console.log(nameArr.includes(22)); // true
+// console.log(nameArr.includes("22")); // false
+
+// use case of includes:
+
+// if(nameArr.includes('cccc')) console.log('youre friend cccc is here');
+// else console.log('cccc is not here');
+
+
+/************************ CODING CHALLENGE **************************/
+
+
+// const calcTip = amount => amount >= 50 && amount <= 300 ? (amount * 15)/100 : (amount * 20)/100; 
+
+// const billsArr = [125,555,44];
+
+// const tipsArr = [calcTip(billsArr[0]), calcTip(billsArr[1]), calcTip(billsArr[billsArr.length -1]),];
+
+// console.log(tipsArr);
+// const totalAmountArr = [billsArr[0] + tipsArr[0], billsArr[1] + tipsArr[1], billsArr[2] + tipsArr[2],]
+
+// console.log("total Amount is (bill + tip) : ", totalAmount);
+// console.log(billsArr, tipsArr, totalAmountArr);
+// [ 125, 555, 44 ] [ 18.75, 111, 8.8 ] [ 143.75, 666, 52.8 ]
+
+
+/*******************************************************************/
+
+
+
+/***************************** OBJECTS ******************************/
+
+// in Array we can not reffer or give array's element a name, we just have to relay on there index values, to solve that problem object was introduced in object we can give nameToTheData : thenActualData it is also known as key : value pair, also order of elements does not matter in objects henece it is used for unstructured data where as arrays are used for structured data  
+
+// example:
+
+let myArray = [
+    'chandraprakash',
+    'ghritlahare',
+    2024-2001,
+    'student',
+    // function(){console.log('jai shree ram');},
+    () => {console.log('jai shree ram');},
+    ['aaaa','bbbb','cccc','dddd']
+];
+
+const myObj = {
+    firstName: 'chandraprakash',
+    lastName: 'ghritlahare',
+    age: 2024-2001,
+    job: 'student',
+    slogan: () => {console.log('jai shree ram');},
+    friends: ['aaaa','bbbb','cccc','dddd']
+}
+
+//******** Retrive and Change data from Object *********/
+
+console.log(myObj);
+
+console.log(myObj.firstName); // . 'dot notation' --> dot is a operator
+console.log(myObj["lastName"]); // [] bracket notation (any expression can me but under this brackets [....] only of string type) property name is put here as a string
+
+// let experiment with Bracket notation expression
+
+const nameProperty = "Name";
+console.log(myObj["first" + nameProperty], myObj[`last${nameProperty}`]);
+// here we tap to "Name" string of firstName <-- this and lastName <-- this of object property key
+
+
+// it won't work with dot notation
+// console.log(myObj."first" + nameProperty)
+
+// were to use what?
+// if the property name of the object is need to be computed before then we use [] notation (imp: string darta type)
+// if we exactly know object propert name not like that somthing stored in any variable or any implisit naming, only exact name is required let see more example below
+
+// let intrestedIn = prompt('What do you want to know about cpgl (firstName, lastName, age, job, and friends)');
+let intrestedIn = 'job';
+
+console.log(myObj[intrestedIn]); // student (if property name is derived by an kind of computation)
+console.log(myObj.intrestedIn); // undefined (only exact property name, no refference or anything)
+
+// ADDING NEW PROPERTY TO THE OBJECTS
+
+myObj.location = "Indore";
+myObj["enrollmentNumber"] = 57;
+console.log(myObj);
+
+// challenge
+
+// experiment
+// console.log(`${myObj["firstName", "lastName"]}`); // ghritlahare, it do not print firstname
+// console.log(myObj["firstName"] + " " + myObj["lastName"]); // you need to write myObj every single time
+// console.log(`${myObj["firstName"]} ${myObj["lastName"]}`);
+
+
+
+// solve
+
+// using dot notation
+// console.log(`${myObj.firstName}, has ${myObj.friends.length} and his best frinend is ${myObj.friends[0]}`); // chandraprakash, has 4 friends and his best frinend is aaaa
+
+// using bracket notation
+// console.log(`${myObj["firstName"]}, has ${myObj["friends"].length} friends and his best frinend is ${myObj['friends'][0]}`); // chandraprakash, has 4 friends and his best frinend is aaaa
+
+// in above ex: myObj["friends"].length or myObj.friends.length --> myObj.friends is an our array, in which we can apply all the array properties (like length)
+
+/*
+
+Precedence: 
+1. Grouping (highest precedence)
+2. Member access (dot notation)
+3. Computed member access (square brackets)
+4. `new` with argument list
+5. Function call
+6. Optional chaining
+
+Associativity:
+- Left-to-right for most operators
+
+Explanation:
+1. Grouping ( )
+   - Used for grouping expressions and controlling the order of evaluation.
+2. Member access (x.y)
+   - Accessing properties or methods of objects using dot notation.
+3. Computed member access (x[y])
+   - Accessing properties or methods of objects using square brackets and a variable or expression.
+4. `new` with argument list (new x(y))
+   - Creating a new instance of an object with arguments.
+5. Function call (x(y))
+   - Invoking a function or method with arguments.
+6. Optional chaining (x?.y)
+   - Safely accessing properties or methods of objects when the object may be null or undefined.
+
+
+*/
+
