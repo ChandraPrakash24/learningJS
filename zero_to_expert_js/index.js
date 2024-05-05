@@ -668,36 +668,36 @@
 
 // example:
 
-let myArray = [
-    'chandraprakash',
-    'ghritlahare',
-    2024-2001,
-    'student',
-    // function(){console.log('jai shree ram');},
-    () => {console.log('jai shree ram');},
-    ['aaaa','bbbb','cccc','dddd']
-];
+// let myArray = [
+//     'chandraprakash',
+//     'ghritlahare',
+//     2024-2001,
+//     'student',
+//     // function(){console.log('jai shree ram');},
+//     () => {console.log('jai shree ram');},
+//     ['aaaa','bbbb','cccc','dddd']
+// ];
 
-const myObj = {
-    firstName: 'chandraprakash',
-    lastName: 'ghritlahare',
-    age: 2024-2001,
-    job: 'student',
-    slogan: () => {console.log('jai shree ram');},
-    friends: ['aaaa','bbbb','cccc','dddd']
-}
+// const myObj = {
+//     firstName: 'chandraprakash',
+//     lastName: 'ghritlahare',
+//     age: 2024-2001,
+//     job: 'student',
+//     slogan: () => {console.log('jai shree ram');},
+//     friends: ['aaaa','bbbb','cccc','dddd']
+// }
 
 //******** Retrive and Change data from Object *********/
 
-console.log(myObj);
+// console.log(myObj);
 
-console.log(myObj.firstName); // . 'dot notation' --> dot is a operator
-console.log(myObj["lastName"]); // [] bracket notation (any expression can me but under this brackets [....] only of string type) property name is put here as a string
+// console.log(myObj.firstName); // . 'dot notation' --> dot is a operator
+// console.log(myObj["lastName"]); // [] bracket notation (any expression can be, but under this brackets [....] only of string type) property name is put here as a string
 
 // let experiment with Bracket notation expression
 
-const nameProperty = "Name";
-console.log(myObj["first" + nameProperty], myObj[`last${nameProperty}`]);
+// const nameProperty = "Name";
+// console.log(myObj["first" + nameProperty], myObj[`last${nameProperty}`]);
 // here we tap to "Name" string of firstName <-- this and lastName <-- this of object property key
 
 
@@ -709,16 +709,16 @@ console.log(myObj["first" + nameProperty], myObj[`last${nameProperty}`]);
 // if we exactly know object propert name not like that somthing stored in any variable or any implisit naming, only exact name is required let see more example below
 
 // let intrestedIn = prompt('What do you want to know about cpgl (firstName, lastName, age, job, and friends)');
-let intrestedIn = 'job';
+// let intrestedIn = 'job';
 
-console.log(myObj[intrestedIn]); // student (if property name is derived by an kind of computation)
-console.log(myObj.intrestedIn); // undefined (only exact property name, no refference or anything)
+// console.log(myObj[intrestedIn]); // student (if property name is derived by an kind of computation)
+// console.log(myObj.intrestedIn); // undefined (only exact property name, no refference or anything)
 
 // ADDING NEW PROPERTY TO THE OBJECTS
 
-myObj.location = "Indore";
-myObj["enrollmentNumber"] = 57;
-console.log(myObj);
+// myObj.location = "Indore";
+// myObj["enrollmentNumber"] = 57;
+// console.log(myObj);
 
 // challenge
 
@@ -765,7 +765,177 @@ Explanation:
    - Invoking a function or method with arguments.
 6. Optional chaining (x?.y)
    - Safely accessing properties or methods of objects when the object may be null or undefined.
+   
 
+   */
+
+//********* OBJECT METHODS **************/
+
+
+
+// const myObj = {
+//     firstName: 'chandraprakash',
+//     lastName: 'ghritlahare',
+//     age: 2024-2001,
+//     job: 'student',
+//     slogan: () => {console.log('jai shree ram');}, // only function expression is allowed as (function value)
+//     friends: ['aaaa','bbbb','cccc','dddd'],
+//    //  calcAge: function() {  console.log(this); return this.age; } // inside this 'this' reffer to "myObj".so it log whole MyObj
+//     calcAge: function() {  return this.ageNo = this.age; },
+//     // inside of computing age multiple times suppose if me log it for 100 times, insted we here create a new object proberty as 'this.ageNo'  and assigning absolute value of age by computing 'this.age' and returning ageNo via 'return this.age', so now we have to only compute 'console.log(myObj.calcAge());' once it will be going to store in ageNo property hence next time we can log 'console.log(myObj.ageNo);' multiple time, no need for re computation as no object itself hold this property, hence it is a optimize way
+//    getSummery: function() {
+//       // return `${this.firstName} is ${this.calcAge()} year boy, and has ` + this.ageNo >= 18 ? 'a' : 'no' + `driving licence`
+//       return `${this.firstName} is ${this.calcAge()} year boy, and he has ${this.ageNo >= 18 ? 'a' : 'no'} driving licence, his friends are ${this.friends} and his best friend is ${this.friends[0]}`
+//    },
+//    // getSummery: () => {
+//    //    return `${this.firstName} is ${this.calcAge()} year boy, and has ${this.ageNo >= 18 ? 'a' : 'no'} driving licence, his friends are ${this.friends} and his best friend is ${this.friends[0]}`
+//    // } // it produces error for this keyword
+// }
+
+// console.log(myObj['calcAge']);
+// console.log(myObj['calcAge']());
+
+// optimize way
+// console.log(myObj.calcAge()); // one time calculation and assigning that result into new property of myobj
+// console.log(myObj.ageNo); // direct access of object no need of computation
+// console.log(myObj.ageNo); // direct access of object no need of computation
+// console.log(myObj.ageNo); // direct access of object no need of computation
+// console.log(myObj.ageNo); // direct access of object no need of computation
+
+
+// challange
+// console.log(myObj.getSummery());
+
+
+
+//****************************** CODING CHALLENGE ***********************/
+
+// const dolphin = {
+//    fullName : 'dolphin team',
+//    mass : 78,
+//    height: 1.69,
+//    calcBMI : function (){
+       // return dolphin.BMI =  dolphin.mass / dolphin.height ** 2; // both working and both are same logic
+//       return this.BMI =  this.mass / this.height ** 2;
+//    },
+// };
+
+// const koala = {
+//    fullName : 'koala team',
+//    mass : 92,
+//    height: 1.95,
+//    calcBMI : function (){
+       // return koala.BMI =  koala.mass / koala.height ** 2; // both working and both are same logic
+//       return this.BMI =  this.mass / this.height ** 2;
+//    },
+// };
+
+// without using `this`
+// console.log(`Dolphin team's BMI (${dolphin.mass / dolphin.height ** 2}) is ${dolphin.mass / dolphin.height ** 2 > koala.mass / koala.height ** 2 ? 'higher' : 'lower'} then Koala team's (${koala.mass / koala.height ** 2})!`);
+
+// using `this`
+// console.log(`Dolphin team's BMI (${dolphin.calcBMI()}) is ${dolphin.BMI > koala.calcBMI() ? 'higher' : 'lower'} then Koala team's (${koala.BMI})!`);
+
+
+/**************************** LOOPS ***************************************/
+
+// for(let i=0; i<=10; i++){
+//    console.log('count is:', i);
+// }
+
+// const years = [2001, 2007, 2012, 2015, 2020, 2021, 2023, 2024];
+// const ages = [];
+
+// for (let i = 0; i < years.length; i++) {
+   // ages.push(years[i]);
+   // ages.push(2024 - years[i]);
+// }
+// console.log(ages);
+
+
+// looping backward
+
+// const years = [2001, 2007, 2012, 2015, 2020, 2021, 2023, 2024];
+// const ages = [];
+
+// for (let i =  years.length -1; i >= 0; i--) {
+//    // ages.push(years[i]);
+//    console.log(i);
+//    // ages.push(2024 - years[i]);
+// }
+// console.log(ages);
+
+// continue and break
+
+// const myArr = ['aa', 'bb', 24, 'ccc', [1, 2,3, 4], true];
+
+// for (let i=0 ; i<myArr.length; i++){
+   //    console.log(typeof myArr[i]);
+   // }
+   // // break
+   // console.log('---continue---');
+   // for (let i=0 ; i<myArr.length; i++){
+      //    if(typeof myArr[i] !== 'string') continue; // it means skip this current iteration and jump to next iteration imideatly
+      
+      //    console.log(myArr[i]);
+      // }
+// console.log('---break---');
+// for (let i=0 ; i<myArr.length; i++){
+   //    if(typeof myArr[i] === 'number') break; // if condition met skip the whole loop
+   
+   //    console.log(myArr[i]);
+   // }
+   // console.log('loop exited');
+
+
+   //*************** loop under loop *********/
+   
+   // for(let exerciseNo=1; exerciseNo<5; exerciseNo++){
+   //    console.log('----------- Starting exercise ' + exerciseNo);
+
+   //       for(let reps=1; reps<11; reps++){
+   //          console.log(`Exercise ${exerciseNo}: Lifting weight repetation ${reps}`);
+   //       }
+   // }
+
+//OUTPUT:
+/*
+
+----------- Starting exercise 1
+Exercise 1: Lifting weight repetation 1
+...
+Exercise 1: Lifting weight repetation 10
+----------- Starting exercise 2
+Exercise 2: Lifting weight repetation 1
+...
+Exercise 2: Lifting weight repetation 10
+----------- Starting exercise 3
+Exercise 3: Lifting weight repetation 1
+...
+Exercise 3: Lifting weight repetation 10
+----------- Starting exercise 4
+Exercise 4: Lifting weight repetation 1
+...
+Exercise 4: Lifting weight repetation 10
 
 */
 
+// While loop
+// while loop is very varsitle beacouse it does not depend on counter it just need a conditions to run
+// it will run untill the condition is true
+
+// let i=1;
+// while(i<=10) console.log(i++);
+
+
+// ROLL A DICE UNTILL YOU GOT 6
+
+
+let dice = Math.trunc(Math.random() * 6) + 1;
+// console.log(dice);
+
+while(dice !== 6){
+   console.log(`You rolled a dice ${dice}`);
+   dice = Math.trunc(Math.random() * 6) + 1; // if we don't put this line , till loop will run forever beacouse we are only assigning dice vale at once at the top so think if come up to 4 then it will run forever and if it come 6 it want run, so to randomize the dice value we re initilize it with randome so it get another value till it hit 6
+   if(dice === 6) console.log('loop is about to end');
+}
