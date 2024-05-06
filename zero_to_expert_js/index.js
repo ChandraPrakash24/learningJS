@@ -931,11 +931,86 @@ Exercise 4: Lifting weight repetation 10
 // ROLL A DICE UNTILL YOU GOT 6
 
 
-let dice = Math.trunc(Math.random() * 6) + 1;
+// let dice = Math.trunc(Math.random() * 6) + 1;
 // console.log(dice);
 
-while(dice !== 6){
-   console.log(`You rolled a dice ${dice}`);
-   dice = Math.trunc(Math.random() * 6) + 1; // if we don't put this line , till loop will run forever beacouse we are only assigning dice vale at once at the top so think if come up to 4 then it will run forever and if it come 6 it want run, so to randomize the dice value we re initilize it with randome so it get another value till it hit 6
-   if(dice === 6) console.log('loop is about to end');
-}
+// while(dice !== 6){
+//    console.log(`You rolled a dice ${dice}`);
+//    dice = Math.trunc(Math.random() * 6) + 1; // if we don't put this line , till loop will run forever beacouse we are only assigning dice vale at once at the top so think if come up to 4 then it will run forever and if it come 6 it want run, so to randomize the dice value we re initilize it with randome so it get another value till it hit 6
+//    if(dice === 6) console.log('loop is about to end');
+// }
+
+
+/**************************** CODING CHALLANGE ********************************/
+
+// const billsArr = [22,295,176,440,37,105,10,1100,86,52];
+
+// const tipsArr = [], totalArr = [];
+
+// const calcTip = amount => amount >= 50 && amount <= 300 ? (amount * 15)/100 : (amount * 20)/100; 
+
+// const calcAvg = (arr) => {
+//    let sum = 0; 
+//    let len = arr.length;
+//    let i=0;
+//    while (i < len) {
+//       sum += arr[i++];
+//    }
+
+//    return sum/len;
+// };
+
+// for(let i=0; i<billsArr.length; i++){
+   // const tip = billsArr[i] >= 50 && billsArr[i] <= 300 ? (billsArr[i] * 15)/100 : (billsArr[i] * 20)/100;
+
+//    const tip = calcTip(billsArr[i]); // fusing function call
+
+//    tipsArr.push(tip);
+//    totalArr.push(billsArr[i]+tip);
+// }
+
+// console.log(tipsArr, totalArr, calcAvg(billsArr));
+// console.log(calcAvg([1,2,3,4]));
+
+/***************************************************************************************/
+
+
+/********************************** Devloper Skills and Setup ************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/********************************** Devloper Skills and Setup END ************************************/
+
+
+
+
+
+
+/********************************** Section 6 : HTML and CCS crash Course ************************************/
+
+
+
