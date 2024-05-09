@@ -872,7 +872,8 @@ Explanation:
 // for (let i=0 ; i<myArr.length; i++){
    //    console.log(typeof myArr[i]);
    // }
-   // // break
+
+   
    // console.log('---continue---');
    // for (let i=0 ; i<myArr.length; i++){
       //    if(typeof myArr[i] !== 'string') continue; // it means skip this current iteration and jump to next iteration imideatly
