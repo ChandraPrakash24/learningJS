@@ -1140,47 +1140,47 @@ Exercise 4: Lifting weight repetation 10
 
 
 // Data needed for a later exercise
-const flights =
-  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+// const flights =
+//   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
 // Data needed for first part of the section
-const restaurant = {
-  name: 'Classico Italiano',
-  location: 'Via Angelo Tavanti 23, Firenze, Italy',
-  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
-  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+// const restaurant = {
+//   name: 'Classico Italiano',
+//   location: 'Via Angelo Tavanti 23, Firenze, Italy',
+//   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+//   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+//   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
-  },
+//   openingHours: {
+//     thu: {
+//       open: 12,
+//       close: 22,
+//     },
+//     fri: {
+//       open: 11,
+//       close: 23,
+//     },
+//     sat: {
+//       open: 0, // Open 24 hours
+//       close: 24,
+//     },
+//   },
 
-  order: function(starterIndex,mainIndex){
-   return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-  },
+//   order: function(starterIndex,mainIndex){
+//    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+//   },
 
 //   orderDelivery: function(obj) {
 //    console.log(this); // restaurent object accessed via this
 //    console.log(obj); // passed object accessed via parameter
 //    return `Order Recuived! ${this.starterMenu[obj.mainIndex]}  and ${this.mainMenu[obj.mainIndex]} will be delivered to ${obj.addresss} at ${obj.time}`;
 //   },
-  orderDelivery: function({time: t = "00:00", addresss, mainIndex, starterIndex}) {
-   console.log(this); // restaurent object accessed via this
-   return `Order Recuived! ${this.starterMenu[starterIndex]}  and ${this.mainMenu[mainIndex]} will be delivered to ${addresss} at ${t}`;
-  },
+//   orderDelivery: function({time: t = "00:00", addresss, mainIndex, starterIndex}) {
+//    console.log(this); // restaurent object accessed via this
+//    return `Order Recuived! ${this.starterMenu[starterIndex]}  and ${this.mainMenu[mainIndex]} will be delivered to ${addresss} at ${t}`;
+//   },
 
-};
+// };
 
 // order not matter
 // variable name should be exactily same as property names
@@ -1240,20 +1240,333 @@ const restaurant = {
 
 /* ---------- Object destructuring on the fly in method or function --------- */
 
-console.log(
+// console.log(
 
-restaurant.orderDelivery({
-   time:'22:30',
-   addresss: 'dummy 123',
-   mainIndex: 1,
-   starterIndex: 2,
-})
+// restaurant.orderDelivery({
+//    time:'22:30',
+//    addresss: 'dummy 123',
+//    mainIndex: 1,
+//    starterIndex: 2,
+// })
 
-);
+// );
 
 
 /* -------------------------------------------------------------------------- */
 /*                               SPREAD OPERATOR                              */
 /* -------------------------------------------------------------------------- */
+
+// unpack ana array into it's all emenets
+
+// const arr = [7,8,9];
+
+// const newArr = [1,2,...arr];
+
+// console.log(newArr); // [ 1, 2, 7, 8, 9 ]
+
+// if we do like this
+// const newArr = [1,2,arr]; --> [1,2,[7,8,9]]
+
+
+// console.log(...newArr); // samea swritting console.log(1,2,7,8,9); which will produce the outpur as : 1 2 7 8 9
+
+// IT IS HELPFUL TO USE WHEN WE HAVE TO WRITE A VALUE SEPRATED BY COMMAS
+
+// USE CASES:-
+
+
+// copy array
+// const copyMainArr = [...arr];
+// console.log(copyMainArr); // [ 7, 8, 9 ]
+
+// const arr2  = [11, 12, 13];
+
+// merge array
+// const meregArr = [...arr2, ...arr];
+// console.log(meregArr); // [ 11, 12, 13, 7, 8, 9 ]
+
+// spread operator works on all types of iteratbles in js (arrays,maps,strings,sets) all the typr of inbuilt data structures **but not Objects**
+
+
+//IMP
+// const str = 'cpgl.';
+// const arrChar = [...str,"cs"," "];
+// console.log(arrChar, " ", "op."); // [ 'c', 'p', 'g', 'l', '.', 'cs', ' ' ] _ op.
+
+// console.log(...str);
+
+
+// it won't work here:
+
+// console.log(`${...str} is a student`); // beacouse ${} this is not the place which expects multiple value seprated by commas it expect 'expression'
+
+// so spread operator is only usefull when building a new array and passing arguments to a function
+
+
+// ex:
+
+// 1: As argument
+// const tempArr = [1,2,3];
+// const elemArr = [...tempArr];
+
+// const sum = function(elem1, elem2, elem3) {
+//    return elem1 + elem2 + elem3;
+// }
+
+// console.log(sum(...elemArr)); // 6
+
+// 2: As Parameter
+
+// You can also use spread operator to gather remaining arguments into an array parameter
+// function sumAll(...args) {
+//    let sum = 0;
+//    for (let arg of args) {
+//        sum += arg;
+//    }
+//    return sum;
+// }
+
+// console.log(sumAll(1, 2, 3, 4, 5)); // Output: 15
+
+
+
+
+
+// it also works with Objects
+
+// const restorentObj = {
+//    name: "resto1",
+//    cusion: ['item1', 'item2'],
+//    slogan: function(){
+//       console.log(`taste be best be at ${this.name}`);
+//    },
+//    moto: () => 'Enjoy',
+// }
+
+// console.log(restorentObj);
+// console.log(restorentObj.moto());
+// restorentObj.slogan();
+
+// const newResObj = {
+//    online: "yes",
+//    ...restorentObj,
+//    address: 'dummy 123',
+// }
+// // console.log(newResObj);
+
+// const copyOfNewResObj = {
+//    ...newResObj,
+// }
+
+// changing on copy and see weather it's parent object 'newResObj' is changed or not --> No (only change reflect in copy)
+// shallow copy of newResObj named copyOfNewResObj.
+
+// copyOfNewResObj.name = 'changed';
+
+// console.log(newResObj); // restro1
+// console.log(copyOfNewResObj); // changed
+// console.log(restorentObj); // restro1
+
+/*
+
+
+function deepClone(obj) {
+  if (obj === null || typeof obj !== "object") {
+    return obj;
+  }
+
+  let clone = Array.isArray(obj) ? [] : {};
+
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      clone[key] = deepClone(obj[key]);
+    }
+  }
+
+  return clone;
+}
+
+const originalObj = {
+  name: "John",
+  age: 30,
+  address: {
+    city: "New York",
+    country: "USA"
+  }
+};
+
+// Deep copy using custom function
+const copiedObj = deepClone(originalObj);
+
+// Modify the nested object in the copied object
+copiedObj.address.city = "Los Angeles";
+
+// Original object remains unchanged
+console.log(originalObj.address.city); // Output: New York
+
+
+
+*/
+
+
+
+/* --------------------------------- VIMP -------------------------------- */
+//   SHALLO COPY 
+
+/*
+
+Sure, let's break it down step by step with examples:
+
+**Example 1:**
+
+```javascript
+const restorentObj = {
+   name: "resto1",
+   cusion: ['item1', 'item2'],
+   slogan: function(){
+      console.log(`taste be best be at ${this.name}`);
+   },
+   moto: () => 'Enjoy',
+}
+
+const newResObj = {
+   online: "yes",
+   ...restorentObj,
+   address: 'dummy 123',
+}
+
+const copyOfNewResObj = {
+   ...newResObj,
+}
+
+copyOfNewResObj.name = 'changed';
+
+console.log(newResObj); // Output: { name: 'resto1', cusion: [ 'item1', 'item2' ], slogan: [Function: slogan], moto: [Function: moto], online: 'yes', address: 'dummy 123' }
+console.log(copyOfNewResObj); // Output: { online: 'yes', name: 'changed', cusion: [ 'item1', 'item2' ], slogan: [Function: slogan], moto: [Function: moto], address: 'dummy 123' }
+console.log(restorentObj); // Output: { name: 'resto1', cusion: [ 'item1', 'item2' ], slogan: [Function: slogan], moto: [Function: moto] }
+```
+
+In this example, when you change `copyOfNewResObj.name`, only `copyOfNewResObj` is modified. `newResObj` and `restorentObj` remain unchanged. This is because `copyOfNewResObj` is a shallow copy of `newResObj`, meaning it only copies the top-level properties. Nested objects and functions are still referenced, not copied.
+
+**Example 2:**
+
+```javascript
+// Original object
+const originalObj = {
+  name: "John",
+  age: 30,
+  address: {
+    city: "New York",
+    country: "USA"
+  }
+};
+
+// Shallow copy using spread operator
+const copiedObj = { ...originalObj };
+
+// Modify the nested object in the copied object
+copiedObj.address.city = "Los Angeles";
+
+// Changes reflected in the original object
+console.log(originalObj.address.city); // Output: Los Angeles
+```
+
+In this example, `originalObj` contains a nested object `address`. When you create a shallow copy of `originalObj` using the spread operator (`{ ...originalObj }`), it creates `copiedObj`. Both `originalObj` and `copiedObj` share the same `address` object. So, when you modify `copiedObj.address.city`, it reflects in `originalObj.address.city` as well because they both reference the same nested object.
+
+The key difference between the two examples is the presence of nested objects. In the first example, modifying the copied object does not affect the original because the copy is shallow and nested objects are not deep-copied. In the second example, modifying the copied object does affect the original because the nested object is shallow-copied, meaning it is still referenced rather than copied.
+
+
+*/
+
+
+// IMP
+// LEARN ABOUT DEEP COPY
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*            Rest Pattern (operator) and Rest Parameters                      */
+/* -------------------------------------------------------------------------- */
+
+// // rest - collect multiple elements and condence it into an array
+
+// // SPREAD, beacouse on RIGHT side of =
+// const arr = [1,2,...[11,12,13]];
+// console.log(arr); // [ 1, 2, 11, 12, 13 ]
+
+// // REST, beacouse on LEFT side of =
+// // const [a,b,...others] = arr;
+// // const [a,b,...others] = [...arr];
+// const [a,b,...others] = [1,2,3,4,5];
+// // all there syntex are correct
+// console.log(a,b,others); // 1 2 [ 11, 12, 13 ]
+
+// // REST can only be used in the last ex: [a, ,b, ...rest]
+// // we can use only one rest in destructuring
+
+// // REST in Objects
+
+// const obj = {
+//   name: "resatto",
+//   openingHours: {
+//     thu: [11, 22],
+//     fri: {
+//       open: 2,
+//       close: 6
+//     },
+//     sat: {
+//       o: 3,
+//       c: 8
+//     }
+//   }
+// };
+
+// // const copyRes = {...obj};
+
+// // copyRes.openingHours.fri.open = 1222;
+// // console.log(obj.openingHours.fri.open); // 1222 (change in orignal obj) // above three lines are shello copy example
+
+// // const [sat, ...weekday] = obj.openingHours; // look here we are using [] --> which produces error that onject is not iteratable, to fix this use {} as same you are reffering to, like below
+// const {sat, ...weekday} = obj.openingHours;
+
+// console.log(sat, weekday);
+
+// //rest with function
+
+// const sum = function(...args){
+//    let sum = 0;
+//    for (let arg of args){
+//       sum+= arg;
+//    }
+//    return sum;
+// }
+
+// console.log(sum(1,2)); // 3
+// console.log(sum(1,2,3,4)); // 10
+// console.log(sum(1,2,3,4,5,6,7,8)); // 36
+
+
+
+
+
+// // Example 2: Rest parameter as a parameter in a function
+// function multiply(multiplier, ...nums) {
+//    return nums.map(num => num * multiplier);
+// }
+
+// console.log(multiply(2, 1, 2, 3, 4)); // Output: [2, 4, 6, 8]
+// console.log(multiply(3, 5, 6, 7)); // Output: [15, 18, 21]
+
+// const numbers = [1, 2, 3, 4, 5];
+// console.log(multiply(2, ...numbers)); // Output: [2, 4, 6, 8, 10]
+
+// const moreNumbers = [5, 10, 15];
+// console.log(multiply(3, ...moreNumbers)); // Output: [15, 30, 45]
+
+
+
+// // SPREAD: --> values seprated by comma
+// // REST: --> variable names seprated by comma
 
 
