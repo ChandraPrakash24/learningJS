@@ -1016,3 +1016,244 @@ Exercise 4: Lifting weight repetation 10
 
 
 
+
+/********************************** Section: 9 Data stuctures, Modern Operators and String  ************************************/
+
+//************************* Array Destructuring *******************************/
+// Unpacking a valuye from an array or aobjects to its sperate variabales
+//        OR
+// it is a process of braking large array into pices
+// syntex: const [] = myArr;
+// whenever js sees [] <-- this in left side of the '=' equal sign it knows it has to perform destructuring now i.e., data_type    [] =    only_array_name;
+
+// orignal array is not affected at all 
+
+// const arr = [2, 3, 4];
+
+// const [firstEl, secondEl, thirdEl] = arr;
+
+// console.log(firstEl, secondEl, thirdEl);
+
+
+// console.log(secondEl, thirdEl);
+// console.log(secondEl, firstEl,  thirdEl);
+// console.log   (         thirdEl,    secondEl ,            firstEl)   ;
+
+// example:
+
+// const restaurent = {
+//    name: 'Classico Itelano',
+//    location: 'Via Anigo 23, France, Italy',
+//    categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+//    starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese salad'],
+//    mainMenue: ['Pizza', 'Pasta', 'Rassoto'],
+//    order: function(starterIndex,mainIndex){
+//       return [this.starterMenu[starterIndex], this.mainMenue[mainIndex]];
+//    },
+// }
+
+// const [catIt1, catIt2] = restaurent.categories;
+// // const [starterMenu1, starterMenu2, starterMenu3] = restaurent.starterMenu;
+// const [starterMenu1, starterMenu2, starterMenu3] = restaurent['starterMenu'];
+
+// console.log(catIt2, catIt1);
+// console.log('1 is :', starterMenu1+'.','. 2 is : ' ,starterMenu2,'3 is : ', starterMenu3);
+
+// what if you want to take only selected item:
+// let's pick first and last item of mainMenue
+
+// const [firstMen, , lastMen] = restaurent.mainMenue;
+// console.log(firstMen, lastMen);
+
+// just live tahat place taht you don;t wan't to pick
+// ex: const [a, , ,b, ,c,d, , , , ,e , ,];
+// let [a, , b, ,] = restaurent.categories;
+
+// console.log(a, b); // Italian Vegetarian
+// console.log(a, b, restaurent.categories[restaurent.categories.length-1]);
+
+// lets swap two var using destructuring without the need of third veriable
+
+// [a, b] = [b, a];
+// console.log(a, b); // Vegetarian Italian
+
+
+// ex 2:
+// let myArr = [1,2];
+
+// let [x,y] = myArr; // 1 2
+// [x,y] = [y,x];
+// console.log(x, y); // 2 1
+
+// reciving multiple values from return and destruicturing that; benifit is that we wil be able to create two or mare variable imedeatily to that result from the function 
+
+// console.log(restaurent.order(1,1));
+// console.log(restaurent['order'](1,2));
+
+// const [starter, main] = restaurent.order(2,1);
+// console.log(starter,'and', main);
+
+// destructuring in nested array:-
+
+
+// const nestedArr = [2,3,[4,3,'2',1],4];
+// const [l,m,n] = nestedArr;
+// console.log(m); //3
+// const [l,,n] = nestedArr;
+
+// console.log(l); // 2
+
+// console.log(n); // [4,3,'2',1]
+// console.log(n[0]); // 4
+
+// console.log(parseInt(n[2])); // 2
+
+// const [j,,h,i] = n;
+// console.log(j); // 4
+// console.log(h); // 2
+
+// OR 
+
+// const [p,,[q,,r,s], t] = nestedArr;
+
+// console.log(p); // 2
+// console.log(r); // 2
+// console.log(s); // 1
+// console.log(t); // 4
+
+// seting default value when you don't know the length of array (unpack array int the positions which may even not exists)
+
+// const [a,b,c] = [8,9];
+// console.log(a,b,c); // 8 9 undefined
+
+// const [a,,c] = [8,9];
+// console.log(a,c); // 8 undefined
+
+// const [a=1,b=1,c=1] = [8,9]; // default value
+// console.log(a,b,c); // 8 9 1
+
+// const [a=1,b=1,c=1] = [8]; // default value
+// console.log(a,b,c); // 8 1 1
+
+
+//***********************************   OBJECT DESTRUCTURING *************************************************/
+
+
+// Data needed for a later exercise
+const flights =
+  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
+// Data needed for first part of the section
+const restaurant = {
+  name: 'Classico Italiano',
+  location: 'Via Angelo Tavanti 23, Firenze, Italy',
+  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+
+  openingHours: {
+    thu: {
+      open: 12,
+      close: 22,
+    },
+    fri: {
+      open: 11,
+      close: 23,
+    },
+    sat: {
+      open: 0, // Open 24 hours
+      close: 24,
+    },
+  },
+
+  order: function(starterIndex,mainIndex){
+   return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+
+//   orderDelivery: function(obj) {
+//    console.log(this); // restaurent object accessed via this
+//    console.log(obj); // passed object accessed via parameter
+//    return `Order Recuived! ${this.starterMenu[obj.mainIndex]}  and ${this.mainMenu[obj.mainIndex]} will be delivered to ${obj.addresss} at ${obj.time}`;
+//   },
+  orderDelivery: function({time: t = "00:00", addresss, mainIndex, starterIndex}) {
+   console.log(this); // restaurent object accessed via this
+   return `Order Recuived! ${this.starterMenu[starterIndex]}  and ${this.mainMenu[mainIndex]} will be delivered to ${addresss} at ${t}`;
+  },
+
+};
+
+// order not matter
+// variable name should be exactily same as property names
+
+// const {name,openingHours,categories} = restaurant;
+
+// console.log(name, openingHours, categories);
+// console.log(nameO, openingHours, categories); // undefined (nameO)
+
+
+// what if we want to give variable name to be refferd as other name
+// syntex orignalPropertyName : newVarName
+
+// const {name: restaurantName,openingHours: hours,categories: tags} = restaurant;
+
+// console.log(restaurantName, hours, tags);
+
+// above ex is helpul in dealing with thirdparty data
+
+// seting default value:-
+
+// here we are giving deafult to starterMenue with changed name as starter = [] which is currently empity
+
+// we can also define property that are not in object i.e., 'menu' with some default vale in an array syntex [], and later reffer to it
+
+// const {starterMenu: starter = [], menu = []} = restaurant;
+
+// console.log(starter,'and', menu); // [ 'Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad' ] and []
+
+
+// Mutating variables:-
+
+// let a = 111;
+// let b = 999;
+
+
+// {a,b} = {a:12, c:42, b:53}; // SyntaxError: Unexpected token '='
+
+// let obj = {a:12, c:42, b:53};
+// {a,b} = obj; // SyntaxError: Unexpected token '='
+
+// beacouse this bracket {a,b} <<-- which holds a,b; where js expects any code block or expression in it like { 1+ 2 } it do not expect any assignment to it, which we are doing here like this {a,b} = obj, so the solution is that this is also an codeblock "{a,b} = obj", so to execute code block we wrape it into () and it's a trick, so
+
+// ({a,b} = obj); // it will work now
+
+// console.log(a,b); // 12 53 // here we have mutated the orignal a and b variable
+
+/* ---------------------- Nested objects Destructuring ---------------------- */
+
+// const {{{open: o}}} = restaurant; // Wrong
+
+// const { thu: { open: o } } = restaurant.openingHours; // Right
+// const { open: o, close: c } = restaurant.openingHours.thu; // Right
+
+// console.log(o, c);
+
+
+/* ---------- Object destructuring on the fly in method or function --------- */
+
+console.log(
+
+restaurant.orderDelivery({
+   time:'22:30',
+   addresss: 'dummy 123',
+   mainIndex: 1,
+   starterIndex: 2,
+})
+
+);
+
+
+/* -------------------------------------------------------------------------- */
+/*                               SPREAD OPERATOR                              */
+/* -------------------------------------------------------------------------- */
+
+
