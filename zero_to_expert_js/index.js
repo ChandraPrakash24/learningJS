@@ -1570,3 +1570,309 @@ The key difference between the two examples is the presence of nested objects. I
 // // REST: --> variable names seprated by comma
 
 
+/* -------------------------------------------------------------------------- */
+/*                         Short Circuting (&& and ||)                        */
+/* -------------------------------------------------------------------------- */
+
+
+// the can use any data type, return anay data type and so short ciructing or also call as short circuit evalueation
+
+
+
+/* --------------------- short circuting in || operator --------------------- */
+
+// console.log(24 || "cpgl"); // 24 
+// console.log(24 || 244); // 24
+// console.log("cpgl" || 24); // cpgl
+// console.log("" || "cpgl"); // cpgl 
+// console.log(true || 0); // true
+// console.log(undefined || null); // null 
+// console.log(NaN || null); // null 
+
+// console.log(undefined || NaN || "" || 0 || "Hello" || 24 || null); // Hello
+// console.log(undefined || NaN || "" || 0 || null || "Hello" || 24 || null || true); // Hello
+// it does not dipitch any precidence it is just that js will look fron left to right until iimideately short circuit to that point no further looking
+
+
+// if the first Element is truthy it imeadately return that first value in cas or OR (||)
+
+
+// real life example (uded to set deafult value conditionally)
+
+// reastaurent.guestNum = 22; // which is undefined (run below code without this line to set deafult value)
+
+// const reastaurent = {
+//    // guestNum: 767,
+//    orderPizza: (ing1, ing2) => console.log(`Youre pizza with ${ing1} and ${ing2}`),
+//    orderPizza2: (ing1, ing2) => {
+//       console.log(`Youre pizza with ${ing1} and ${ing2}`);
+//       return 'Maked: ready to serve';
+//    },
+// }
+
+// const guest = reastaurent.guestNum ? reastaurent.guestNum : 10;
+// console.log(guest);
+
+//              OR using short circution
+
+// const guest = reastaurent.guestNum || 10;
+// console.log(guest);
+
+// one draw back in abouve || short circuting and ternary is that if guest is 0 then it want't work set to 10 by default, to resolve this we use The Nullish Coalescing Operator (??)
+
+
+/* ------------------------------ And Operator ------------------------------ */
+
+// if we got any falsy value then && will automatically be calse so it imidetely return that falsey value. And in case of || if one value become true hene so no need to look further return the imidate truethy value
+
+
+// console.log(0 && 'cpgl'); // 0
+// console.log(24 && 'cpgl'); // cpgl if all true then last one will be printed
+
+// console.log('hello' && 24  && null && NaN && undefined && 'cpgl' && false); // null
+
+// practical application
+
+// if order pizza method exist then order pizza with this two ingedridents
+// if(reastaurent.orderPizza){
+//    reastaurent.orderPizza('Olivs', 'spinach');
+// }
+
+//             OR using && short circuting
+
+
+// reastaurent.orderPizza && reastaurent.orderPizza('Olivs', 'spinach');
+
+// const isMaked = reastaurent.orderPizza && reastaurent.orderPizza2('Olivs', 'spinach');
+// console.log(isMaked);
+
+// || ---> first truthy -------- or last falsy (if all of them are falsy)
+// && ---> first falsy -------- or last truthy (if all of them are truthy)
+
+// console.log('a' && '1' && true && {} && [] && 'last truthy');
+
+// USE:
+
+// || --> use to set default value
+// && --> execute code in second operand if first one is true
+
+
+
+// ex:
+// const data = await fetch(url).then(response => response.json()).catch(() => []);
+// const results = data.results || [];
+
+// let street = user.address && user.address.street;
+
+
+/* -------------------------------------------------------------------------- */
+/*                    The Nullish Coalescing Operator (??)                    */
+/* -------------------------------------------------------------------------- */
+
+// this is the solution for the || short circuit when data is 0 or "" it jump to second operand beacouse it work on falsy values and 0 and "" (empty string) are falsy values
+
+// const guestNo = 0;
+// const guestNo = "";
+
+// const guest = guestNo || 10;
+// console.log(guest); // 10 (we actual want 0)
+// so 
+// const guest = guestNo ?? 10;
+// console.log(guest); // 0 
+// beacouse it work on Nullish walue which are null and undefined
+// where as 0, false and "" are falsy value
+
+// USE CASE: Setting fall back wre you want to assign any value to any variable of key in case of objects
+
+
+/* -------------------------------------------------------------------------- */
+/*                         Logical Assignment Operator                        */
+/* -------------------------------------------------------------------------- */
+
+
+const restaurant1 = {
+   name: "raso1",
+   noGuest: 0,
+}
+
+const restaurant2 ={
+   name: "raso2",
+   owner: "dummy"
+}
+
+// exp
+// restaurant2.numberGuest = restaurant1.noGuest || 16;
+// console.log(restaurant2.numberGuest);
+
+// we are creating a new property for restaurant2 that is "numberGuest" and in this we are assigning the value of restaurant1's noGuest values and if even restaurant1's has 0 (use ??) or no guest then assign by deafoult 16
+
+
+/* ---------------------------- now actual topic ---------------------------- */
+//                        OR Assignment Operator
+
+// restaurant1.noGuest = restaurant1.noGuest || 10;
+// restaurant2.noGuest = restaurant2.noGuest || 11;
+//           OR (equivalent of above lines)
+// restaurant1.noGuest ||= 10; // agar restaurant1.noGuest me kuch nahi hai (falsy value) toh by deafoult 10 assign kr do
+// restaurant2.noGuest ||= 11;
+// console.log(restaurant1);
+// console.log(restaurant2);
+
+
+
+// restaurant1.noGuest ??= 10; // agar restaurant1.noGuest me kuch nahi hai (nullish value) toh by deafoult 10 assign kr do
+// restaurant2.noGuest ??= 10;
+
+
+
+//                      AND Assignment Operator
+
+// restaurant1.owner = !restaurant1.owner && "Owner set or change"; // agar restaurenrt ka owner nahi hai to set kr do --> trick by using !
+// restaurant2.owner = restaurant2.owner && "Owner Canged"; // agar restaurenrt ka owner hai to change kr do
+
+// restaurant1.owner &&= "Owner change"; // (little different) it just do not set owner to undefine (here primary logic is that agr restaurent ka owner hai to uska name change kr do)
+// restaurant2.owner &&= "Owner Changed"; // agar restaurenrt ka owner hai to change kr do
+
+// console.log(restaurant1); // { name: 'raso1', noGuest: 0, owner: undefined }
+// console.log(restaurant2); // { name: 'raso2', owner: 'Owner Changed' }
+
+
+
+/* ---------------------------- Coding challenge ---------------------------- */
+
+
+/* 
+We're building a football betting app (soccer for my American friends 😅)!
+
+Suppose we get data from a web service about a certain game (below). In this challenge we're gonna work with the data. So here are your tasks:
+
+1. Create one player array for each team (variables 'players1' and 'players2')
+2. The first player in any player array is the goalkeeper and the others are field players. For Bayern Munich (team 1) create one variable ('gk') with the goalkeeper's name, and one array ('fieldPlayers') with all the remaining 10 field players
+3. Create an array 'allPlayers' containing all players of both teams (22 players)
+4. During the game, Bayern Munich (team 1) used 3 substitute players. So create a new array ('players1Final') containing all the original team1 players plus 'Thiago', 'Coutinho' and 'Perisic'
+5. Based on the game.odds object, create one variable for each odd (called 'team1', 'draw' and 'team2')
+6. Write a function ('printGoals') that receives an arbitrary number of player names (NOT an array) and prints each of them to the console, along with the number of goals that were scored in total (number of player names passed in)
+7. The team with the lower odd is more likely to win. Print to the console which team is more likely to win, WITHOUT using an if/else statement or the ternary operator.
+
+TEST DATA FOR 6: Use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Then, call the function again with players from game.scored
+
+GOOD LUCK 😀
+*/
+
+const game = {
+   team1: 'Bayern Munich',
+   team2: 'Borrussia Dortmund',
+   players: [
+     [
+       'Neuer',
+       'Pavard',
+       'Martinez',
+       'Alaba',
+       'Davies',
+       'Kimmich',
+       'Goretzka',
+       'Coman',
+       'Muller',
+       'Gnarby',
+       'Lewandowski',
+     ],
+     [
+       'Burki',
+       'Schulz',
+       'Hummels',
+       'Akanji',
+       'Hakimi',
+       'Weigl',
+       'Witsel',
+       'Hazard',
+       'Brandt',
+       'Sancho',
+       'Gotze',
+     ],
+   ],
+   score: '4:0',
+   scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+   date: 'Nov 9th, 2037',
+   odds: {
+     team1: 1.33,
+     x: 3.25,
+     team2: 6.5,
+   },
+ };
+
+ /* -------------------------------------------------------------------------- */
+ /*                              Looping an Arraty                             */
+ /* -------------------------------------------------------------------------- */
+
+ let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+ let mixedArray = [
+   42,
+   "Hello, world!",
+   true,
+   { name: "John", age: 30 },
+   ["apple", "banana", "orange"],
+   null,
+   undefined,
+   new Date(),
+   function() {
+       return "This is a function inside an array!";
+   },
+   { city: "New York", country: "USA" },
+   3.14,
+   false,
+   NaN,
+   Infinity,
+   Symbol("foo"),
+   -10,
+   ["dog", "cat", "bird"],
+   { hobby: "Reading", book: "The Great Gatsby" },
+   "OpenAI",
+   { x: 10, y: 20 },
+   /pattern/,
+   new Map(),
+   new Set(),
+   BigInt(12345678901234567890)
+];
+
+//for of loop (it support continue and break keyword)
+
+// for(let item of arr) console.log(item);
+// for(let item of mixedArray) console.log(item);
+
+// to also get a index
+// for(let item of arr.entries()) console.log(item);
+
+
+// console.log(arr.entries());
+// console.log([...arr.entries()]); // its a array of arrays
+
+
+
+// for(let item of arr.entries()){ console.log(`${item[0]+1} : ${item[1]}`); }
+
+
+// for(let [i, el] of arr.entries()){ console.log(`${i + 1} : ${el}`); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
