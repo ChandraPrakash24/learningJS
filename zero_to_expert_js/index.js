@@ -1856,10 +1856,221 @@ const game = {
 
 
 
+/* -------------------------------------------------------------------------- */
+/*                          Inhanced Object Literals                          */
+/* -------------------------------------------------------------------------- */
+
+// const restaurentItem = {
+//    item1: "item one",
+//    item2: "item two",
+// }
+
+// const restro = {
+//    owner: "dummy",
+//    // restaurentItem : restaurentItem, // key value has same same so
+//    //        or
+//    restaurentItem, // work the same way
+   
+//    // order: () => console.log("you order this"), 
+//    //        or
+//    order() { console.log("you order this") }, // work the same way
+   
+//    [`any compputed value arr[5] 1+2`]: {
+//       [`morning`]: 10,
+//       [`evening`]: 10,
+
+//    },
+// }
+
+// console.log(restro);
+// console.log(restro["any compputed value arr[5] 1+2"]);
+// restro.order();
+// /* OUTPUT:
+// {
+//   owner: 'dummy',
+//   restaurentItem: { item1: 'item one', item2: 'item two' }
+// }
+// */
+
+
+/* -------------------------------------------------------------------------- */
+/*                              Optional Channing                             */
+/* -------------------------------------------------------------------------- */
+
+
+// const restaurent = {
+//    openingHour: { 
+//       fri: {
+//          open: 10,
+//          Close: 10,
+//       },
+//       sat: {
+//          open: 10,
+//          close:10,
+//       },
+//    },
+// }
+
+
+// // normal way of checking that it exist or not
+
+// if(restaurent.openingHour.fri){
+//    console.log(restaurent.openingHour.fri.open); // 10
+// }
+
+// // if two thinghs to check and more....
+
+// // if(restaurent.openingHour && restaurent.openingHour.fri){
+// //    console.log(restaurent.openingHour.fri.open); // 10
+// // }
+
+// //    OR (using short cirtcuting) what if more many parameters 
+   
+// restaurent.openingHour.fri && 
+// console.log(restaurent.openingHour.fri.open); // 10
 
 
 
+// // console.log(restaurent.openingHour.fri.open); // 10
 
+
+// // console.log(restaurent.openingHour.mon.open);
+// // ERR: TypeError: Cannot read properties of undefined (reading 'fri')
+// // restaurent.openingHour.mon --> this is undefined so (not produce err, simply return undefined)
+// //   |-> undefined.property (e.i., Undefined.open) --> produce err
+
+// // to solve
+// // console.log(restaurent.openingHour.mon?.open); // undefined (only if mon not `exist` return vaule if it is set to 0 or "")
+// console.log(restaurent?.openingHour?.mon?.open); // undefined
+
+
+
+// //  more ex:
+// const weeks = ["sun", "mon", "tue", "wed", "tue", "thr", "fri", "sat"];
+
+// for(const day of weeks){
+//    const open = restaurent?.openingHour[day]?.open ?? "closed";
+//    console.log(`on day ${day} we open at ${open}`);
+// }
+
+
+// // on methods
+// console.log(restaurent.order?.() ?? "method does not exist");
+
+// // on arrays
+// const users =
+// [
+//    {
+//       name: "dummy",
+//       email: "dummy@mail.com",
+//    },
+//    {
+//       name: "demo",
+//       email: "demo@mail.com",
+//    },
+// ];
+
+// console.log(users[0]?.name); // dummy
+// console.log(users[1]); // { name: 'demo', email: 'demo@mail.com' }
+// console.log(users[1]?.email); // demo@mail.com
+// console.log(users[2]?.name); // undefined
+// console.log(users[2]?.name ?? "User array empty or not found at this index"); // User array empty or not found at this index (withou this we have to then write using if else)
+
+
+/* -------------------------------------------------------------------------- */
+/*              Looping Objects: Object Keys, Values, and Entries             */
+/* -------------------------------------------------------------------------- */
+
+
+// const openingHour =
+// [
+//    {
+//       fri: {
+//          open: 10,
+//          close: 10,
+//       },
+//    },
+//    {
+//       sat: {
+//          open: 10,
+//          close: 10,
+//       },
+//    },
+// ]
+
+// // const keysArr = Object.keys(/* SOme Object */);
+// const myObject = {a: 1, b: 2, c: 3};
+// const keysArr = Object.keys(myObject);
+// console.log("keys:",keysArr); // kwys: [ 'a', 'b', 'c' ]
+
+// const keysVal = Object.values(myObject);
+// console.log("Values:",keysVal); // Values: [ 1, 2, 3 ]
+
+// for(const key of Object.keys(openingHour)){
+//    console.log("key is : ", key);
+//    console.log(openingHour[key]);
+// }
+// // OUT:
+// key is :  0
+// { fri: { open: 10, Close: 10 } }
+// key is :  1
+// { sat: { open: 10, close: 10 } }
+
+/*
+
+It seems like you're trying to iterate over the keys of an object in JavaScript using a `for...of` loop, but there are a few syntax errors in your code. Let's correct it and then dive into what it does:
+
+```javascript
+for (const key of Object.keys(someObject)) {
+   // Do something with each key
+}
+```
+
+Here's what this code does:
+
+1. `Object.keys(someObject)`: This function returns an array containing the keys of the `someObject` object. For example, if `someObject` is `{a: 1, b: 2, c: 3}`, then `Object.keys(someObject)` will return `['a', 'b', 'c']`.
+
+2. `for...of` loop: This loop iterates over the elements of an iterable object (like arrays or strings). In this case, we're using it to iterate over the array of keys returned by `Object.keys(someObject)`.
+
+3. `const key`: This declares a constant variable `key` that will be assigned the value of each element in the array during each iteration of the loop. Since it's declared using `const`, its value cannot be changed within the loop.
+
+So, when you put it all together, the loop iterates over each key of the object `someObject`, and you can perform whatever operation you need with each key inside the loop.
+
+Here's an example:
+
+```javascript
+const myObject = {a: 1, b: 2, c: 3};
+
+for (const key of Object.keys(myObject)) {
+    console.log(key); // Output: 'a', 'b', 'c'
+    console.log(myObject[key]); // Output: 1, 2, 3
+}
+```
+
+This loop prints each key and its corresponding value in the `myObject` object.
+
+*/
+
+
+/* --------------------------------- Entries -------------------------------- */
+
+
+// not posible ast dit dynamic key value
+
+// for(const [val, {day : { open: friOpen, close: friClose } }] of Object.entries(openingHour)){
+// for(const [val, {day : {open: o, close: c}}] of Object.entries(openingHour)){
+//    console.log(`on day ${day} we open at ${o} and close at ${c}`);
+// }
+
+// for (const dayObj of openingHour) {
+//    // const day = Object.keys(dayObj)[0]; // Extract the day from the object
+//    console.log(Object.keys(dayObj));
+//    // const { open, close } = dayObj[day]; // Extract the open and close times
+//    // console.log(`On ${day}, we open at ${open} and close at ${close}.`);
+// }
+
+
+/* -------------------------------- challenge ------------------------------- */
 
 
 
