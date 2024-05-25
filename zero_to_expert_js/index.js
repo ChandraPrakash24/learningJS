@@ -2196,43 +2196,102 @@ This loop prints each key and its corresponding value in the `myObject` object.
 /* -------------------------------------------------------------------------- */
 
 
-const orderSet = new Set(['a','b','c','c','a',1,1,'a']); // { 'a', 'b', 'c', 1 }
-// const orderSet = new Set(['b','a','c','c','a',1,1,'a']); // { 'b', 'a', 'c', 1 }
-console.log(orderSet);
+// const orderSet = new Set(['a','b','c','c','a',1,1,'a']); // { 'a', 'b', 'c', 1 }
+// // const orderSet = new Set(['b','a','c','c','a',1,1,'a']); // { 'b', 'a', 'c', 1 }
+// console.log(orderSet);
 
 
-console.log(new Set("abcdaacc")); // { 'a', 'b', 'c', 'd' }
+// console.log(new Set("abcdaacc")); // { 'a', 'b', 'c', 'd' }
 
-console.log(orderSet.size); // 4
-console.log(orderSet.has('a')); // true
-console.log(orderSet.has('z')); // false
-orderSet.add('y');
-orderSet.add('y');
+// console.log(orderSet.size); // 4
+// console.log(orderSet.has('a')); // true
+// console.log(orderSet.has('z')); // false
+// orderSet.add('y');
+// orderSet.add('y');
 
-console.log(orderSet); // { 'a', 'b', 'c', 1, 'y' }
+// console.log(orderSet); // { 'a', 'b', 'c', 1, 'y' }
 
-orderSet.delete('y');
+// orderSet.delete('y');
 
-console.log(orderSet); // { 'a', 'b', 'c', 1 }
+// console.log(orderSet); // { 'a', 'b', 'c', 1 }
 
-console.log(orderSet[0]); // WRONG
+// console.log(orderSet[0]); // WRONG
 
-// orderSet.clear(); // {}
+// // orderSet.clear(); // {}
 
-for (const elem of orderSet) {
-   console.log(elem);
-}
+// for (const elem of orderSet) {
+//    console.log(elem);
+// }
 
-// USE: make arry unique:
+// // USE: make arry unique:
 
-const  noUniqueArr = ['a','b','c','c','a',1,1,'a'];
-const uniqueSetArr = new Set(noUniqueArr);
-console.log(uniqueSetArr); // { 'a', 'b', 'c', 1 }
+// const  noUniqueArr = ['a','b','c','c','a',1,1,'a'];
+
+// const uniqueSet = new Set(noUniqueArr);
+// console.log(uniqueSet); // { 'a', 'b', 'c', 1 } <-- Obj
+
+// const uniqueSetArr = [...new Set(noUniqueArr)];
+// console.log(uniqueSetArr); // [ 'a', 'b', 'c', 1 ] <-- arr
+
+// console.log(new Set("cpgl").size); // 4
 
 
 
+/* -------------------------------------------------------------------------- */
+/*                                    MAPS                                    */
+/* -------------------------------------------------------------------------- */
 
 
+// in maps key can be any type primitive or non premetive data type both
+
+const restro = new Map();
+
+// set retur updated map
+
+restro.set('name', 'clasico Itelanio');
+restro.set(1,'Itely');
+console.log(restro.set(2,'usa'));// Map(3) { 'name' => 'clasico Itelanio', 1 => 'Itely', 2 => 'usa' }
+
+// chaining
+restro
+   .set("Catogery", ['pizza','pasta','coffie','tea'])
+   .set('open',10)
+   .set('close',10)
+   .set(true,'we are open');
+
+// print
+console.log(restro.set('toPrint', "to print"));
+
+// get
+console.log(restro.get('name')); // clasico Itelanio
+console.log(restro.get(true)); // we are open
+
+console.log(restro.has("Catogery")); // true <-- checking key not value
+restro.delete(2); // true 
+
+// console.log(restro);
+
+console.log(restro.size); // 7
+restro.clear(); // true <-- checking key not value
+console.log(restro.size); // 0
+
+// seting array as key and geting that value
+
+restro.set([1,2], "test");
+console.log(restro.get([1,2])); // undefined (beacouse [1,2] at this line and above line is storted at different place in a heap to reffer same you can first store it to var then point it to there as a key like below)
+
+// console.log(restro);
+
+const arr = [3,4]
+
+restro.set(arr, "test");
+console.log(restro.get(arr)); // test
+
+// also we can set a map as a key
+
+//also advance stuf like:-
+
+// restro.set(document.querySelector('h1'),"Heading");
 
 
 
