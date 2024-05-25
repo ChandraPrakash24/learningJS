@@ -1690,15 +1690,15 @@ The key difference between the two examples is the presence of nested objects. I
 /* -------------------------------------------------------------------------- */
 
 
-const restaurant1 = {
-   name: "raso1",
-   noGuest: 0,
-}
+// const restaurant1 = {
+//    name: "raso1",
+//    noGuest: 0,
+// }
 
-const restaurant2 ={
-   name: "raso2",
-   owner: "dummy"
-}
+// const restaurant2 ={
+//    name: "raso2",
+//    owner: "dummy"
+// }
 
 // exp
 // restaurant2.numberGuest = restaurant1.noGuest || 16;
@@ -1759,81 +1759,112 @@ TEST DATA FOR 6: Use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Th
 GOOD LUCK 😀
 */
 
-const game = {
-   team1: 'Bayern Munich',
-   team2: 'Borrussia Dortmund',
-   players: [
-     [
-       'Neuer',
-       'Pavard',
-       'Martinez',
-       'Alaba',
-       'Davies',
-       'Kimmich',
-       'Goretzka',
-       'Coman',
-       'Muller',
-       'Gnarby',
-       'Lewandowski',
-     ],
-     [
-       'Burki',
-       'Schulz',
-       'Hummels',
-       'Akanji',
-       'Hakimi',
-       'Weigl',
-       'Witsel',
-       'Hazard',
-       'Brandt',
-       'Sancho',
-       'Gotze',
-     ],
-   ],
-   score: '4:0',
-   scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
-   date: 'Nov 9th, 2037',
-   odds: {
-     team1: 1.33,
-     x: 3.25,
-     team2: 6.5,
-   },
- };
+// const game = {
+//    team1: 'Bayern Munich',
+//    team2: 'Borrussia Dortmund',
+//    players: [
+//      [
+//        'Neuer',
+//        'Pavard',
+//        'Martinez',
+//        'Alaba',
+//        'Davies',
+//        'Kimmich',
+//        'Goretzka',
+//        'Coman',
+//        'Muller',
+//        'Gnarby',
+//        'Lewandowski',
+//      ],
+//      [
+//        'Burki',
+//        'Schulz',
+//        'Hummels',
+//        'Akanji',
+//        'Hakimi',
+//        'Weigl',
+//        'Witsel',
+//        'Hazard',
+//        'Brandt',
+//        'Sancho',
+//        'Gotze',
+//      ],
+//    ],
+//    score: '4:0',
+//    scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+//    date: 'Nov 9th, 2037',
+//    odds: {
+//      team1: 1.33,
+//      x: 3.25,
+//      team2: 6.5,
+//    },
+//  };
+
+
+//  const players1 = game.players[0]; 
+// //  console.log(players1);
+//  const players2 = game.players[1]; 
+// //  console.log(players2);
+ 
+// //  const [gk, ...fieldPlayers] = players1;
+// //  console.log(gk, fieldPlayers);
+// //  const [gk, ...fieldPlayers] = players2;
+// //  console.log(gk, fieldPlayers);
+ 
+// // const allPlayers = [...players1, ...players2]; //or
+// const allPlayers = [players1, players2];
+// console.log(allPlayers);
+
+// // Task 4
+// const players1Final = [...players1, 'Thiago', 'Coutinho', 'Perisic'];
+
+// // Task 5
+// const { team1, x: draw, team2 } = game.odds;
+
+// // Task 6
+// function printGoals(...players) {
+//   console.log(`${players.length} goals were scored.`);
+//   players.forEach(player => console.log(player));
+// }
+
+// // Task 7
+// const mostLikelyToWin = team1 < team2 ? game.team1 : game.team2;
+// console.log(`${mostLikelyToWin} is more likely to win.`);
 
  /* -------------------------------------------------------------------------- */
  /*                              Looping an Arraty                             */
  /* -------------------------------------------------------------------------- */
 
- let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+//  let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
- let mixedArray = [
-   42,
-   "Hello, world!",
-   true,
-   { name: "John", age: 30 },
-   ["apple", "banana", "orange"],
-   null,
-   undefined,
-   new Date(),
-   function() {
-       return "This is a function inside an array!";
-   },
-   { city: "New York", country: "USA" },
-   3.14,
-   false,
-   NaN,
-   Infinity,
-   Symbol("foo"),
-   -10,
-   ["dog", "cat", "bird"],
-   { hobby: "Reading", book: "The Great Gatsby" },
-   "OpenAI",
-   { x: 10, y: 20 },
-   /pattern/,
-   new Map(),
-   new Set(),
-   BigInt(12345678901234567890)
-];
+//  let mixedArray = [
+//    42,
+//    "Hello, world!",
+//    true,
+//    { name: "John", age: 30 },
+//    ["apple", "banana", "orange"],
+//    null,
+//    undefined,
+//    new Date(),
+//    function() {
+//        return "This is a function inside an array!";
+//    },
+//    { city: "New York", country: "USA" },
+//    3.14,
+//    false,
+//    NaN,
+//    Infinity,
+//    Symbol("foo"),
+//    -10,
+//    ["dog", "cat", "bird"],
+//    { hobby: "Reading", book: "The Great Gatsby" },
+//    "OpenAI",
+//    { x: 10, y: 20 },
+//    /pattern/,
+//    new Map(),
+//    new Set(),
+//    BigInt(12345678901234567890)
+// ];
 
 //for of loop (it support continue and break keyword)
 
@@ -2073,12 +2104,130 @@ This loop prints each key and its corresponding value in the `myObject` object.
 /* -------------------------------- challenge ------------------------------- */
 
 
+// const game = {
+//    team1: 'Bayern Munich',
+//    team2: 'Borrussia Dortmund',
+//    players: [
+//      [
+//        'Neuer',
+//        'Pavard',
+//        'Martinez',
+//        'Alaba',
+//        'Davies',
+//        'Kimmich',
+//        'Goretzka',
+//        'Coman',
+//        'Muller',
+//        'Gnarby',
+//        'Lewandowski',
+//      ],
+//      [
+//        'Burki',
+//        'Schulz',
+//        'Hummels',
+//        'Akanji',
+//        'Hakimi',
+//        'Weigl',
+//        'Witsel',
+//        'Hazard',
+//        'Brandt',
+//        'Sancho',
+//        'Gotze',
+//      ],
+//    ],
+//    score: '4:0',
+//    scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+//    date: 'Nov 9th, 2037',
+//    odds: {
+//      team1: 1.33,
+//      x: 3.25,
+//      team2: 6.5,
+//    },
+//  };
+
+// Task 1: Loop and prient Goal No : Goler Name
+// console.log(game.scored);
+// console.log(Object.entries(game.scored));
+// console.log(Object.keys(game.scored));
+// console.log(Object.values(game.scored));
+
+// for(const [goalNo, golerName] of Object.entries(game.scored)){
+//    // console.log(goal);
+//    console.log(`Goal ${parseInt(goalNo)+1} : ${golerName}`);
+// }
+
+// Task 2: calculate avg odd
+// let oddAvg=0.0;
+// for(const oddVal of Object.values(game.odds)){
+//    oddAvg += oddVal;
+//    // console.log(oddVal);
+// }
+// console.log(oddAvg/3);
+
+// Task 3: print three ods in a nice way (no de structuring is allowed)
+// for(const odds of Object.entries(game.odds)){
+//    // console.log(odds);
+//    let prop = odds[0];
+//    // console.log(prop);
+//    // console.log(game.["prop"] ?? "Draw");
+//    // console.log(game?.[prop] ?? "Draw");
+//    console.log(`${game?.[odds[0]] ?? "Draw"} : ${odds[1]}`);
+// }
+
+
+// Task 4 create Object stores scored as a prop and no as val
+// const scores = {};
+
+// for(const player of game.scored){
+//    // console.log(player);
+//    console.log(scores[player]);
+//    scores[player] = (scores[player] || 0) + 1;
+// }
+
+// for (const player of game.scored) {
+//    scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+//  }
+// console.log(scores);
 
 
 
+/* -------------------------------------------------------------------------- */
+/*                                    Sets                                    */
+/* -------------------------------------------------------------------------- */
 
 
+const orderSet = new Set(['a','b','c','c','a',1,1,'a']); // { 'a', 'b', 'c', 1 }
+// const orderSet = new Set(['b','a','c','c','a',1,1,'a']); // { 'b', 'a', 'c', 1 }
+console.log(orderSet);
 
+
+console.log(new Set("abcdaacc")); // { 'a', 'b', 'c', 'd' }
+
+console.log(orderSet.size); // 4
+console.log(orderSet.has('a')); // true
+console.log(orderSet.has('z')); // false
+orderSet.add('y');
+orderSet.add('y');
+
+console.log(orderSet); // { 'a', 'b', 'c', 1, 'y' }
+
+orderSet.delete('y');
+
+console.log(orderSet); // { 'a', 'b', 'c', 1 }
+
+console.log(orderSet[0]); // WRONG
+
+// orderSet.clear(); // {}
+
+for (const elem of orderSet) {
+   console.log(elem);
+}
+
+// USE: make arry unique:
+
+const  noUniqueArr = ['a','b','c','c','a',1,1,'a'];
+const uniqueSetArr = new Set(noUniqueArr);
+console.log(uniqueSetArr); // { 'a', 'b', 'c', 1 }
 
 
 
