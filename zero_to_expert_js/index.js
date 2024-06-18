@@ -2242,56 +2242,332 @@ This loop prints each key and its corresponding value in the `myObject` object.
 /* -------------------------------------------------------------------------- */
 
 
-// in maps key can be any type primitive or non premetive data type both
+// // in maps key can be any type primitive or non premetive data type both
 
-const restro = new Map();
+// const restro = new Map();
 
-// set retur updated map
+// // set retur updated map
 
-restro.set('name', 'clasico Itelanio');
-restro.set(1,'Itely');
-console.log(restro.set(2,'usa'));// Map(3) { 'name' => 'clasico Itelanio', 1 => 'Itely', 2 => 'usa' }
+// restro.set('name', 'clasico Itelanio');
+// restro.set(1,'Itely');
+// console.log(restro.set(2,'usa'));// Map(3) { 'name' => 'clasico Itelanio', 1 => 'Itely', 2 => 'usa' }
 
-// chaining
-restro
-   .set("Catogery", ['pizza','pasta','coffie','tea'])
-   .set('open',10)
-   .set('close',10)
-   .set(true,'we are open');
+// // chaining
+// restro
+//    .set("Catogery", ['pizza','pasta','coffie','tea'])
+//    .set('open',10)
+//    .set('close',10)
+//    .set(true,'we are open');
 
-// print
-console.log(restro.set('toPrint', "to print"));
+// // print
+// console.log(restro.set('toPrint', "to print"));
 
-// get
-console.log(restro.get('name')); // clasico Itelanio
-console.log(restro.get(true)); // we are open
+// // get
+// console.log(restro.get('name')); // clasico Itelanio
+// console.log(restro.get(true)); // we are open
 
-console.log(restro.has("Catogery")); // true <-- checking key not value
-restro.delete(2); // true 
+// console.log(restro.has("Catogery")); // true <-- checking key not value
+// restro.delete(2); // true 
 
-// console.log(restro);
+// // console.log(restro);
 
-console.log(restro.size); // 7
-restro.clear(); // true <-- checking key not value
-console.log(restro.size); // 0
+// console.log(restro.size); // 7
+// restro.clear(); // true <-- checking key not value
+// console.log(restro.size); // 0
 
-// seting array as key and geting that value
+// // seting array as key and geting that value
 
-restro.set([1,2], "test");
-console.log(restro.get([1,2])); // undefined (beacouse [1,2] at this line and above line is storted at different place in a heap to reffer same you can first store it to var then point it to there as a key like below)
+// restro.set([1,2], "test");
+// console.log(restro.get([1,2])); // undefined (beacouse [1,2] at this line and above line is storted at different place in a heap to reffer same you can first store it to var then point it to there as a key like below)
 
-// console.log(restro);
+// // console.log(restro);
 
-const arr = [3,4]
+// const arr = [3,4]
 
-restro.set(arr, "test");
-console.log(restro.get(arr)); // test
+// restro.set(arr, "test");
+// console.log(restro.get(arr)); // test
 
-// also we can set a map as a key
+// // also we can set a map as a key
 
-//also advance stuf like:-
+// //also advance stuf like:-
 
-// restro.set(document.querySelector('h1'),"Heading");
+// // restro.set(document.querySelector('h1'),"Heading");
+
+
+/* ----------------------------- Map : Iterator ----------------------------- */
+
+
+// const questions = new Map(
+//    [
+//       ['question', 'best programming lanaguage?'],
+//       [1,'C'],
+//       [2,'Java'],
+//       [3,'JS'],
+//       [4,'It depends'],
+//       ['correct',4],
+//       [true,'correct'],
+//       [false,'try again']
+//    ]
+// );
+
+
+// // Object.entries() --> gives Array of Arrays [[],[],[]]
+
+// // so how can we converst onjects into entries
+
+// // const hourMaps = new Map(Object.entries(openingHours));
+
+// //   QUIZ APP:-
+
+// const opt = 4; // correct (use prompt)
+// // const opt = 2; // try again
+
+// console.log(questions.get(questions.get('correct') === opt));
+
+// // CONVERTING MAPS INTO ARRAY
+
+// const res = [...questions];
+// console.log(res);
+
+// // some methods:
+// console.log('ENTRIES', questions.entries());
+// console.log(questions.keys());
+// console.log(questions.values());
+// // how you going toput above loged values in an array, thats simple below is the ex:-
+// console.log('ENTRIES', [...questions.entries()]);
+// console.log([...questions.keys()]);
+// console.log([...questions.values()]);
+
+
+/* --------- //Array,sets,objects,maps which data structure to use? --------- */
+
+
+//        SOURCE OF DATA:-
+// 1: from the program itself (wtitten in source code)
+// 2: From UI (like forms)
+// 3: From external sources like (ApIs)
+
+//          Where to store all this data --> data structure
+// If SIMPLE LIST --> use array or sets
+// If KEY/VALUE PAIR --> use objects or maps
+
+
+// OTHER BUILT IN:-
+// WeakMaps and WeakSets
+
+
+// EHEN TO USE THEM:-
+
+// Arrays                            VS                         SETS
+/*
+
+- custome order                                        - order  
+- need duplicate values                                - unique
+- need to mauplate data                                - high performance
+
+*/
+
+
+
+// Objects                            VS                         Maps
+/*
+
+- traditioal                                        - Neter performance  
+- easty to erite and access with . and []           - keys can be any data type (even non string)
+- need to mauplate data                             - Easy to iterate
+- function as values                                - easy to compute size
+
+*/
+
+/* ---------------------------- CODING CHALLANGE ---------------------------- */
+
+//    const gamesEvent = new Map(
+//       [
+//          [17,'goal'],
+//          [36,'substitution'],
+//          [47,'goal'],
+//          [61,'substitution'],
+//          [64,'yellow card'],
+//          [69,'red card'],
+//          [70,'substitution'],
+//          [72,'substitution'],
+//          [76,'goal'],
+//          [90,'goal'],
+//          [92,'yellow card']
+//       ]
+//    );
+
+// // task 1: array of events (unique)
+// // console.log(gamesEvent);
+
+// const events = [...new Set(gamesEvent.values())];
+
+// console.log(events); // [ 'goal', 'substitution', 'yellow card', 'red card' ]
+
+// // task 2 delete : 64's min yellow card
+
+// // from SET:
+// // events.delete('goal'); // here delete() won't word beacouse currently it's an array to do so first convert it into sets like below
+
+// const eventSets = new Set(events);
+// eventSets.delete('yellow card');
+
+// console.log(eventSets); // { 'goal', 'substitution', 'red card' }
+// console.log([...eventSets]); // [ 'goal', 'substitution', 'red card' ]
+
+
+// // from actual Map:
+// gamesEvent.delete(64);
+// console.log(gamesEvent);
+
+// // loop to all  events 
+
+// for (const [key,val] of gamesEvent){
+//    if(key <= 45){
+//       console.log(`[FIRST HALF] ${key} : ${val}`);
+//    }else{
+//       console.log(`[SECOND HALF] ${key} : ${val}`);
+//    }
+// }
+
+
+/* -------------------------------------------------------------------------- */
+/*                                   STRINGS                                  */
+/* -------------------------------------------------------------------------- */
+
+// strings are immutable
+
+
+const airline = 'AIR India';
+const plane = 'Turbo Charger';
+
+
+console.log(airline[0]); // A
+console.log(airline[1]); // i
+console.log(airline[3]); // _
+console.log(airline[5]); // n
+console.log(airline[7]); // i
+
+console.log('shipFast'[0]); // s
+console.log('shipFast'[4]); // F
+
+// METHODS:-
+
+console.log(plane.length); // 13
+console.log("nitroFly".length); // 8
+
+
+console.log(plane.indexOf('C')); // 6 (ferst occ) 
+console.log(plane.indexOf('c')); // -1
+
+console.log(plane.lastIndexOf('r')); // 12 (last occ)
+console.log(plane.lastIndexOf('R')); // -1
+
+console.log(plane.lastIndexOf('Charger')); // 6
+
+
+// this methods always returns the new string hence we can store it to use later
+
+console.log(plane.slice(2)); // rbo Charger
+console.log(plane.slice(2,8)); // rbo Charger (2 ke baad suru karo and 8 ke pahale khatam karo)
+// so the length of the extracted link will be [  8-2=6   ]
+
+// extract "AIR" from airline and "Charger" from plane
+console.log(airline.slice(0,airline.indexOf(' ')));
+console.log(plane.slice(plane.indexOf('C')+1));
+
+
+
+console.log(plane.slice(-2)); // er (last two leter)
+
+
+console.log(plane.slice(2,-2)); // rbo Charg (from 2'nd char to 2'nd last char)
+
+// middle sit or not:-
+// plan seat allingnment : 
+//  A B C   D E F
+// here
+// A and B --> LEFT seat
+// E and F --> RIGHT seat
+// C and D --> MIDDLE SEAT
+
+
+const whichSeat = function(seatNum){
+   const seatCode = seatNum.slice(-1);
+   if(seatCode === 'A' || seatCode === 'B') return 'left seat';
+   if(seatCode === 'E' || seatCode === 'F') return 'right seat';
+   if(seatCode === 'C' || seatCode === 'D') return 'middle seat';
+}
+
+console.log(whichSeat('123A'));
+console.log(whichSeat('4F'));
+console.log(whichSeat('23D'));
+console.log(whichSeat('133223E'));
+
+
+/* -------------------------------- // BOXING ------------------------------- */
+
+// how we are using methods such as slice(), dice(), etc. to a string?
+
+// Under the hood:- js convert this string to object then this methods are applyed to it and this is known as BOXING
+
+// ex:-
+console.log(new String('cpgl')); // [String: 'cpgl']
+console.log(typeof new String('cpgl')); // object
+
+// any operation perform on the string --> that operation re convert that object to string primitive (off course new string as we learn above)
+// ex:-
+
+console.log(typeof new String('abc').slice());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
