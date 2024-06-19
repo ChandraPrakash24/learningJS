@@ -2520,22 +2520,138 @@ console.log(typeof new String('cpgl')); // object
 
 console.log(typeof new String('abc').slice());
 
-console.log(airline.toLocaleLowerCase);
-console.log(airline.toUpperCase);
+console.log(airline.toLocaleLowerCase());
+console.log(airline.toUpperCase());
+
+
+console.log("shuttle".toUpperCase());
+
+
+// fix name:-
+
+let nameString = 'vIsTAra';
+
+nameString.toLocaleLowerCase();
+console.log(nameString); // it wan't work coz strings are immmutable
+const firstPart = nameString[nameString.indexOf('v')].toUpperCase();
+const secondPart = nameString.slice(1,nameString.length).toLowerCase();
+console.log(firstPart + secondPart); // Vistara
+
+
+// comparing email
+
+const email = 'hello@gmail.io';
+const loginEmail = '  Hello@Gmail.IO  \n';
+
+// const tempMail = loginEmail.slice(loginEmail.indexOf('H'),loginEmail.lastIndexOf('O')+1).toLowerCase();
+const tempMail = loginEmail.trim().toLowerCase(); // trim removes all the tab,enter and white spaces
+
+// IMP: order of methods applyed doe'nt matter ex:- loginEmail.toLowerCase().trim();
+// here we used lower first then trimm is applyed to it; it just means that tis returns a string (new) "loginEmail.toLowerCase()" on which we are imideately applying a 'trim()' function
+
+console.log(tempMail);
+
+
+email === tempMail ? console.log("logged in") : console.log("Enter valid email"); 
+
+// replacing
+
+const priceUK = "288,97€";
+
+const priceUS = priceUK.replace(',','.').replace('€','$');
+
+console.log(priceUS); // 288.97$
+
+const announcement = 'boarding door 24 opens';
+
+// replace 'door' with 'gate in above string'
+
+// const newAnnouncement = announcement.replace('door','gate');
+// const newAnnouncement = announcement.replaceAll('door','gate'); // not one but all the occurenece of 'door'
+// const newAnnouncement = announcement.replaceAll('o','A');
+
+
+// using REGEX:- /...../g --> g stands for global
+// const reg = /this is non globala regular exression/g;
+// console.log(reg); // /this is non globala regular exression/
+
+
+const reg = /this is non globala regular exression/g;
+console.log(reg); // /this is non globala regular exression/g
+
+// ex:
+
+const newAnnouncement = announcement.replaceAll(/door/g,'gates');
+
+console.log(newAnnouncement);
 
 
 
 
+// Booleans (include, startsWith, endsWith)
 
 
+const jets = 'fighter';
+
+console.log(jets.includes('g'));  // true
+console.log(jets.includes('G')); // false
+console.log(jets.includes('ter')); // true
+console.log(jets.includes('gter')); // // true (non contionus 'h' is missing in between)
 
 
+console.log('startwith');
+
+console.log(jets.startsWith('f')); // t
+console.log(jets.startsWith('i')); // f
+console.log(jets.startsWith('fi')); // t
+console.log(jets.startsWith('fig')); // t
+console.log(jets.startsWith('fiG')); // f
+
+console.log('endswith');
+
+console.log(jets.endsWith('r'));
+console.log(jets.endsWith('e'));
+console.log(jets.endsWith('er'));
+console.log(jets.endsWith('re'));
+console.log(jets.endsWith('ter'));
+console.log(jets.endsWith('tEr'));
+console.log(jets.endsWith('Ter'));
+console.log(jets.endsWith('teR'));
+
+/*
+true
+false
+true
+false
+true
+false
+false
+false
+*/
+
+// check if pessenger carry nay harmful stuuf to plane
+
+const checkBag = (bagItem) => {
+   // if(bagItem.toLowerCase().includes('knife').includes('gun')){ // X WRONG because:- includes is a method that operates on strings or arrays in JavaScript, but after calling toLowerCase() on bagItem, the result is a string, not an array. Therefore, you can't chain another includes method directly after it.
+
+   // Correct (below)
+   if(bagItem.toLowerCase().includes('knife') || bagItem.toLowerCase().includes('gun')){
+      return 'not allowed';
+   }
+   return 'allowed';
+}
+
+// toLowerCase is used in above ex beacouse look in first bag 'food' was written as --> 'Food' that's why so it is a good practice to always convert any strings to lower case first
+
+const bag1 = 'laptop and Food';
+const bag2 = 'Knife and Gun for protection';
+// const bag2 = 'Drums and Gun for protection'; // not allowed
+const bag3 = 'cloths and water bottle';
 
 
-
-
-
-
+console.log(checkBag(bag1));  // Output: allowed
+console.log(checkBag(bag2));  // Output: not allowed
+console.log(checkBag(bag3));  // Output: allowed
 
 
 
