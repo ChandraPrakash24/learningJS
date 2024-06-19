@@ -2520,7 +2520,8 @@ console.log(typeof new String('cpgl')); // object
 
 console.log(typeof new String('abc').slice());
 
-
+console.log(airline.toLocaleLowerCase);
+console.log(airline.toUpperCase);
 
 
 
