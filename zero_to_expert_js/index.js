@@ -2654,19 +2654,109 @@ console.log(checkBag(bag2));  // Output: not allowed
 console.log(checkBag(bag3));  // Output: allowed
 
 
+/* --------------------------------- splits --------------------------------- */
+
+// allow us to split a string into multiple parts based on some dividers
+
+console.log('a+very+nice+string'.split('+')); // [ 'a', 'very', 'nice', 'string' ]
+console.log('a+very+nice+string'.split('+',2)); // [ 'a', 'very' ]
+
+// Join elements with ', '
+// const concatenatedString = array.join(', ');
+
+// console.log(concatenatedString);  // Output: "apple, banana, orange"
+
+
+const [fname, lname] = 'cp gl'.split(' ');
+
+console.log(fname);
+console.log(lname);
+
+
+// JOIN (opposit of split)
+
+const myName = ['Mr.',fname,lname.toUpperCase()].join(' ');
+
+console.log(myName); // Mr. cp GL
+
+// capatalize names
+
+
+const capatalizeName = function(nameStr){
+   const allNamesArr = nameStr.split(' ');
+   const capsNameArr = [];
+   
+   allNamesArr.forEach(element => {
+      // let capName = element.charAt(0).toUpperCase() + element.slice(1);
+      // capsNameArr.push(capName);
+
+      // same result
+      capsNameArr.push(element.replace(element[0],element[0].toUpperCase()))
+   });
+   console.log(capsNameArr);
+   console.log(capsNameArr.join(', '));
+}
 
 
 
+// Example usage:
+capatalizeName("aaju baaju abb ccd"); // Output: ["Aaju", "Baaju", "Abb", "Ccd"]
+capatalizeName("cp gl"); // Output: ["Cp", "Gl"]
+
+// Aaju, Baaju, Abb, Ccd
+// Cp, Gl
 
 
+// padding a string
 
 
+console.log('go to gate 24'.padStart(25,'+')); //++++++++++++go to gate 24
+console.log('go to gate 24'.padStart(25,'+').length); // 25 
+
+console.log('cpgl'.padStart(25,' ')); //                     cpgl
+
+console.log('go to gate 24'.padEnd(25,'+')); //go to gate 24++++++++++++
 
 
+/* 
+
+// const maskDebitcardNo = function(cardNumStr){
+   // // console.log(cardNumStr.slice(0,4).padEnd(16,'x')); //3567xxxxxxxxxx
+
+   // // if that cardNum is numeric
+   // const stringNum = String(cardNumStr); // OR const stringNum = cardNumStr + '';
+   // console.log(stringNum.slice(0,4).padEnd(16,'x')); //3567xxxxxxxxxx
+
+   // last 4 dig is visble
+
+   // console.log(cardNumStr.slice(-4).padStart(16,'x')); //xxxxxxxxxxxx2438
+
+   // // if that cardNum is numeric
+   // const stringNum = String(cardNumStr); // OR const stringNum = cardNumStr + '';
+   // console.log(stringNum.slice(-4).padStart(16,'x')); //xxxxxxxxxxxx2438
+}
+
+// maskDebitcardNo('3567564895362438');
+// maskDebitcardNo(3567564895362438); // if numeric
 
 
+*/
 
+// REPEAT
 
+// meassage in weather forcast ans banner
+
+const weather = "it's a sunny day....... ";
+
+console.log(weather.repeat(5)); // it's a sunny day.......it's a sunny day.......it's a sunny day.......it's a sunny day.......it's a sunny day.......
+
+const planeInLine = function(n){
+   console.log(`there arae ${n} planes are queue'd to take off ${'✈ '.repeat(n)}`);
+}
+
+planeInLine(2);
+planeInLine(5);
+planeInLine(8);
 
 
 
