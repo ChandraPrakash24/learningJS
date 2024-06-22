@@ -2435,188 +2435,192 @@ This loop prints each key and its corresponding value in the `myObject` object.
 /*                                   STRINGS                                  */
 /* -------------------------------------------------------------------------- */
 
-// strings are immutable
-
-
-const airline = 'AIR India';
-const plane = 'Turbo Charger';
-
-
-console.log(airline[0]); // A
-console.log(airline[1]); // i
-console.log(airline[3]); // _
-console.log(airline[5]); // n
-console.log(airline[7]); // i
-
-console.log('shipFast'[0]); // s
-console.log('shipFast'[4]); // F
-
-// METHODS:-
-
-console.log(plane.length); // 13
-console.log("nitroFly".length); // 8
-
-
-console.log(plane.indexOf('C')); // 6 (ferst occ) 
-console.log(plane.indexOf('c')); // -1
-
-console.log(plane.lastIndexOf('r')); // 12 (last occ)
-console.log(plane.lastIndexOf('R')); // -1
-
-console.log(plane.lastIndexOf('Charger')); // 6
-
-
-// this methods always returns the new string hence we can store it to use later
-
-console.log(plane.slice(2)); // rbo Charger
-console.log(plane.slice(2,8)); // rbo Charger (2 ke baad suru karo and 8 ke pahale khatam karo)
-// so the length of the extracted link will be [  8-2=6   ]
-
-// extract "AIR" from airline and "Charger" from plane
-console.log(airline.slice(0,airline.indexOf(' ')));
-console.log(plane.slice(plane.indexOf('C')+1));
 
 
 
-console.log(plane.slice(-2)); // er (last two leter)
+
+// // strings are immutable
 
 
-console.log(plane.slice(2,-2)); // rbo Charg (from 2'nd char to 2'nd last char)
-
-// middle sit or not:-
-// plan seat allingnment : 
-//  A B C   D E F
-// here
-// A and B --> LEFT seat
-// E and F --> RIGHT seat
-// C and D --> MIDDLE SEAT
+// const airline = 'AIR India';
+// const plane = 'Turbo Charger';
 
 
-const whichSeat = function(seatNum){
-   const seatCode = seatNum.slice(-1);
-   if(seatCode === 'A' || seatCode === 'B') return 'left seat';
-   if(seatCode === 'E' || seatCode === 'F') return 'right seat';
-   if(seatCode === 'C' || seatCode === 'D') return 'middle seat';
-}
+// console.log(airline[0]); // A
+// console.log(airline[1]); // i
+// console.log(airline[3]); // _
+// console.log(airline[5]); // n
+// console.log(airline[7]); // i
 
-console.log(whichSeat('123A'));
-console.log(whichSeat('4F'));
-console.log(whichSeat('23D'));
-console.log(whichSeat('133223E'));
+// console.log('shipFast'[0]); // s
+// console.log('shipFast'[4]); // F
+
+// // METHODS:-
+
+// console.log(plane.length); // 13
+// console.log("nitroFly".length); // 8
+
+
+// console.log(plane.indexOf('C')); // 6 (ferst occ) 
+// console.log(plane.indexOf('c')); // -1
+
+// console.log(plane.lastIndexOf('r')); // 12 (last occ)
+// console.log(plane.lastIndexOf('R')); // -1
+
+// console.log(plane.lastIndexOf('Charger')); // 6
+
+
+// // this methods always returns the new string hence we can store it to use later
+
+// console.log(plane.slice(2)); // rbo Charger
+// console.log(plane.slice(2,8)); // rbo Charger (2 ke baad suru karo and 8 ke pahale khatam karo)
+// // so the length of the extracted link will be [  8-2=6   ]
+
+// // extract "AIR" from airline and "Charger" from plane
+// console.log(airline.slice(0,airline.indexOf(' ')));
+// console.log(plane.slice(plane.indexOf('C')+1));
+
+
+
+// console.log(plane.slice(-2)); // er (last two leter)
+
+
+// console.log(plane.slice(2,-2)); // rbo Charg (from 2'nd char to 2'nd last char)
+
+// // middle sit or not:-
+// // plan seat allingnment : 
+// //  A B C   D E F
+// // here
+// // A and B --> LEFT seat
+// // E and F --> RIGHT seat
+// // C and D --> MIDDLE SEAT
+
+
+// const whichSeat = function(seatNum){
+//    const seatCode = seatNum.slice(-1);
+//    if(seatCode === 'A' || seatCode === 'B') return 'left seat';
+//    if(seatCode === 'E' || seatCode === 'F') return 'right seat';
+//    if(seatCode === 'C' || seatCode === 'D') return 'middle seat';
+// }
+
+// console.log(whichSeat('123A'));
+// console.log(whichSeat('4F'));
+// console.log(whichSeat('23D'));
+// console.log(whichSeat('133223E'));
 
 
 /* -------------------------------- // BOXING ------------------------------- */
 
-// how we are using methods such as slice(), dice(), etc. to a string?
+// // how we are using methods such as slice(), dice(), etc. to a string?
 
-// Under the hood:- js convert this string to object then this methods are applyed to it and this is known as BOXING
+// // Under the hood:- js convert this string to object then this methods are applyed to it and this is known as BOXING
 
-// ex:-
-console.log(new String('cpgl')); // [String: 'cpgl']
-console.log(typeof new String('cpgl')); // object
+// // ex:-
+// console.log(new String('cpgl')); // [String: 'cpgl']
+// console.log(typeof new String('cpgl')); // object
 
-// any operation perform on the string --> that operation re convert that object to string primitive (off course new string as we learn above)
-// ex:-
+// // any operation perform on the string --> that operation re convert that object to string primitive (off course new string as we learn above)
+// // ex:-
 
-console.log(typeof new String('abc').slice());
+// console.log(typeof new String('abc').slice());
 
-console.log(airline.toLocaleLowerCase());
-console.log(airline.toUpperCase());
-
-
-console.log("shuttle".toUpperCase());
+// console.log(airline.toLocaleLowerCase());
+// console.log(airline.toUpperCase());
 
 
-// fix name:-
-
-let nameString = 'vIsTAra';
-
-nameString.toLocaleLowerCase();
-console.log(nameString); // it wan't work coz strings are immmutable
-const firstPart = nameString[nameString.indexOf('v')].toUpperCase();
-const secondPart = nameString.slice(1,nameString.length).toLowerCase();
-console.log(firstPart + secondPart); // Vistara
+// console.log("shuttle".toUpperCase());
 
 
-// comparing email
+// // fix name:-
 
-const email = 'hello@gmail.io';
-const loginEmail = '  Hello@Gmail.IO  \n';
+// let nameString = 'vIsTAra';
 
-// const tempMail = loginEmail.slice(loginEmail.indexOf('H'),loginEmail.lastIndexOf('O')+1).toLowerCase();
-const tempMail = loginEmail.trim().toLowerCase(); // trim removes all the tab,enter and white spaces
-
-// IMP: order of methods applyed doe'nt matter ex:- loginEmail.toLowerCase().trim();
-// here we used lower first then trimm is applyed to it; it just means that tis returns a string (new) "loginEmail.toLowerCase()" on which we are imideately applying a 'trim()' function
-
-console.log(tempMail);
+// nameString.toLocaleLowerCase();
+// console.log(nameString); // it wan't work coz strings are immmutable
+// const firstPart = nameString[nameString.indexOf('v')].toUpperCase();
+// const secondPart = nameString.slice(1,nameString.length).toLowerCase();
+// console.log(firstPart + secondPart); // Vistara
 
 
-email === tempMail ? console.log("logged in") : console.log("Enter valid email"); 
+// // comparing email
 
-// replacing
+// const email = 'hello@gmail.io';
+// const loginEmail = '  Hello@Gmail.IO  \n';
 
-const priceUK = "288,97€";
+// // const tempMail = loginEmail.slice(loginEmail.indexOf('H'),loginEmail.lastIndexOf('O')+1).toLowerCase();
+// const tempMail = loginEmail.trim().toLowerCase(); // trim removes all the tab,enter and white spaces
 
-const priceUS = priceUK.replace(',','.').replace('€','$');
+// // IMP: order of methods applyed doe'nt matter ex:- loginEmail.toLowerCase().trim();
+// // here we used lower first then trimm is applyed to it; it just means that tis returns a string (new) "loginEmail.toLowerCase()" on which we are imideately applying a 'trim()' function
 
-console.log(priceUS); // 288.97$
-
-const announcement = 'boarding door 24 opens';
-
-// replace 'door' with 'gate in above string'
-
-// const newAnnouncement = announcement.replace('door','gate');
-// const newAnnouncement = announcement.replaceAll('door','gate'); // not one but all the occurenece of 'door'
-// const newAnnouncement = announcement.replaceAll('o','A');
+// console.log(tempMail);
 
 
-// using REGEX:- /...../g --> g stands for global
+// email === tempMail ? console.log("logged in") : console.log("Enter valid email"); 
+
+// // replacing
+
+// const priceUK = "288,97€";
+
+// const priceUS = priceUK.replace(',','.').replace('€','$');
+
+// console.log(priceUS); // 288.97$
+
+// const announcement = 'boarding door 24 opens';
+
+// // replace 'door' with 'gate in above string'
+
+// // const newAnnouncement = announcement.replace('door','gate');
+// // const newAnnouncement = announcement.replaceAll('door','gate'); // not one but all the occurenece of 'door'
+// // const newAnnouncement = announcement.replaceAll('o','A');
+
+
+// // using REGEX:- /...../g --> g stands for global
+// // const reg = /this is non globala regular exression/g;
+// // console.log(reg); // /this is non globala regular exression/
+
+
 // const reg = /this is non globala regular exression/g;
-// console.log(reg); // /this is non globala regular exression/
+// console.log(reg); // /this is non globala regular exression/g
 
+// // ex:
 
-const reg = /this is non globala regular exression/g;
-console.log(reg); // /this is non globala regular exression/g
+// const newAnnouncement = announcement.replaceAll(/door/g,'gates');
 
-// ex:
-
-const newAnnouncement = announcement.replaceAll(/door/g,'gates');
-
-console.log(newAnnouncement);
+// console.log(newAnnouncement);
 
 
 
 
-// Booleans (include, startsWith, endsWith)
+// // Booleans (include, startsWith, endsWith)
 
 
-const jets = 'fighter';
+// const jets = 'fighter';
 
-console.log(jets.includes('g'));  // true
-console.log(jets.includes('G')); // false
-console.log(jets.includes('ter')); // true
-console.log(jets.includes('gter')); // // true (non contionus 'h' is missing in between)
+// console.log(jets.includes('g'));  // true
+// console.log(jets.includes('G')); // false
+// console.log(jets.includes('ter')); // true
+// console.log(jets.includes('gter')); // // true (non contionus 'h' is missing in between)
 
 
-console.log('startwith');
+// console.log('startwith');
 
-console.log(jets.startsWith('f')); // t
-console.log(jets.startsWith('i')); // f
-console.log(jets.startsWith('fi')); // t
-console.log(jets.startsWith('fig')); // t
-console.log(jets.startsWith('fiG')); // f
+// console.log(jets.startsWith('f')); // t
+// console.log(jets.startsWith('i')); // f
+// console.log(jets.startsWith('fi')); // t
+// console.log(jets.startsWith('fig')); // t
+// console.log(jets.startsWith('fiG')); // f
 
-console.log('endswith');
+// console.log('endswith');
 
-console.log(jets.endsWith('r'));
-console.log(jets.endsWith('e'));
-console.log(jets.endsWith('er'));
-console.log(jets.endsWith('re'));
-console.log(jets.endsWith('ter'));
-console.log(jets.endsWith('tEr'));
-console.log(jets.endsWith('Ter'));
-console.log(jets.endsWith('teR'));
+// console.log(jets.endsWith('r'));
+// console.log(jets.endsWith('e'));
+// console.log(jets.endsWith('er'));
+// console.log(jets.endsWith('re'));
+// console.log(jets.endsWith('ter'));
+// console.log(jets.endsWith('tEr'));
+// console.log(jets.endsWith('Ter'));
+// console.log(jets.endsWith('teR'));
 
 /*
 true
@@ -2631,91 +2635,91 @@ false
 
 // check if pessenger carry nay harmful stuuf to plane
 
-const checkBag = (bagItem) => {
-   // if(bagItem.toLowerCase().includes('knife').includes('gun')){ // X WRONG because:- includes is a method that operates on strings or arrays in JavaScript, but after calling toLowerCase() on bagItem, the result is a string, not an array. Therefore, you can't chain another includes method directly after it.
+// const checkBag = (bagItem) => {
+//    // if(bagItem.toLowerCase().includes('knife').includes('gun')){ // X WRONG because:- includes is a method that operates on strings or arrays in JavaScript, but after calling toLowerCase() on bagItem, the result is a string, not an array. Therefore, you can't chain another includes method directly after it.
 
-   // Correct (below)
-   if(bagItem.toLowerCase().includes('knife') || bagItem.toLowerCase().includes('gun')){
-      return 'not allowed';
-   }
-   return 'allowed';
-}
+//    // Correct (below)
+//    if(bagItem.toLowerCase().includes('knife') || bagItem.toLowerCase().includes('gun')){
+//       return 'not allowed';
+//    }
+//    return 'allowed';
+// }
 
-// toLowerCase is used in above ex beacouse look in first bag 'food' was written as --> 'Food' that's why so it is a good practice to always convert any strings to lower case first
+// // toLowerCase is used in above ex beacouse look in first bag 'food' was written as --> 'Food' that's why so it is a good practice to always convert any strings to lower case first
 
-const bag1 = 'laptop and Food';
-const bag2 = 'Knife and Gun for protection';
-// const bag2 = 'Drums and Gun for protection'; // not allowed
-const bag3 = 'cloths and water bottle';
+// const bag1 = 'laptop and Food';
+// const bag2 = 'Knife and Gun for protection';
+// // const bag2 = 'Drums and Gun for protection'; // not allowed
+// const bag3 = 'cloths and water bottle';
 
 
-console.log(checkBag(bag1));  // Output: allowed
-console.log(checkBag(bag2));  // Output: not allowed
-console.log(checkBag(bag3));  // Output: allowed
+// console.log(checkBag(bag1));  // Output: allowed
+// console.log(checkBag(bag2));  // Output: not allowed
+// console.log(checkBag(bag3));  // Output: allowed
 
 
 /* --------------------------------- splits --------------------------------- */
 
-// allow us to split a string into multiple parts based on some dividers
+// // allow us to split a string into multiple parts based on some dividers
 
-console.log('a+very+nice+string'.split('+')); // [ 'a', 'very', 'nice', 'string' ]
-console.log('a+very+nice+string'.split('+',2)); // [ 'a', 'very' ]
+// console.log('a+very+nice+string'.split('+')); // [ 'a', 'very', 'nice', 'string' ]
+// console.log('a+very+nice+string'.split('+',2)); // [ 'a', 'very' ]
 
-// Join elements with ', '
-// const concatenatedString = array.join(', ');
+// // Join elements with ', '
+// // const concatenatedString = array.join(', ');
 
-// console.log(concatenatedString);  // Output: "apple, banana, orange"
-
-
-const [fname, lname] = 'cp gl'.split(' ');
-
-console.log(fname);
-console.log(lname);
+// // console.log(concatenatedString);  // Output: "apple, banana, orange"
 
 
-// JOIN (opposit of split)
+// const [fname, lname] = 'cp gl'.split(' ');
 
-const myName = ['Mr.',fname,lname.toUpperCase()].join(' ');
-
-console.log(myName); // Mr. cp GL
-
-// capatalize names
+// console.log(fname);
+// console.log(lname);
 
 
-const capatalizeName = function(nameStr){
-   const allNamesArr = nameStr.split(' ');
-   const capsNameArr = [];
+// // JOIN (opposit of split)
+
+// const myName = ['Mr.',fname,lname.toUpperCase()].join(' ');
+
+// console.log(myName); // Mr. cp GL
+
+// // capatalize names
+
+
+// const capatalizeName = function(nameStr){
+//    const allNamesArr = nameStr.split(' ');
+//    const capsNameArr = [];
    
-   allNamesArr.forEach(element => {
-      // let capName = element.charAt(0).toUpperCase() + element.slice(1);
-      // capsNameArr.push(capName);
+//    allNamesArr.forEach(element => {
+//       // let capName = element.charAt(0).toUpperCase() + element.slice(1);
+//       // capsNameArr.push(capName);
 
-      // same result
-      capsNameArr.push(element.replace(element[0],element[0].toUpperCase()))
-   });
-   console.log(capsNameArr);
-   console.log(capsNameArr.join(', '));
-}
-
-
-
-// Example usage:
-capatalizeName("aaju baaju abb ccd"); // Output: ["Aaju", "Baaju", "Abb", "Ccd"]
-capatalizeName("cp gl"); // Output: ["Cp", "Gl"]
-
-// Aaju, Baaju, Abb, Ccd
-// Cp, Gl
+//       // same result
+//       capsNameArr.push(element.replace(element[0],element[0].toUpperCase()))
+//    });
+//    console.log(capsNameArr);
+//    console.log(capsNameArr.join(', '));
+// }
 
 
-// padding a string
+
+// // Example usage:
+// capatalizeName("aaju baaju abb ccd"); // Output: ["Aaju", "Baaju", "Abb", "Ccd"]
+// capatalizeName("cp gl"); // Output: ["Cp", "Gl"]
+
+// // Aaju, Baaju, Abb, Ccd
+// // Cp, Gl
 
 
-console.log('go to gate 24'.padStart(25,'+')); //++++++++++++go to gate 24
-console.log('go to gate 24'.padStart(25,'+').length); // 25 
+// // padding a string
 
-console.log('cpgl'.padStart(25,' ')); //                     cpgl
 
-console.log('go to gate 24'.padEnd(25,'+')); //go to gate 24++++++++++++
+// console.log('go to gate 24'.padStart(25,'+')); //++++++++++++go to gate 24
+// console.log('go to gate 24'.padStart(25,'+').length); // 25 
+
+// console.log('cpgl'.padStart(25,' ')); //                     cpgl
+
+// console.log('go to gate 24'.padEnd(25,'+')); //go to gate 24++++++++++++
 
 
 /* 
@@ -2744,19 +2748,43 @@ console.log('go to gate 24'.padEnd(25,'+')); //go to gate 24++++++++++++
 
 // REPEAT
 
-// meassage in weather forcast ans banner
+// // meassage in weather forcast ans banner
 
-const weather = "it's a sunny day....... ";
+// const weather = "it's a sunny day....... ";
 
-console.log(weather.repeat(5)); // it's a sunny day.......it's a sunny day.......it's a sunny day.......it's a sunny day.......it's a sunny day.......
+// console.log(weather.repeat(5)); // it's a sunny day.......it's a sunny day.......it's a sunny day.......it's a sunny day.......it's a sunny day.......
 
-const planeInLine = function(n){
-   console.log(`there arae ${n} planes are queue'd to take off ${'✈ '.repeat(n)}`);
-}
+// const planeInLine = function(n){
+//    console.log(`there arae ${n} planes are queue'd to take off ${'✈ '.repeat(n)}`);
+// }
 
-planeInLine(2);
-planeInLine(5);
-planeInLine(8);
+// planeInLine(2);
+// planeInLine(5);
+// planeInLine(8);
+
+
+
+
+// // coding challenge
+
+
+// // output from text Area :-
+
+// const text = "sdfbm ;sadkl; sakd; jhJKH-HJK  lhkfjsdk";
+
+
+// console.log('first_name'.replace('_',''));
+
+
+// // 2:
+
+// const flights = '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
+// // 🔴 Delayed Departure from FAO to TXL (11h25)
+// //              Arrival from BRU to FAO (11h45)
+// //   🔴 Delayed Arrival from HEL to FAO (12h05)
+// //            Departure from FAO to LIS (12h30)
+
 
 
 
