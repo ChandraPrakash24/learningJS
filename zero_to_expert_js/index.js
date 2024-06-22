@@ -2792,18 +2792,218 @@ false
 /*                         DEEP DIVING INTO FUNCTIONS                         */
 /* -------------------------------------------------------------------------- */
 
+/* --------------------------- default parameters --------------------------- */
+/*
+
+const bookingsArr = [];
+
+const createBooking = function(flightNo, noOfPassenger=1, price=199 * noOfPassenger){ //ES6 way (parameter manuplatio is also allwed or you can use defined parameter as well as per it was defined earlier before like noofpassenger was deffined earliear)
+
+   // ES5 way to define default argument
+   // noOfPassenger = noOfPassenger || 1;
+   // price = price || 199;
+
+   const booking = {
+      flightNo,
+      noOfPassenger,
+      price
+   }
+
+   bookingsArr.push(booking);
+   console.log(bookingsArr); // [ { flightNo: 'turbo', noOfPassenger: undefined, price: undefined } ]
+}
+
+createBooking('turbo');
+
+createBooking('fast',2);
+
+
+// out:
+// [
+//    { flightNo: 'turbo', noOfPassenger: 1, price: 199 },
+//    { flightNo: 'fast', noOfPassenger: 2, price: 199 }
+//  ]
+
+createBooking('quick',4);
+
+// if you want to leve second peeameter then what?
+// you can't do like this
+// createBooking('quick',,4); X
+// but you can do like this not seting a varible is essencially means undefined then why not to pass that argument as undefined; below is the ex:-
+
+createBooking('zoop',undefined,499);
+// out:-
+
+// [
+//    { flightNo: 'turbo', noOfPassenger: 1, price: 199 },
+//    { flightNo: 'fast', noOfPassenger: 2, price: 398 },
+//    { flightNo: 'quick', noOfPassenger: 4, price: 796 },
+//    { flightNo: 'zoop', noOfPassenger: 1, price: 499 }
+//  ]
+
+ */
+/* ------------------ pass arguments by valueand refference ----------------- */
+
+
+// js does not have pass by refference feature insted it has
+
+// primitive data type --> pass by value (variable)
+// non primitive data type --> pass by refference (objects,etc.)
+
+
+// const flight = 'turbo';
+// const person = {
+//    name: 'dummy',
+//    passport: 3566845858
+// }
+// const petName = ['dog','cat'];
+// const petAge = [11,11];
+
+
+// const checkIn = function (flightDetail,personDetail,petDetail,petAgeDetail){
+
+//    flightDetail = 'zoop';
+//    personDetail.name = 'Mr. '+ personDetail.name;
+
+//    personDetail.passport === 3566845858 ? console.log('checked in') : console.log('not allowed');;
+   
+//    // petAgeDetail = [11,11];
+//    // petAgeDetail = [petAgeDetail[0]*2, petAgeDetail[1]*2]; // this two are re assigning to local var; then it won't change orignal array, but 
+//    // petDetail = [petDetail[0]+' bwoo ', petDetail[1]+' mewoo '];
+//    //             ^                                             ^ --> re assignment
+
+//    // this will work coz it's a modification
+//    petAgeDetail[0] *= 4;
+//    petAgeDetail[1] *= 4;
+
+//    petDetail[0] = petDetail[0] + ' bwoo';
+//    petDetail[1] += ' mewoo';
+
+// }
+
+
+// checkIn(flight,person,petName,petAge);
+
+// console.log(flight);
+// console.log(person);
+// console.log(petName);
+// console.log(petAge);
+
+// // checked in
+// // turbo
+// // { name: 'Mr. dummy', passport: 3566845858 }
+// // [ 'dog bwoo', 'cat mewoo' ]
+// // [ 44, 44 ]
 
 
 
+// In JavaScript, understanding whether a value is passed by value or by reference when passed to a function depends on its data type. Here's a summary of how different data types behave:
+
+// ### Passed by Value (Can Modify Original Value)
+
+// 1. **Primitive Data Types:**
+//    - JavaScript passes primitive data types (like `number`, `string`, `boolean`, `null`, `undefined`, `symbol`) by value.
+//    - Modifications made to these values inside a function do not affect the original value outside the function, unless you explicitly return the modified value.
+
+//    Example:
+//    ```javascript
+//    let num = 10;
+
+//    const modifyValue = function(val) {
+//        val += 5;  // Modifying val inside the function
+//    };
+
+//    modifyValue(num);
+//    console.log(num);  // Output: 10 (original value is unchanged)
+//    ```
+
+// 2. **Immutable Objects (like `string`):**
+//    - While `string` is a primitive type, it behaves as if passed by value because its value cannot be directly modified.
+
+//    Example:
+//    ```javascript
+//    let name = 'Alice';
+
+//    const modifyString = function(str) {
+//        str = 'Bob';  // Reassigning str, doesn't affect name outside
+//    };
+
+//    modifyString(name);
+//    console.log(name);  // Output: 'Alice' (original value is unchanged)
+//    ```
+
+// ### Passed by Reference (Can Modify Original Object)
+
+// 1. **Objects (including arrays and functions):**
+//    - JavaScript passes objects (including arrays and functions) by reference.
+//    - Modifications made to object properties or elements inside a function affect the original object outside the function.
+
+//    Example with Array:
+//    ```javascript
+//    let arr = [1, 2, 3];
+
+//    const modifyArray = function(arr) {
+//        arr.push(4);  // Modifying arr (which is the same as original outside)
+//    };
+
+//    modifyArray(arr);
+//    console.log(arr);  // Output: [1, 2, 3, 4] (original array is modified)
+//    ```
+
+// 2. **Mutable Objects (like arrays):**
+//    - Arrays are mutable objects in JavaScript. Modifying elements of an array inside a function modifies the original array.
+
+//    Example:
+//    ```javascript
+//    let numbers = [1, 2, 3];
+
+//    const modifyElements = function(arr) {
+//        arr[0] = 100;  // Modifying element inside arr (which is numbers)
+//    };
+
+//    modifyElements(numbers);
+//    console.log(numbers);  // Output: [100, 2, 3] (original array is modified)
+//    ```
+
+// ### Summary:
+
+// - **Passed by Value (Can Modify Original):** `number`, `string`, `boolean`, `null`, `undefined`, `symbol`.
+// - **Passed by Reference (Can Modify Original):** Objects (including arrays and functions).
+
+// Understanding these behaviors is crucial for effectively manipulating data within JavaScript functions while maintaining control over original data outside of those functions.
 
 
+/* ------------- first class function and Higher order function ------------- */
 
 
+// FIRST CLASS FUNCTIONS
 
 
+// --> js treat function as "first class citizen"
+// --> this means that functions are simply value
+// --> functions are just another "type" of Objects
+// --> you can store function in variable or in bject as property
+// --> you can pass function as argument to another function 
+// --> you can return function from another function 
+// --> since functions are object's type hence we can call inbuilt methods to our function, such as call,bind,etc.
 
+// HIGHER ORDER FUNCTION
 
+// --> A function that recice an functon as an argument and can return function or BOTH (resive and return)
+// -->  ex:- (resive) 
+      // const greet= () => console.log('hello');
+      // btn.addEventListener('click',greet);
+      //          ^ HOF                  ^ call back function
+// --> ex:- (return new function)
+      // function count(){
+      //    let count = 0;
+      //    return function(){
+      //       count++;
+      //    } 
+      // }
 
+      
+// --> IMP: HOF is only possible beacouse we have first class function which is a feature of js henece we where able to make HOF using FCF  
 
 
 
