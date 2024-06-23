@@ -3006,6 +3006,252 @@ createBooking('zoop',undefined,499);
 // --> IMP: HOF is only possible beacouse we have first class function which is a feature of js henece we where able to make HOF using FCF  
 
 
+// let's create our own higher order functios
+
+const oneWord  = function(str){
+   return str.replace(/ /g, '').toLocaleLowerCase();
+}     
+
+const firstWordAllCaps = function(str){
+   const [first, ...others] = str.trim().split(' ');
+
+   return first.toUpperCase() + ' ' + others.join(' ');
+}
+
+
+//                |--> HOF              |--> fn is call back function
+function wordTransformation(orignalStr,fn){
+   console.log(`Orignal str is: ${orignalStr}`);
+   console.log(`New str is : ${fn(orignalStr)}`);
+   console.log(`It was transformed by : ${fn.name}`);
+}
+
+// wordTransformation('  JavaScript is awsome! ',firstWordAllCaps);
+wordTransformation('  JavaScript is awsome! ',oneWord);
+
+// calback fn: means cal them later
+
+// HOF is called Higher beacouse it work's on higher level of abestraction means that HOF do what is have to do with the help of that passed call back function so. HOF is a abstraction and that call back function is a lower level abstraction/implimentation
+
+
+//                  FUNCTION RETURN NEW FUNCTION
+
+
+const greeting = function(greetMsg){
+   return function(name){
+      console.log(`${greetMsg} ${name}`);
+   }
+}
+
+const messesedGreet = greeting('HowD');
+console.log( greeting('HowD')); // [Function (anonymous)]
+messesedGreet('modi'); // HowD modi
+messesedGreet('rahul'); // HowD rahul
+messesedGreet(firstWordAllCaps('rahul')); // HowD RAHUL
+
+greeting('Whats up')('modi'); // Whats up modi
+
+// USE CASE: in functional programming
+
+
+const greet2 = (msg) => {
+   return (name) => {
+      console.log(`${msg} ${name}`);
+   }
+}
+// const greet2 = (msg) => (name) => console.log(`${msg} ${name}`);
+   
+
+greet2('hello')('rahul'); // hello rahul
+
+
+//        THE CALL AND APPLY METHOD
+
+const turbo = {
+   // name : this, //--> this won't work if we log name then it logs empty {}
+   name : 'turbo',
+   flightCode: 'TO',
+   bookings: [],
+   book(flightNum, passangerName){
+      console.log(`${passangerName} has booked seats for ${flightNum}${this.flightCode} flight in ${this.name} airline`);
+      this.bookings.push({
+         passangerName,
+         filight_no: flightNum+this.flightCode
+      });
+   }
+
+};
+
+// console.log(turbo);
+
+// turbo.book(111,'dummy');
+
+// console.log(turbo);
+
+
+// OUTPUT:
+
+// {
+   //    name: 'turbo',
+   //    flightCode: 'TO',
+   //    bookings: [],
+   //    book: [Function: book]
+   //  }
+//  dummy has booked seats for 111TO flight in turbo airline
+//  {
+   //    name: 'turbo',
+   //    flightCode: 'TO',
+   //    bookings: [ { passangerName: 'dummy', filight_no: '111TO' } ],
+   //    book: [Function: book]
+   //  }
+   
+
+const zoop = {
+   name : 'zoop',
+   flightCode: 'ZP',
+   bookings: [],
+   // i want to use that book() function from turbo here how can i do so?
+};
+
+// like this way:
+
+const book = turbo.book;
+console.log(book); // [Function: book]
+// this const book <-- = .... varible conatin a function ported brom turbo object but intreasting fact is that  the  book var  does not have any this keyword at all coz this is a normal funtion now which was assigned by just using a turbo object that's it it does nort have any relation to turbo object at all so current book var's holded function's this keyword points to nothing
+
+
+// now
+// it won't work
+// book(222,'dummy2'); // intend is to get : 222ZP dummy2 but how we gona deffine that 'this' keyword that we are want to call or attach 'this' to zoop airline not turbo and even the current book() fn has no this keyword at all (it is pointing to unsdefine for the normal fn in strict mode as we have learned above)  
+
+
+// to solv above problem we have one method call(), since functions in js is essenccialy objects internally hence they have some methods as well
+
+//'call' book function with this parameter and bind 'this' keyword to zoop object 
+book.call(zoop, 222, 'dummy2');
+// console.log(zoop); // it will work
+
+
+// now we can create multiple airline
+
+const fast = {
+   name: 'fast',
+   flightCode: 'FS',
+   country: 'XX',
+   bookings: [],
+}
+
+// IMP: The structure and property names of every object must be same or [must contain all the property (with same name - strictly) that was been used by our function say book (normal one - not inside any object)
+
+
+book.call(fast,333,'dummy3');
+// console.log(fast);
+
+
+//     APPLY METHOD (not used in modern js)
+// it does not take any parameter insted it take an 'array' withy elemnt on that array is equicvalent to the no of argument that has need to be passed
+// ex:
+
+const flightData = [444,'dummy4'];
+book.apply(fast,flightData)
+console.log(fast);
+// out:
+// bookings: [
+//     { passangerName: 'dummy3', filight_no: '333FS' },
+//     { passangerName: 'dummy4', filight_no: '444FS' }
+//   ]
+
+
+// but the above can be acchived my call method also, as below
+
+
+const flightData2 = [555,'dummy5'];
+book.call(fast, ...flightData2)
+console.log(fast);
+// out:
+// bookings: [
+//    { passangerName: 'dummy3', filight_no: '333FS' },
+//    { passangerName: 'dummy4', filight_no: '444FS' },
+//    { passangerName: 'dummy5', filight_no: '555FS' }
+//  ]
+
+
+
+
+//            BIND METHOD
+
+// what if you want to bind 'this' keyword to the specific airline object then in that case you can use bind method to bind that
+// it returns a new function
+
+
+// suppose you want to fix a function to  only food 'zoop' fligh then you can do this
+//       | rew returned fn store here          
+const bookZP = book.bind(zoop);
+//               ^ that normal book functiion not any inside of object
+// now yow can do this:-
+bookZP(555,'dummy5');
+console.log(zoop);
+// { passangerName: 'dummy2', filight_no: '222ZP' },
+// { passangerName: 'dummy5', filight_no: '555ZP' }
+
+// you can go further like this
+// what if you want/need to book a specific flight which was called regurely say flight '888' of fast
+
+const bookFS99 = book.bind(fast, 99);
+
+bookFS99('dummy6');
+bookFS99('dummy7');
+
+console.log(fast);
+
+// { passangerName: 'dummy4', filight_no: '444FS' },
+// { passangerName: 'dummy5', filight_no: '555FS' },
+// { passangerName: 'dummy6', filight_no: '99FS' },
+// { passangerName: 'dummy7', filight_no: '99FS' }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
