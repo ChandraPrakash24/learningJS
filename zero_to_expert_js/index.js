@@ -3195,9 +3195,9 @@ console.log(zoop);
 // { passangerName: 'dummy5', filight_no: '555ZP' }
 
 // you can go further like this
-// what if you want/need to book a specific flight which was called regurely say flight '888' of fast
+// what if you want/need to book a specific flight which was called regurely say flight '99' of fast
 
-const bookFS99 = book.bind(fast, 99);
+const bookFS99 = book.bind(fast, 99); // partial application
 
 bookFS99('dummy6');
 bookFS99('dummy7');
@@ -3211,26 +3211,129 @@ console.log(fast);
 
 
 
+// bind method is also useful with eventlistner beacouse 'this' keyword used with eventlistner of an objet or any thing point's to that element (btn,image,etc), not to that object; so as bind returns new binded function of the object in which that 'this' keyword is bind to that object then that we can use in eventListner
+// ex:
+
+fast.planes = 300;
+fast.buyPlane = function (){
+   console.log(this);
+
+   this.planes++;
+   console.log(this.planes);
+}
+
+// document.querySelector('.buy-btn').addEventListener('click',fast.buyPlane);
+// the above code will log 'NaN' beacous here 'this' keyword is pointing to that <button> with 'buy-btn' class name hence it will log : <button class="buy-btn">Buy Planes</button>
+
+
+// now to get to working above code we need to bind this keyword to fast object using bind it will return a new binded function
+
+// document.querySelector('.buy-btn').addEventListener('click',fast.buyPlane.bind(fast)); // IT WILL WORK
 
 
 
+// PARTIAL APPLICATION
+
+const addTax = (rate,amount) => amount + amount * rate;
 
 
+console.log(addTax(0.1,200)); // 220
 
 
+const addtax10 = addTax.bind(addTax, 0.1); // 220
+// const addtax20 = addTax.bind(addTax, 0.2); // 240 // WRONG WAY 
+//                                 ^ this means setting 'this' keyword, no needed here it's just a function, so leve as 'null'
+const addtax20 = addTax.bind(null, 0.2); // 240 // CORRECT WAY
+const gst = addTax.bind(null, 0.24); // 240 // CORRECT WAY
+
+console.log(addtax10(200));
+console.log(addtax20(200));
+console.log(gst(600000)); // 744000
+
+// func returning a func
+const addTax2 = function(rate){
+   return function(amount){
+      return amount + amount * rate;
+   }
+}
+
+const tax50 = addTax2(0.50); 
+console.log(tax50(100)); // 150
+console.log(addTax2(0.90)(300)); // 570
 
 
+const poll = {
+
+   question: 'what is your favourite programming language?',
+   options: ['1: js', '2: python', '3: rust', '4: cpp']
+
+}
 
 
+poll.answer = new Array(4).fill(0);
+
+poll.displayResult = function(answerType = 'array'){ // default param is array
+   if(answerType === 'array'){
+      console.log(`poll's answer is:`, this.answer);
+   }else if(answerType === 'string'){
+      console.log(`poll's answer is:`, this.answer.join(' ') );
+      // for (let el of this.answer){
+      //    console.log(`${el}`);
+      // }
+      // console.log(this.answer.join(' '));
+   }
+}
+
+poll.registerNewAnswer = function(){
+
+console.log(`${this.question}\n${this.options.join("\n")}\n(Write option number)`);
+
+//    console.log(
+// `what is your favourite programming language?
+// 1: js
+// 2: python
+// 3: rust
+// 4: cpp
+// (Write option number))`);
+
+let ans = 1;
+// let ans = 3;
+// let ans = 'gh';
+
+// if(typeof ans === 'number'){
+//    this.answer[ans-1]++;
+// }else{
+//    console.log('Enter valid option');
+// }
+
+typeof ans === 'number' && ans < this.answer.length && this.answer[ans-1]++;
 
 
+this.displayResult('array');
+this.displayResult('string');
 
+}
 
+poll.registerNewAnswer();
 
+// let temp = 1;
+// const type = typeof temp;
+// console.log(type);
+// console.log( typeof type);
 
+// what if we want different array not this: poll.answer = new Array(4).fill(0);
 
+// then we has to use call()
 
+poll.displayResult.call({answer : [5,2,3]}) // default is array
+poll.displayResult.call({answer : [5,2,3]}, 'array')
+poll.displayResult.call({answer : [5,2,3]}, 'string')
+//                       ^ 'this' will point to this object now --> { .... answer : [5,2,3] ....  }
 
+// out:
+// poll's answer is: [ 5, 2, 3 ]
+// poll's answer is: [ 5, 2, 3 ]
+// poll's answer is: 5 2 3
 
 
 
