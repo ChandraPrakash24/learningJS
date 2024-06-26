@@ -3005,7 +3005,7 @@ createBooking('zoop',undefined,499);
       
 // --> IMP: HOF is only possible beacouse we have first class function which is a feature of js henece we where able to make HOF using FCF  
 
-
+/* 
 // let's create our own higher order functios
 
 const oneWord  = function(str){
@@ -3335,6 +3335,7 @@ poll.displayResult.call({answer : [5,2,3]}, 'string')
 // poll's answer is: [ 5, 2, 3 ]
 // poll's answer is: 5 2 3
 
+*/
 
 
 
@@ -3342,9 +3343,196 @@ poll.displayResult.call({answer : [5,2,3]}, 'string')
 
 
 
+/* ------------- Immediately Invoked Function Expressions (IIFE) ------------ */
+
+// // the function that only colled once and only
+
+// // this is not, just kind of
+// const onceFunction = function(){
+//    console.log('ok');
+// }();
+
+
+// // onceFunction(); // err: not define
+
+// // REAL ONE:
+
+// // syntex:  (....function expression{....})()
+
+// (function(){
+//    console.log('iife called');
+// })(); // iife called
+
+// (() => {
+//    console.log('arrow function iife called');
+//    const isPrivate = ture;
+// })(); // arrow function iife called
+
+// console.log(isPrivate); 
+
+// // iife is not a js feature, it's just a pattern
+// // use to incapsulate the private varible and scope it to only iife function
+
+
+// // alternate of iife is block scope:
+// // {
+//    // const isPrivate = ture; // want to achive block scope do like this
+
+// // }
 
 
 
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  CLOSURES                                  */
+/* -------------------------------------------------------------------------- */
+
+/*
+
+const secureBooking = function(){
+   let privatePessengerCount =  0;
+
+   return function(){
+      privatePessengerCount++;
+      console.log(`${privatePessengerCount} : pessenger`);
+   }
+}
+
+const booker = secureBooking();
+
+booker(); // 1 : pessenger
+booker(); // 2 : pessenger
+booker(); // 3 : pessenger
+
+// how the above booker() func is accessing the privatePessamgerCount varible of secureBoooking function even after it's was private by let in there scope and also the exicution context of thet secureBooking function is over already and there call satck is poped of from the call stack
+
+// this is due to the closures
+
+// a function has access to the environment variable (EV) of the exicution context in which it was created even after that function one is complitely exicuted 
+
+
+// Clousers: VE attached to the function, exactly as it was at the time and place  the function was created 
+
+// IMP:-
+// clousure varible and parameters both are accessable
+// closure varible >> global varible (same varible name)
+// we do not have to create closores, it was craete automatically
+// there is no way we can dirrectly access this closed-over variables beacouse this are not tangible things like array, objects that we can reach/access, only we can observe
+// you can see all the under the hood properties of a function like prototype, closure, global scope, etc. by console.dir(....func....);
+// if you see any thing wrap around double brackets like:- [[Scopes]], [[FunctionLocation]], etc. inn console after console.dir() the ihat means that it is an 'internal property' that can not be accessed by our code
+
+// console.dir(booker);
+
+
+
+// CLOSURE EXAMPLE AND THERE WORKING
+
+// Example 1
+
+let f;
+
+const g = function(){
+   const a = 20;
+   f = function() {
+      console.log(a * 2);
+   }
+}
+// a inside bag-pack
+g();
+f(); // 40
+f(); // 40
+
+const h = function(){
+   const b = 111;
+   f = function(){
+      console.log(111 * 2);
+   }
+}
+
+
+g();
+f(); // 40
+// a in the bag
+
+h(); // re-assignment of f --> a is throwen away, b is put to bag now
+f(); // 222
+
+
+// Example 2
+
+// function boardPpassanger (noOfPassanger, waithingTime){
+const boardPpassanger  = function(noOfPassanger, waithingTime){
+
+   const perGroup = noOfPassanger / 3;
+
+   setTimeout(function(){
+      console.log(`Total passangers (${noOfPassanger}) are borded in ${perGroup} per group`);
+   }, waithingTime * 1000) // 3 * 1000 ms = 3 sec
+
+   console.log(`Boarding will start in ${waithingTime} seconds`);
+}
+
+const perGroup = 24; // the above call back function will not use this global perGroup variable , hence demonstrating closed-variable has higher priority then gloabl variable or scoped chain with same name, offcourse if you remove that callback function's perGroup variable then that the callback function is going to use this global perGroup variable (24)
+
+boardPpassanger(220,4);
+
+// OUT: Boarding will start in 4 seconds
+// OUT: Total passangers (220) are borded in 73.33333333333333 per group
+
+
+
+//  --------------    CLOUSERS IN ACTION:- -----------------
+
+// 1: when it was returned by some function
+// 2: When some function was assigned
+// 3: Inside a call back function ex in setInterval, setTimeut, etc.
+
+
+
+// CONCLUSION: function able to use all the variable that ehre in the variable environment (VE) in which it was created.
+
+
+
+// coding challenge:
+
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//   <meta charset="UTF-8">
+//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//   <title>Coloring H1 with IIFE</title>
+// </head>
+// <body>
+//   <h1>Clousers</h1>
+
+//   <script>
+//     (function() {
+//       const header = document.querySelector('h1');
+//       header.style.color = 'red';
+
+//       document.querySelector('body').addEventListener('click', function() {
+//         header.style.color = 'blue';
+//       });
+//     })();
+//   </script>
+// </body>
+// </html>
+
+
+
+ */
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------- */
+/*                                   ARRAYS                                   */
+/* -------------------------------------------------------------------------- */
 
 
 
