@@ -63,7 +63,6 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
-// LECTURES
 
 const currencies = new Map([
   ['USD', 'United States dollar'],
@@ -75,6 +74,60 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
+// project
+
+const displayMovements = function(movements){
+
+  containerMovements.innerHTML = '';
+
+  movements.forEach(function(moves,i){
+
+
+    const type = moves > 0 ? 'deposit' : 'withdrawal';
+
+    const html = `
+      <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
+        <div class="movements__value">${moves}</div>
+      </div>
+    `;
+
+    containerMovements.insertAdjacentHTML('afterbegin',html);
+
+  });
+}
+
+displayMovements(account1.movements);
+
+// console.log(containerMovements.innerHTML);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---------------- LECTURES ----------------
 
 // 1: SLICE - [0,1,....)
 // extract the part of the array, it do not mutate orignal array, zero indexd based, returb that sliced array
@@ -119,6 +172,81 @@ console.log([...arr,...arr2]); // do not mutate
 // JOIN
 console.log(letters.join('-')); // a-e-f-g-h-i-j <-- string
 
+// AT method
 
+const arr3 = [11,22,33];
+
+console.log(arr3[1]); // OR
+console.log(arr3.at(1)); // 22
+
+// geting a last element from array
+console.log(arr3[arr3.length - 1]); // 33
+// console.log(arr3.slice(-1)); // [33]
+console.log(arr3.slice(-1)[0]); // 33
+
+console.log(arr3.at(-1)); // 33
+console.log(arr3.at(-2)); // 22
+
+
+console.log("arr3".at(-2)); // rr
+
+// forEach() loop
+
+// already defined above:- const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+
+//  DIFF BETWEEN FOR OF LOOP AND FOOR EACH LOOP
+
+// for(const movement of movements){
+for(const [i,movement] of movements.entries()){ // geting index value
+  if(movement > 0) console.log(`Movement ${i+1}: You deposited ${movement}`);
+  else console.log(`Movement ${i+1}: You withdrew ${Math.abs(movement)}`);
+}
+
+console.log('---- forEach ----');
+// forEach : forEach is HOF it work on the basis of callBack function 
+
+movements.forEach(function(movement, index, array){ // order matters of args: (currentElement, curr_index, entire_array) // current_index and entire_array is optional
+  // console.log(array); // whole array was passed as argument
+  if(movement > 0) console.log(`Movement ${index+1}: You deposited ${movement}`);
+  else console.log(`Movement ${index+1}: You withdrew ${Math.abs(movement)}`);
+});
+
+// IMP : continue; and brak; wan't work in forEeach loop
+
+// forEack with maps ans set
+
+// MAPS:
+
+// already above just for reffrence in here:
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
+
+currencies.forEach(function(currValue, key, entireMap){
+  console.log(`${key}: ${currValue}`);
+});
+
+// USD: United States dollar
+// 176 EUR: Euro
+// 176 GBP: Pound sterling
+
+
+// SET:
+
+const uniqueCurrencies = new Set(['INR', 'INR', 'USD', 'EUR', 'EUR']);
+
+// uniqueCurrencies.forEach(function(value,justSameAsValue,wholeSet){ // set does not have either 'index' or nor 'key' so it is like (curren_value,current_value,entireSet)     so use this below
+uniqueCurrencies.forEach(function(value, _ ,wholeSet){ // set does not have either 'index' or nor 'key' so it is like (curren_value,current_value,entireSet)
+  console.log(`${value} : ${value}`); 
+});
+
+// underscore ( _ )it's just a throw away varible or say ignore variable by js devloper convensions
+
+// INR : INR
+// 189 USD : USD
+// 189 EUR : EUR
 
 
