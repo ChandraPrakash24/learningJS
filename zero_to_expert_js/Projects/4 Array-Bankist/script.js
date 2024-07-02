@@ -76,6 +76,8 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // project
 
+
+// --> displaying movements (on UI)
 const displayMovements = function(movements){
 
   containerMovements.innerHTML = '';
@@ -95,18 +97,87 @@ const displayMovements = function(movements){
     containerMovements.insertAdjacentHTML('afterbegin',html);
 
   });
+
+
+
+
+  const displayBalance = function(movements_array){
+    labelBalance.innerText = '';
+    const balance = movements_array.reduce((acc,amount)=> acc + amount, 0);
+    
+    labelBalance.innerText = balance + '€';
+  }
+  displayBalance(movements);
+
+
+
+
 }
 
 displayMovements(account1.movements);
+// displayMovements(movements);
 
-// console.log(containerMovements.innerHTML);
-
-
-
+// console.log(containerMovements.innerHTML); // html that we created
 
 
 
+// -------------------- challenge (prep) --------------------
 
+// // const userName = account3.owner; // Jonas Schmedtmann
+
+// const userName = 'Jonas Thomas Schmedtmann'; //to get --> jts
+
+
+// // const user = userName.toLowerCase().split(' '); // ['jonas', 'thomas', 'schmedtmann']
+// // const userActualArr = user.map(el=>el[0]); // ['j', 't', 's']
+// // const userActual = userActualArr.join(''); // jts
+// // console.log(userActual);
+
+
+// //             OR
+
+// const user = userName.toLowerCase().split(' ').map(el=>el[0]).join(''); // jts
+// console.log(user);
+
+// -------------------- challenge (prep) END --------------------
+
+// --> generating username (not on UI)
+
+const createUserName = function(accountsArrayOfObj){ // just a wrapper fun // const accounts = [account1, account2, account3, account4];
+
+  accountsArrayOfObj.forEach(function(curr_acc){ // looping to all acoount
+    curr_acc.username = curr_acc.owner.toLowerCase().split(' ').map(el=>el[0]).join(''); // creating a new property to all objects
+  });
+  
+}
+
+// previously (accounts1)
+// owner:"Jonas Schmedtmann"
+// pin:1111
+
+createUserName(accounts);
+// console.log(accounts);
+
+// after (accounts1)
+// owner:"Jonas Schmedtmann"
+// pin:1111
+// username:"js"
+
+
+
+
+
+
+// --> displaying account balance (on UI)
+
+// const displayBalance = function(movements_array){
+//   labelBalance.innerText = '';
+//   const balance = movements_array.reduce((acc,amount)=> acc += amount, 0);
+  
+//   labelBalance.innerText = balance + '€';
+// }
+
+// displayBalance(movements); // moving this up to displayMovements function
 
 
 
@@ -128,7 +199,7 @@ displayMovements(account1.movements);
 
 
 // ---------------- LECTURES ----------------
-
+/*
 // 1: SLICE - [0,1,....)
 // extract the part of the array, it do not mutate orignal array, zero indexd based, returb that sliced array
 
@@ -248,5 +319,215 @@ uniqueCurrencies.forEach(function(value, _ ,wholeSet){ // set does not have eith
 // INR : INR
 // 189 USD : USD
 // 189 EUR : EUR
+
+
+
+
+// ----------------------- MAP, FILTER, REDUCE -----------------------
+
+// create new array after transforming from other array
+
+// MAP:
+
+// already defined above:- const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// movements to movementsRUP (rupees)
+
+const movementRUP = movements.map(function(curr_el){
+  return curr_el * 80; // return a el of new array for current position
+});
+
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+console.log(movementRUP); // [16000, 36000, -32000, 240000, -52000, -10400, 5600, 104000]
+
+// forEach --> perform side efeects inside it's call back function which is to log somthing
+// map --> perform operation and returns to create a brand new array (more aligned to functional programming)
+
+
+// FILTER:
+
+const depositsArr = movements.filter(function(curr_ammount){
+  // deposit filter: amount > 0
+  // if(curr_ammount > 0) return curr_ammount;
+  //            OR
+  return curr_ammount > 0; // return boolian (kind of) --> it's like if current_ammount > 0 then include it else do nothing
+});
+
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300] <<- orignal
+console.log(depositsArr); // [200, 450, 3000, 70, 1300]
+
+// above deposit thing can also be done using forOf loop but what if it was large calculation, hence we can use channing using this loops like:-> arr.filter().map().reduce()
+
+const withdrawals = movements.filter(curr_ammount => curr_ammount < 0);
+console.log(withdrawals); // [-400, -650, -130]
+
+
+// REDUCE: to one value
+
+// balance is a one value
+const balance = movements.reduce(function(accumulator,curr_element,index,entire_array){
+  console.log(`Iteration No: ${index} Value of Accumulator is: ${accumulator}`);
+  return accumulator + curr_element;
+}, 0); // <-- initial value, default it's 0
+
+console.log(balance);
+
+// Iteration No: 0 Value of Accumulator is: 0
+// Iteration No: 1 Value of Accumulator is: 200
+// Iteration No: 2 Value of Accumulator is: 650
+// Iteration No: 3 Value of Accumulator is: 250
+// Iteration No: 4 Value of Accumulator is: 3250
+// Iteration No: 5 Value of Accumulator is: 2600
+// Iteration No: 6 Value of Accumulator is: 2470
+// Iteration No: 7 Value of Accumulator is: 2540
+// 3840 <<-- accumulator it self
+
+
+// reduce or reduce's accumulatror variable is not just oncy use to accumulate somthing it can aslo be use for other purpos such as finding max/min value in an array, etc.
+
+const max = movements.reduce((max_till,mov)=>{
+  if(max_till > mov) return max_till;
+  else return mov; // return crrent value as max till now  
+}, movements[0]);
+console.log(max); // 3000
+
+
+
+
+
+
+*/
+
+
+
+
+
+
+
+// ------------------------ coding challenge ------------------------
+/*
+// 1:
+
+const checkDogs = function(dogArrJulia, dogsArrKate){
+  const allDogsArr = dogArrJulia.slice(1,dogArrJulia.length - 2);
+  // console.log(allDogsArr);
+
+  // allDogsArr.concat(dogsArrKate);
+
+  console.log(`------ Julia Dog's ------`);
+  allDogsArr.forEach(function (dogEl, i) {
+    console.log(
+      `Dog number ${i + 1} is ${
+        dogEl >= 3 ? `an adult, and is ${dogEl} years old` : `still a puppy`
+        }`
+      );
+    });
+    console.log(`------ Kate Dog's ------`);
+  dogsArrKate.forEach(function (dogEl, i) {
+    console.log(
+      `Dog number ${i + 1} is ${
+        dogEl >= 3 ? `an adult, and is ${dogEl} years old` : `still a puppy`
+      }`
+    );
+  });
+
+}
+
+
+checkDogs([3,5,2,12,7],[4,1,15,8,3]);
+
+ */
+
+// 2
+
+
+// WRONG silly mistake:-
+
+// const calcAvgHumanAgeAsPerDogAge = function(dogAges){
+//   // step 1: calculate the human equivalent age --> map
+//   // step 2: exclude all dog that are less then 18 human equvalent age --> filter
+//   // step 3: now calculate average --> reduce
+
+  
+//   const avg = dogAges
+//                 .map((curr_dog_age) => {
+//                   if (curr_dog_age <= 2) return 2 * curr_dog_age;
+//                   else return 16 + curr_dog_age * 4;
+//                 })
+//                 .filter(curr_human_equivalent_age => curr_human_equivalent_age >= 18)
+//                 .reduce((avg, curr_filtered_human_equivalent_age) => avg + curr_filtered_human_equivalent_age, 0 / dogAges.length); // beacouse 'dogAges.length' is reduce in filter phase
+
+
+//   return avg;
+
+// }
+
+// const avgRes = calcAvgHumanAgeAsPerDogAge([5,2,4,1,15,8,3])
+// console.log(avgRes);  // 31.428571428571427
+// // const avgRes = calcAvgHumanAgeAsPerDogAge([16,6,10,5,6,1,4])
+// // console.log(avgRes);  // 40.5714285714285727
+
+
+
+// CORRECT:-
+
+
+
+const calcAvgHumanAgeAsPerDogAge = function(dogAges) {
+  // Step 1: Calculate human equivalent ages based on dog ages
+  const humanEquivalentAges = dogAges.map(curr_dog_age => {
+    if (curr_dog_age <= 2) {
+      return 2 * curr_dog_age;  // If dog age is <= 2
+    } else {
+      return 16 + curr_dog_age * 4;  // If dog age is > 2
+    }
+  });
+
+  // Step 2: Filter out ages less than 18
+  const filteredAges = humanEquivalentAges.filter(curr_human_equivalent_age => curr_human_equivalent_age >= 18);
+
+  // Step 3: Calculate the average of filtered ages
+  if (filteredAges.length === 0) {
+    return 0;  // Return 0 if no ages are eligible
+  } else {
+    const sum = filteredAges.reduce((total, age) => total + age, 0);
+    const average = sum / filteredAges.length;
+    return average;
+  }
+}
+
+
+// const avgRes = calcAvgHumanAgeAsPerDogAge([5,2,4,1,15,8,3])
+// console.log(avgRes);  // 44
+const avgRes = calcAvgHumanAgeAsPerDogAge([16,6,10,5,6,1,4])
+console.log(avgRes);  // 47.333333333333336
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------ coding challenge END ------------------------
+
+
 
 
