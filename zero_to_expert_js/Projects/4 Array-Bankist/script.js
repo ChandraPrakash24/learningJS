@@ -77,7 +77,7 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // project
 
 
-// --> displaying movements (on UI)
+// --> displaying movements (on UI) ////////////////////////////////////////////
 const displayMovements = function(movements){
 
   containerMovements.innerHTML = '';
@@ -100,7 +100,7 @@ const displayMovements = function(movements){
 
 
 
-
+  // --> display balance (on UI)
   const displayBalance = function(movements_array){
     labelBalance.innerText = '';
     const balance = movements_array.reduce((acc,amount)=> acc + amount, 0);
@@ -108,6 +108,45 @@ const displayMovements = function(movements){
     labelBalance.innerText = balance + '€';
   }
   displayBalance(movements);
+  
+
+
+
+  // --> display transaction summery (on UI)
+
+  const displayTransactionSummery = function(movements){
+    const income = movements.filter(mov => mov > 0).reduce((acc,mov) => acc + mov, 0);
+    labelSumIn.textContent = `${income}€`;
+
+    const spendeature = movements.filter(mov => mov < 0).reduce((acc,mov) => acc + mov, 0);
+    labelSumOut.textContent = `${Math.abs(spendeature)}€`;
+
+    // intrest on each deposit of 1.2 %
+    const interest = movements
+      .filter((mov) => mov > 0)
+      .map((mov) => (mov * 1.2) / 100) // task: bak new rule:- bank only payes intrest if it is atlears 1€
+      .filter((int, _ , arr) => { // this array is returned by aboev method and we are currently workong on it
+        // console.log(arr); // [2.4, 5.4, 36, 0.84, 15.6] // 0.84 <-- not paying this intrest 
+        return int >= 1;
+      })
+      .reduce((acc, int) => acc + int, 0);   // before new rule 60.24€, after 60.24 - 0.84 = 59.4€
+    labelSumInterest.textContent = `${interest}€`;
+  }
+
+  displayTransactionSummery(account1.movements);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -141,7 +180,7 @@ displayMovements(account1.movements);
 
 // -------------------- challenge (prep) END --------------------
 
-// --> generating username (not on UI)
+// --> generating username (not on UI) //////////////////////////////////////////////
 
 const createUserName = function(accountsArrayOfObj){ // just a wrapper fun // const accounts = [account1, account2, account3, account4];
 
@@ -168,7 +207,7 @@ createUserName(accounts);
 
 
 
-// --> displaying account balance (on UI)
+// --> displaying account balance (on UI) ////////////////////////////////////////////
 
 // const displayBalance = function(movements_array){
 //   labelBalance.innerText = '';
@@ -183,7 +222,22 @@ createUserName(accounts);
 
 
 
+// --> Implimenting Login (on UI) //////////////////////////////////////////////////
 
+let currentAccount;
+
+btnLogin.addEventListener('click', function(e){
+  e.preventDefault(); // to privent form from automatically submetting
+
+  currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+  // console.log(currentAccount);
+
+  const loginPin = inputLoginPin.value;
+  // console.log(loginPin);
+  // console.log(currentAccount.pin);
+  parseInt(currentAccount?.pin) ===  parseInt(loginPin) ? console.log('log in') : console.log('in correct pin');;
+
+});
 
 
 
@@ -393,10 +447,59 @@ console.log(max); // 3000
 
 
 
+// ---------- MAGIC OF CHAINING METHODS -------------------
+// we can only chain methods one after if they return an array ex:
+// filter --> map
+// map --> filter
+
+// use reduce as last method in chain: ex:- filter-->map-->map-->reduce
 
 
+// do not overuse chaining
+// if huge array and has multiple chained methods then introduce performance issues
+// it is bad bractice to chain orignal array mutable methods such as (splice and reverse, etc)
+
+
+
+
+
+
+// ---------------------- FIND method -------------------------------
+
+// return the first element in an array that satisfy that condition
+
+const finFirstWithdrawals = movements.find(mov=> mov<0);
+console.log(finFirstWithdrawals); // -400
+
+// use case: find specific objec in an array of objects
+
+const acc = accounts.find(cur_acc => cur_acc.owner === 'Jonas Schmedtmann');
+console.log(acc); // {owner: 'Jonas Schmedtmann', movements: Array(8), interestRate: 1.2, pin: 1111, username: 'js'}
+
+// treditional way:-
+// for(const acco of accounts){
+//   if(acco.owner === 'Jonas Schmedtmann'){
+//     console.log(acco);
+//     break;
+//   }
+// }
+
+for (const key in accounts) {
+  // if (Object.hasOwnProperty.call(accounts, key)) {
+  //   const element = accounts[key];
+  //   console.log(element);
+  // }
+  console.log(account+key);
+}
 
 */
+
+
+
+
+
+
+
 
 
 
@@ -436,7 +539,6 @@ const checkDogs = function(dogArrJulia, dogsArrKate){
 
 checkDogs([3,5,2,12,7],[4,1,15,8,3]);
 
- */
 
 // 2
 
@@ -444,56 +546,56 @@ checkDogs([3,5,2,12,7],[4,1,15,8,3]);
 // WRONG silly mistake:-
 
 // const calcAvgHumanAgeAsPerDogAge = function(dogAges){
-//   // step 1: calculate the human equivalent age --> map
-//   // step 2: exclude all dog that are less then 18 human equvalent age --> filter
-//   // step 3: now calculate average --> reduce
+  //   // step 1: calculate the human equivalent age --> map
+  //   // step 2: exclude all dog that are less then 18 human equvalent age --> filter
+  //   // step 3: now calculate average --> reduce
 
   
-//   const avg = dogAges
-//                 .map((curr_dog_age) => {
-//                   if (curr_dog_age <= 2) return 2 * curr_dog_age;
-//                   else return 16 + curr_dog_age * 4;
-//                 })
-//                 .filter(curr_human_equivalent_age => curr_human_equivalent_age >= 18)
-//                 .reduce((avg, curr_filtered_human_equivalent_age) => avg + curr_filtered_human_equivalent_age, 0 / dogAges.length); // beacouse 'dogAges.length' is reduce in filter phase
-
-
-//   return avg;
-
-// }
-
-// const avgRes = calcAvgHumanAgeAsPerDogAge([5,2,4,1,15,8,3])
-// console.log(avgRes);  // 31.428571428571427
-// // const avgRes = calcAvgHumanAgeAsPerDogAge([16,6,10,5,6,1,4])
-// // console.log(avgRes);  // 40.5714285714285727
-
-
-
-// CORRECT:-
-
-
-
-const calcAvgHumanAgeAsPerDogAge = function(dogAges) {
-  // Step 1: Calculate human equivalent ages based on dog ages
-  const humanEquivalentAges = dogAges.map(curr_dog_age => {
-    if (curr_dog_age <= 2) {
-      return 2 * curr_dog_age;  // If dog age is <= 2
+  //   const avg = dogAges
+  //                 .map((curr_dog_age) => {
+    //                   if (curr_dog_age <= 2) return 2 * curr_dog_age;
+    //                   else return 16 + curr_dog_age * 4;
+    //                 })
+    //                 .filter(curr_human_equivalent_age => curr_human_equivalent_age >= 18)
+    //                 .reduce((avg, curr_filtered_human_equivalent_age) => avg + curr_filtered_human_equivalent_age, 0 / dogAges.length); // beacouse 'dogAges.length' is reduce in filter phase
+    
+    
+    //   return avg;
+    
+    // }
+    
+    // const avgRes = calcAvgHumanAgeAsPerDogAge([5,2,4,1,15,8,3])
+    // console.log(avgRes);  // 31.428571428571427
+    // // const avgRes = calcAvgHumanAgeAsPerDogAge([16,6,10,5,6,1,4])
+    // // console.log(avgRes);  // 40.5714285714285727
+    
+    
+    
+    // CORRECT:-
+    
+    
+    
+    const calcAvgHumanAgeAsPerDogAge = function(dogAges) {
+      // Step 1: Calculate human equivalent ages based on dog ages
+      const humanEquivalentAges = dogAges.map(curr_dog_age => {
+        if (curr_dog_age <= 2) {
+          return 2 * curr_dog_age;  // If dog age is <= 2
     } else {
       return 16 + curr_dog_age * 4;  // If dog age is > 2
-    }
+  }
   });
-
+  
   // Step 2: Filter out ages less than 18
   const filteredAges = humanEquivalentAges.filter(curr_human_equivalent_age => curr_human_equivalent_age >= 18);
-
+  
   // Step 3: Calculate the average of filtered ages
   if (filteredAges.length === 0) {
     return 0;  // Return 0 if no ages are eligible
   } else {
     const sum = filteredAges.reduce((total, age) => total + age, 0);
-    const average = sum / filteredAges.length;
-    return average;
-  }
+  const average = sum / filteredAges.length;
+  return average;
+}
 }
 
 
@@ -506,6 +608,54 @@ console.log(avgRes);  // 47.333333333333336
 
 
 
+// 3: re write with arraow fun and chaining
+
+const calcAvgHumanAgeAsPerDogAge = function(dogAges){
+    // step 1: calculate the human equivalent age --> map
+    // step 2: exclude all dog that are less then 18 human equvalent age --> filter
+    // step 3: now calculate average --> reduce
+
+  
+    const avg = dogAges
+                  .map(curr_dog_age => curr_dog_age <= 2 ? 2 * curr_dog_age : 16 + curr_dog_age * 4)
+                  .filter(curr_human_equivalent_age => curr_human_equivalent_age >= 18)
+                  .reduce((acc,curr_filtered_human_equivalent_age, _ , arr) => {
+                      // console.log(arr.length); // filtered arr // 5
+                      // console.log(dogAges.length); // orignal arr // 7
+                      return acc + (curr_filtered_human_equivalent_age / arr.length);
+                    },0);
+
+                  // .reduce((acc,curr_filtered_human_equivalent_age, _ , arr) => acc + (curr_filtered_human_equivalent_age / arr.length),0);
+                  
+                  // .reduce((acc,curr_filtered_human_equivalent_age, _ , arr) => {
+                  //     return acc + curr_filtered_human_equivalent_age;
+                  //   },0 / arr.length); // X ERR: > arr is not define (coz it's outside of reduce scope)
+                  
+                  return avg;
+    
+    }
+    
+  // const avgRes = calcAvgHumanAgeAsPerDogAge([5,2,4,1,15,8,3])
+  // console.log(avgRes);  // 44
+  const avgRes = calcAvgHumanAgeAsPerDogAge([16,6,10,5,6,1,4])
+  console.log(avgRes);  // 47.333333333333336
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
 
 
 
