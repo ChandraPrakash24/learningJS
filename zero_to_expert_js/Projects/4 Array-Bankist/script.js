@@ -78,7 +78,7 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 
 // --> displaying movements (on UI) ////////////////////////////////////////////
-const displayMovements = function(movements){
+const displayMovements = function(movements, entire_current_acc){
 
   containerMovements.innerHTML = '';
 
@@ -114,17 +114,17 @@ const displayMovements = function(movements){
 
   // --> display transaction summery (on UI)
 
-  const displayTransactionSummery = function(movements){
-    const income = movements.filter(mov => mov > 0).reduce((acc,mov) => acc + mov, 0);
+  const displayTransactionSummery = function(curr_account){
+    const income = curr_account.movements.filter(mov => mov > 0).reduce((acc,mov) => acc + mov, 0);
     labelSumIn.textContent = `${income}€`;
 
-    const spendeature = movements.filter(mov => mov < 0).reduce((acc,mov) => acc + mov, 0);
+    const spendeature = curr_account.movements.filter(mov => mov < 0).reduce((acc,mov) => acc + mov, 0);
     labelSumOut.textContent = `${Math.abs(spendeature)}€`;
 
     // intrest on each deposit of 1.2 %
-    const interest = movements
+    const interest = curr_account.movements
       .filter((mov) => mov > 0)
-      .map((mov) => (mov * 1.2) / 100) // task: bak new rule:- bank only payes intrest if it is atlears 1€
+      .map((mov) => (mov * curr_account.interestRate) / 100) // task: bak new rule:- bank only payes intrest if it is atlears 1€
       .filter((int, _ , arr) => { // this array is returned by aboev method and we are currently workong on it
         // console.log(arr); // [2.4, 5.4, 36, 0.84, 15.6] // 0.84 <-- not paying this intrest 
         return int >= 1;
@@ -133,27 +133,14 @@ const displayMovements = function(movements){
     labelSumInterest.textContent = `${interest}€`;
   }
 
-  displayTransactionSummery(account1.movements);
-
-
-
-
-
-
-
-
-
-
-
-
-
+  displayTransactionSummery(entire_current_acc); // move down to login
 
 
 
 
 }
 
-displayMovements(account1.movements);
+// displayMovements(account1.movements); // moved below to login logic
 // displayMovements(movements);
 
 // console.log(containerMovements.innerHTML); // html that we created
@@ -235,18 +222,72 @@ btnLogin.addEventListener('click', function(e){
   const loginPin = inputLoginPin.value;
   // console.log(loginPin);
   // console.log(currentAccount.pin);
-  parseInt(currentAccount?.pin) ===  parseInt(loginPin) ? console.log('log in') : console.log('in correct pin');;
+  if(parseInt(currentAccount?.pin) ===  parseInt(loginPin)){
+    labelWelcome.textContent = `Welcome back ${currentAccount?.owner.split(' ')[0]}`;
+    // containerApp.style.opacity = 100;
+    containerApp.style.opacity = 1;
+
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+    
+    displayMovements(currentAccount.movements, currentAccount);
+    // displayTransactionSummery(currentAccount);
+  } 
 
 });
 
 
+// --> Implimenting Amount Transfer functaniality (on UI) //////////////////////////////////////////
 
 
+btnTransfer.addEventListener('click',function(e){
+  e.preventDefault();
+
+  const amount = Number(inputTransferAmount.value);
+  const recipeantAcc = accounts.find(acc => acc.username === inputTransferTo.value);
+
+  // console.log(amount, recipeantAcc);
+  // console.log(recipeantAcc?.username); // returns undefine hence do not use optional chaining here
+  
+  // just clean up nothind to do with below transfer logic
+  inputTransferAmount.value = inputTransferTo.value = '';
+  inputTransferAmount.blur();
+
+  if(amount>0 && recipeantAcc && recipeantAcc.username !== currentAccount.username && amount <= currentAccount.movements.reduce((acc,mov) => acc + mov )){
+    // currentAccount.movements[0] -= amount;
+    // recipeantAcc?.movements[0] += amount; // you can use arr.pushBack hence it will also update that @displayMovements
+    currentAccount.movements.push(amount * -1);
+    recipeantAcc?.movements.push(amount); // you can use arr.pushBack hence it will also update that @displayMovements
+
+    displayMovements(currentAccount.movements, currentAccount);
+  }
+  
+  
+  // console.log(currentAccount); // we ahve acces to current user coz it was defined globally using let
+});
 
 
+// --> Implimenting Amount Deletion functaniality (on UI) //////////////////////////////////////////
 
+btnClose.addEventListener('click', function(e){
+  e.preventDefault();
 
+  const user = inputCloseUsername.value;
+  const usersPin = Number(inputClosePin.value);
 
+  if(currentAccount.username === user && currentAccount.pin === usersPin){
+    const index = accounts.findIndex(acc => acc.username === user);
+
+    accounts.splice(index,1); // removing 1 elemnt at index in orignal array
+
+    containerApp.style.opacity = 0;    
+
+  }
+
+  inputCloseUsername.value = inputClosePin.value = '';
+  inputClosePin.blur();
+
+});
 
 
 
@@ -468,8 +509,8 @@ console.log(max); // 3000
 
 // return the first element in an array that satisfy that condition
 
-const finFirstWithdrawals = movements.find(mov=> mov<0);
-console.log(finFirstWithdrawals); // -400
+const findFirstWithdrawals = movements.find(mov=> mov<0);
+console.log(findFirstWithdrawals); // -400
 
 // use case: find specific objec in an array of objects
 
@@ -493,6 +534,10 @@ for (const key in accounts) {
 }
 
 */
+
+// --------------- findIndex() -------------------------
+// returns the index of found element
+
 
 
 
@@ -656,22 +701,6 @@ const calcAvgHumanAgeAsPerDogAge = function(dogAges){
 
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
