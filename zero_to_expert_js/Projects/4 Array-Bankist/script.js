@@ -266,8 +266,31 @@ btnTransfer.addEventListener('click',function(e){
   // console.log(currentAccount); // we ahve acces to current user coz it was defined globally using let
 });
 
+// --> Get Loan functaniality (on UI) ////////////////////////////////////////////////////////////////////////
 
-// --> Implimenting Amount Deletion functaniality (on UI) //////////////////////////////////////////
+btnLoan.addEventListener('click', function(e){
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if(amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)){
+    currentAccount.movements.push(amount);
+    displayMovements(currentAccount.movements, currentAccount);
+  }
+  inputLoanAmount.value = '';
+  inputLoanAmount.blur();
+});
+
+
+
+
+
+
+
+
+
+
+// --> Implimenting Account Deletion functaniality (on UI) //////////////////////////////////////////
 
 btnClose.addEventListener('click', function(e){
   e.preventDefault();
@@ -533,13 +556,93 @@ for (const key in accounts) {
   console.log(account+key);
 }
 
-*/
+
 
 // --------------- findIndex() -------------------------
 // returns the index of found element
 
 
+// --------------- some() -------------------------
 
+
+// EQUALITY
+console.log(movements.includes(-130)); // true <-- treditional way
+
+
+// CONDITIONS
+// does movements's conatin some or any deposit greater then 2000
+
+console.log(movements.some(mov => mov > 2000)); // true
+
+
+console.log(movements.some(mov => mov === -130)); // true
+
+
+
+
+// --------------- every() -------------------------
+// every element must satisfy this condition in an array
+
+// ex: - does the movements array every element id greater then 100 or less then 100
+
+console.log(movements.every(mov => mov >= 100 || mov <= 100)); // true
+
+// is all positive deposits
+console.log(movements.every(mov => mov > 0)); // false
+
+
+// --------------- flat() -------------------------
+
+// for array:
+const arr = [[1,2,3,4],[5,6,7,8],9,10]; // one depth array
+
+console.log(arr.flat());
+
+const arr2 = [[1,[2,3],4],[[5,6],7,8],9,10]; // two depth array
+
+console.log(arr2.flat(1)); // [1, Array(2), 4, Array(2), 7, 8, 9, 10]
+console.log(arr2.flat(2)); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+
+
+
+
+
+
+// suppose you have to calculate the balanace (combined) of all the accounts in youre bank which is some sort of nested in objectsa nad array, etc.
+
+//                         accounts array has 4 obj --> then map (another use of map or trick) will return all that array in single array --> on which flat is applyed             
+// const allAcountBalanace = accounts.map(acc => acc.movements).flat().reduce((acc,mov) => acc + mov, 0);
+// console.log(allAcountBalanace); // 17840
+
+// [Array(8), Array(8), Array(8), Array(5)]
+// [200, 450, -400, 3000, -650, -130, 70, 1300, 5000, 3400, -150, -790, -3210, -1000, 8500, -30, 200, -200, 340, -300, -20, 50, 400, -460, 430, 1000, 700, 50, 90]
+// 17840
+
+
+// IMP: so using a map first and flatening the result is very common so we got:-
+// above example with flatMap
+
+// ONLY ONE LEVEL DEEP
+
+const allAcountBalanace2 = accounts.flatMap(acc => acc.movements).reduce((acc,mov) => acc + mov, 0);
+console.log(allAcountBalanace2); // 17840
+
+*/
+
+
+// --------------- SORTING -------------------------
+
+// IMP:-
+
+// mutates the orignal array 
+// It do sorting on the basic of string ex:-
+console.log(movements.sort()); // [-130, -400, -650, 1300, 200, 3000, 450, 70] <-- incorrectotely sorted
+
+
+const arr = ['j','z','a','m'];
+console.log(arr.sort()); // ['a', 'j', 'm', 'z']
+console.log(arr); 
 
 
 
