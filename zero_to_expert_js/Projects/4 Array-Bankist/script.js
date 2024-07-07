@@ -78,11 +78,15 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 
 // --> displaying movements (on UI) ////////////////////////////////////////////
-const displayMovements = function(movements, entire_current_acc){
+const displayMovements = function(movements, entire_current_acc, sort = false){
 
   containerMovements.innerHTML = '';
 
-  movements.forEach(function(moves,i){
+  // sorting logic
+  // temp movements array
+  const movesT = sort ? movements.slice().sort((a,b)=> a-b) : movements;
+  //                             ^-> creating copy of array so that 'sort' won't mutate our orignal movements array 
+  movesT.forEach(function(moves,i){
 
 
     const type = moves > 0 ? 'deposit' : 'withdrawal';
@@ -282,6 +286,16 @@ btnLoan.addEventListener('click', function(e){
 });
 
 
+// --> Get Sorting functaniality (on UI) ////////////////////////////////////////////////////////////////////////
+
+let sort = false; // to implement toogle functanilaty
+
+btnSort.addEventListener('click', function(e){
+  e.preventDefault();
+
+  displayMovements(currentAccount.movements, currentAccount, !sort );
+  sort = !sort;
+})
 
 
 
@@ -628,7 +642,7 @@ console.log(arr2.flat(2)); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const allAcountBalanace2 = accounts.flatMap(acc => acc.movements).reduce((acc,mov) => acc + mov, 0);
 console.log(allAcountBalanace2); // 17840
 
-*/
+
 
 
 // --------------- SORTING -------------------------
@@ -638,17 +652,129 @@ console.log(allAcountBalanace2); // 17840
 // mutates the orignal array 
 // It do sorting on the basic of string ex:-
 console.log(movements.sort()); // [-130, -400, -650, 1300, 200, 3000, 450, 70] <-- incorrectotely sorted
-
+//                                |-1,   -4,   -6  | 1,    2,   3,    4,   7 | 
 
 const arr = ['j','z','a','m'];
 console.log(arr.sort()); // ['a', 'j', 'm', 'z']
 console.log(arr); 
 
 
+// correct sorting:-
+
+// agar 'switch' krna hai ex: 450 (A) -400 (B) toh return 1 (any positive no ) else agar switch nahi krn hai toh return -1 (any negative no)
+
+// sort in assending order:
+// 450 (curr_val) > -400 (next_val), yes we want to switch, then return -1
+
+// if switch --> 1
+// if no switch --> -1
+
+
+// ascending 
+// movements.sort((current_val, next_val)=>{
+//   if(current_val > next_val) return 1;
+//   if(current_val < next_val) return -1;
+// })
+
+// console.log(movements); // ascending :- [-650, -400, -130, 70, 200, 450, 1300, 3000]
+// or
+movements.sort((a, b)=> a - b); // IMP: only work for accending and with numbers only
+// 2 - 4 = - 2 (means no switch)
+// 4 - 2 =  2 (means no switch)
+console.log(movements); // asscending :- [-650, -400, -130, 70, 200, 450, 1300, 3000]
+
+
+// decending
+
+// movements.sort((current_val, next_val)=>{
+//   if(current_val > next_val) return -1;
+//   if(current_val < next_val) return 1;
+// })
+
+// console.log(movements); // ascending :- [3000, 1300, 450, 200, 70, -130, -400, -650]
 
 
 
 
+// --------------- Programeaticaly creating and filling an array -------------------------
+
+// IPM: fill mutate the orignal array
+
+
+// til now we are creating array like this:-
+console.log([1,2,3,4,5]);
+console.log(new Array(1,2,3,4,5));
+let arr = [1,2,3,4,5]; console.log(arr);
+
+// const x = new Array(8);
+// console.log(x); // [empty × 8]
+
+// const x = new Array(8).fill(1);
+// console.log(x); // [1, 1, 1, 1, 1, 1, 1, 1]
+
+// const x = new Array(8)  <-- EMPTY ARRAY
+
+
+const x = new Array(8).fill(1,3,6); // where to start filling (inclusive) where to end (exclusive)
+console.log(x); // [empty × 3, 1, 1, empty × 2]
+
+const y = [1,2,3,4,5,6,7];
+y.fill(24,2,5);
+console.log(y); // [1, 2, 24, 24, 24, 6, 7]
+
+// what if we want to create array like this [1,2,3,4,5] programeticaly
+
+// -------- Array.from() -----------
+
+const z = Array.from({length : 7}, () => 1); 
+console.log(z); // [1, 1, 1, 1, 1, 1, 1]
+
+
+// const p = Array.from({length : 7}, (curr, i) => i+1); 
+const p = Array.from({length : 7}, (_, i) => i+1); 
+console.log(p); // [1, 2, 3, 4, 5, 6, 7
+
+// create an array with 100 randome dice roll
+
+
+const dice1000 = Array.from({length : 100}, () => Math.trunc(Math.random() * 6 + 1)); 
+console.log(dice1000); // [5, 1, 6, 4, 1, 1, 3, 4, 3, 4, 1, 2, 3, 2, 6, 4, 1, 3, 2, 2, 5, 5, 4, 5, 4,
+// 2, 6, 4, 2, 4, 5, 1, 5, 1, 6, 1, 2, 1, 4, 4, 6, 5, 6, 2, 2, 3, 6, 2, 4, 4, 1, 6, 3, 4, 4, 6, 1, 4, 2,
+// 3, 1, 1, 4, 4, 3, 4, 1, 5, 6, 4, 4, 3, 1, 4, 1, 4, 5, 5, 2, 6, 3, 1, 3, 4, 4, 3, 6, 3, 5, 1, 2, 6, 1,
+// 1, 5, 5, 6, 1, 1, 1]
+
+
+// REAL USE CASE OF Array.from() it means you can create array from (any iterables) even iterables like node list which was returned by querySelectorAll which is not an actual array, so we can convert into into real array so we can then fermor operations like, map, reduce, etc.
+
+// syntex: Array.from(task, mapFun)
+
+
+// labelBalance.addEventListener('click', function(){
+//   const movementsFromUi = Array.from( document.querySelectorAll('.movements__value'));
+
+//   console.log(movementsFromUi.map(el => Number(el.textContent.replace('€', '')))); // [1300, 70, -130, -650, 3000, -400, 450, 200]
+// });
+
+//                      OR
+
+
+// good way
+labelBalance.addEventListener('click', function(){
+  const movementsFromUi = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsFromUi); // [1300, 70, -130, -650, 3000, -400, 450, 200]
+});
+
+//                    OR
+
+const movementsFromUi2 = [... document.querySelectorAll('.movements__value')];
+console.log(movementsFromUi2);
+// then we have to use seprately
+
+
+*/
 
 
 
@@ -809,6 +935,55 @@ const calcAvgHumanAgeAsPerDogAge = function(dogAges){
 
 
 // ------------------------ coding challenge END ------------------------
+
+// ------------------------ Array Method Practice ------------------------
+
+
+// 1
+const bankDepositSum = accounts.map(mov => mov.movements).flat().filter(mov => mov > 0).reduce((acc, mov) => acc + mov );
+console.log(bankDepositSum); // 25180
+
+
+// 2
+// const numDeposit1000 = accounts.flatMap(mov => mov.movements).filter(mov => mov >= 1000).length;
+// console.log(numDeposit1000);
+
+// using reduce
+const numDeposit1000 = accounts.flatMap(mov => mov.movements).reduce((count,mov) => mov >= 1000 ? ++count : count, 0);
+console.log(numDeposit1000); // 6
+
+
+// 3: create an object which contain sum of all deposit and withdrawals of all account
+
+const {deposit, withdrawls} = accounts.flatMap(mov => mov.movements).reduce((sums,mov) => {
+// const sums = accounts.flatMap(mov => mov.movements).reduce((sums,mov) => {
+  // mov > 0 ? sums.deposit += mov : sums.withdrawls += mov * -1;
+  sums[mov > 0 ? 'deposit' : 'withdrawls'] += mov;
+  return sums;
+}, {deposit: 0, withdrawls : 0});
+
+console.log(deposit ,withdrawls); // 25180 7340
+// console.log(sums); // {deposit: 25180, withdrawls: 7340}
+
+// 4: convert title case
+const convertTitleCase = function(title){
+  const titleWordArr = title.split(' ');
+  const convertedTitle = titleWordArr.reduce((acc,el)=>{
+    el.length !== 1 ? acc += `${el[0].toUpperCase()}${el.slice(1).toLowerCase()} ` : acc += `${el[0].toLowerCase()} `;
+    return acc;
+  },'')
+  console.log(convertedTitle); // This Is a Nice Title
+}
+
+convertTitleCase('this is a nice title');
+convertTitleCase('this is a nice TITLE'); // This Is a Nice Title 
+
+
+
+
+
+
+
 
 
 
