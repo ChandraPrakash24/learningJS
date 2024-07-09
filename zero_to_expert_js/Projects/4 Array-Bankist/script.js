@@ -384,23 +384,63 @@ btnClose.addEventListener('click', function(e){
 
 //----------------------------------- LECTURES ------------------------------------
 
+/* 
+
+
+
+*/
 
 // all Numbers, Decimels are internally represented as 'flooting points' ex:- console.log(24 === 24.0); // ture
 // in a 64 base 2 format (in binary) 
 
+// BASE 10 :- 0 to 9
+// BASE 2 :- 0 and 1
+console.log(0.1 + 0.2); // 0.30000000000000004
+console.log(0.1 + 0.2 === 0.3); // false
+// js struggle to represent some fractios like this 0.1
+
+
+// string to Number
+console.log(Number('24')); // 24
+console.log(+'24'); // 24 (when js see + it try to cohersion hence convert string into Number)
+
+// Parsing
+console.log(Number.parseInt('24px')); // 24 (struing must start with number)
+console.log(Number.parseInt('px24')); // NaN
+console.log(Number.parseInt('px24px')); // NaN
+console.log(Number.parseInt('24px23')); // 24
 
 
 
+console.log(Number.parseInt('24px', / /)); // 24 <-- second arg is regx
+console.log(Number.parseInt('24px', 10)); // 24 <-- 10 means we are using Base 10
+console.log(Number.parseInt('24px', 2)); // NaN <-- 2 means we are using Base 2
+
+// White Spaces is allowed <--
+
+console.log(Number.parseFloat('    24.24rem    ', 10)); // 24.24
+console.log(Number.parseInt('   24.24rem ', 10)); // 24
+
+// below is global 'parseInt/Float' but it is always good to use it on 'Number' using dot operator beacouse Number object provieds 'namespace' that is 'isNaN()'
+
+console.log('this:',parseInt('   24.24rem ', 10)); // this: 24
+
+console.log(Number.isNaN(20)); // false (it's a number)
+console.log(Number.isNaN('20')); // false (it's a value)
+console.log(Number.isNaN(+'20px')); // true (on converted to number, this is not a number)
+console.log(Number.isNaN(12 / 0)); // false (infinity is also not a number)
+
+// better method (to check if a value is number or not)
+
+console.log(Number.isFinite(20)); // t
+console.log(Number.isFinite('20')); // f
+console.log(Number.isFinite(+'20px')); // f
+console.log(Number.isFinite(12 /0)); // f
 
 
-
-
-
-
-
-
-
-
+console.log(Number.isInteger(12)); // t
+console.log(Number.isInteger(12.0)); // f
+console.log(Number.isInteger(12 / 0)); // f
 
 
 
