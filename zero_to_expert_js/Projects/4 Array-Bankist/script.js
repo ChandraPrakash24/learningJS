@@ -144,7 +144,7 @@ const displayMovements = function(movements, entire_current_acc, sort = false){
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
-        <div class="movements__value">${moves}</div>
+        <div class="movements__value">${moves.toFixed(2)}</div>
       </div>
     `;
 
@@ -159,7 +159,7 @@ const displayMovements = function(movements, entire_current_acc, sort = false){
     labelBalance.innerText = '';
     const balance = movements_array.reduce((acc,amount)=> acc + amount, 0);
     
-    labelBalance.innerText = balance + '€';
+    labelBalance.innerText = balance.toFixed(2) + '€';
   }
   displayBalance(movements);
   
@@ -170,10 +170,10 @@ const displayMovements = function(movements, entire_current_acc, sort = false){
 
   const displayTransactionSummery = function(curr_account){
     const income = curr_account.movements.filter(mov => mov > 0).reduce((acc,mov) => acc + mov, 0);
-    labelSumIn.textContent = `${income}€`;
+    labelSumIn.textContent = `${income.toFixed(2)}€`;
 
     const spendeature = curr_account.movements.filter(mov => mov < 0).reduce((acc,mov) => acc + mov, 0);
-    labelSumOut.textContent = `${Math.abs(spendeature)}€`;
+    labelSumOut.textContent = `${Math.abs(spendeature.toFixed(2))}€`;
 
     // intrest on each deposit of 1.2 %
     const interest = curr_account.movements
@@ -184,7 +184,7 @@ const displayMovements = function(movements, entire_current_acc, sort = false){
         return int >= 1;
       })
       .reduce((acc, int) => acc + int, 0);   // before new rule 60.24€, after 60.24 - 0.84 = 59.4€
-    labelSumInterest.textContent = `${interest}€`;
+    labelSumInterest.textContent = `${interest.toFixed(2)}€`;
   }
 
   displayTransactionSummery(entire_current_acc); // move down to login
@@ -325,7 +325,7 @@ btnTransfer.addEventListener('click',function(e){
 btnLoan.addEventListener('click', function(e){
   e.preventDefault();
 
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if(amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)){
     currentAccount.movements.push(amount);
@@ -437,69 +437,174 @@ console.log(Number.isFinite('20')); // f
 console.log(Number.isFinite(+'20px')); // f
 console.log(Number.isFinite(12 /0)); // f
 
-
+// use if you are sure that the value is only intiger
 console.log(Number.isInteger(12)); // t
 console.log(Number.isInteger(12.0)); // f
 console.log(Number.isInteger(12 / 0)); // f
 
 
 
+//------------ Math and Rounding ---------------------------
+
+// sqrt
+console.log(Math.sqrt(25)); // 5
+console.log(25 ** (1/2)); // 5
+console.log(8 ** (1/3)); // 2 <-- only way to calculate 'cube root'
+
+// max
+console.log(Math.max(5,11,24,18,2)); // 24
+console.log(Math.max(5,11,'24',18,2)); // 24 <<- it do type correstion
+console.log(Math.max(5,11,'24px',18,2)); // NaN <<- it do not do parsing
+
+// min
+console.log(Math.min(5,11,24,18,1)); // 1
+console.log(Math.min(5,11,'24',18,-1)); // -1 <<- it do type correstion
+console.log(Math.min(5,11,'24px',18,1)); // NaN <<- it do not do parsing
+
+// Math. <- means math namespace so get max from Math namespace
+
+// radius of cicrle using PI
+let r = 10;
+console.log(Math.PI); // 3.14159265358979
+console.log(Math.PI * (r ** 2));
+
+// Randome No.
+console.log(Math.random()); // 0.01 to 0.99
+console.log(Math.random() * 6); // 0 to 5
+
+const randomeInt = (min,max) => Math.trunc(Math.random() * (max - min) + 1) + min;
+console.log(randomeInt(11,22));
+// 0....1 -> 0....(max - min) -> min....(max - min + min) (add min) -> - min + min got cancel out and we will endup with -> min....max
+
+
+// rounding (all this method do type coresion)
+console.log(Math.trunc(3.141592653589793)); // 3
+
+console.log(Math.round(23.3)); // 23
+console.log(Math.round(23.9)); // 24
+
+console.log(Math.ceil(23.3)); // 24
+console.log(Math.ceil(23.9)); // 24
+
+console.log(Math.floor(23.3)); // 23
+console.log(Math.floor('23.9')); // 23
+
+// round where different with negative numbers
+console.log(Math.round(-23.3)); // 23
+console.log(Math.floor(-23.3)); // 24
+
+console.log(Math.round(-23.9)); // 24
+console.log(Math.floor(-23.9)); // 24
+
+// so 'floor' is the perfect way to do rounding
+// so replace 'Math.trunc' with 'Math.floor' in above randomeInt function so it can also work with negative values
+
+// rounding decimals
+// toFixed() <-- DO NOT DO TYPE COERSION
+console.log((2.7).toFixed(0)); // 3 <-- this returned value is string type, so first convert to number before using it
+console.log((2.7).toFixed(3)); // 2.700
+console.log((2.345).toFixed(2)); // 2.35 
+console.log((2.355).toFixed(2)); // 2.35 
+console.log((-2.355).toFixed(2)); // -2.35 
+console.log((2.365).toFixed(2)); // 2.37 
+console.log((-2.365).toFixed(2)); // -2.37 
+// console.log(('-2.365').toFixed(2)); // ERROR 
+console.log(+(2.345).toFixed(2)); // 2.35 <-- type : Number
+
+// there are more functions like logerithmic, sin function, etc. -> check mdn
 
 
 
 
+// -- remainder operator (of division) --
+console.log(5%2); // 1
+console.log(5/2); // 2.5 ->floor-> 2 explanition: // 5 = 2 * 2 + 1 <-- this 1 is remainder in above line 
 
 
+console.log(8 % 3); // 2
+console.log(8 / 3); // 2.6666 --> 2 // 8 = 2 * 3 + 2 <-- this 2 is remainder in above line
+
+//              (dividend)
+//
+//   (divisor)  3 ) 8 ( 2  (quotient)
+//                  6
+//                =====
+//                  2     (remainder/modulus)
 
 
+// even (means it was divisible by 2 hence reminder will be 0)
+console.log(8 % 2); // 0 <-- hence 'even'
+console.log(8 / 2); // 8 = 2 * 4 + 0 <-- remainder is 0
 
+// odd (means it was not divisible by 2 hence reminder will be 1)
+console.log(7 % 2); // 1 <-- hence 'odd'
+console.log(7 / 2); // 3.5 // 7 = 2 * 3 + 1 <-- remainder is 1
 
+const isEven = n => n % 2 === 0;
+console.log(isEven(8)); // true
+console.log(isEven(7)); // false
+console.log(isEven(1)); // f
+console.log(isEven(0)); // t
+console.log(isEven(2)); // t
+console.log(isEven(-2)); // t
+console.log(isEven(-3)); // f
 
+// application (every nth time) : like if you want to color every 2nd row to any color the use if(index % 2 === 0) color: orange; --> 0,2,4,6,8.....
+// if you want to color every third row then if(index % 3 === 0) color: blue; --> 0,3,6,9,.... 
 
+// ---------------- Numeric seprator ---------------------
+// only use in code (for hard coded value of type Number only, for logical sepration)
 
+console.log(15_00); // 1500 (but means 15$ 0 cents)
+console.log(1_500); // 1500 (mans 1 thousend 5 hundred $)
 
+console.log(Number('230_000')); // NaN
+console.log(parseInt('230_000')); // 230
 
+// ----------------- BIGINT ------------------
 
+// in INT : 64 bit only 54 bit is use store digit , rest is used to store decimal part and signature of that number
 
+console.log(2 ** 53-1); // 9007199254740991 safest biggest number that js can reprsent  
+console.log(Number.MAX_SAFE_INTEGER); // 9007199254740991
+console.log(Number.MAX_VALUE); // 1.7976931348623157e+308
 
+// what if we use grater then max sage int
+console.log(2 ** 53 +  3); // 9007199254740996
+console.log(2 ** 53 +  4); // 9007199254740996
+console.log(Number.MAX_SAFE_INTEGER + 4); // 9007199254740996
+// all no are same even thoug added no was different
+// un expected behavioures
 
+// bigInt syntex:
+// console.log(bigNo then 'n');
 
+// no mater how big like database id ,etc
+// console.log(764695621361249482640806012630129301630613060126612036612093n);
+// console.log(BigInt(764695621361249482640806012630129301630613060126612036612093));
+// out:
+// 764695621361249482640806012630129301630613060126612036612093n
+// 764695621361249442660659033472102123347961801897551572500480n
 
+// both above outputs are differnent beacouse js internally first store this no into somting before converting into bigInt 
 
+// operations:
+console.log(1000n + 1000n); // 2000n
+console.log(1000n * 1000n); // 1000000n
 
+// IMP:  mixing bigInt with regual no is not possible
+// IMP: Math operation also not works like Math.sqrt(68766968998988n)
 
+// EXCEPTION:
+// but comperasion work
+console.log(20n > 15); // true
 
+// with string concatenation
+console.log(213247234239429849n + 'this is Huge no'); // 213247234239429849this is Huge no
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// division
+console.log(11n/3n); // 3n (it will cut the decimal part automatically)
+console.log(11/3); // 3.666666666666666
 
 
 
