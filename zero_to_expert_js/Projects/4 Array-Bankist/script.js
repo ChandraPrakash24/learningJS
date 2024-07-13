@@ -52,9 +52,9 @@ const account1 = {
     '2020-01-28T09:15:04.904Z',
     '2020-04-01T10:17:24.185Z',
     '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2024-07-06T10:51:36.790Z',
+    '2024-07-08T10:51:36.790Z',
+    '2024-07-12T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -126,6 +126,24 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // project
 
+// format movemensts date 
+
+const formatMovementsdate = function (date){
+
+  const calcDaysPass = (date1,date2) => Math.round(Math.abs((date2 - date1) / (1000 * 24 * 60 * 60)));
+  const dayPassed = calcDaysPass(new Date(), date);
+
+  if(dayPassed === 0) return 'Today';
+  if(dayPassed === 1) return 'Yesterday';
+  if(dayPassed <= 7)  return `${dayPassed} days ago`;
+  else{
+    const day = `${date.getDate()}`.padStart(2,0); // 1 --> padd it to 01, padding only work on strings
+    const months = `${date.getMonth()}`.padStart(2,0);
+    const year = date.getFullYear();
+    
+    return `${day}/${months}/${year}`;
+  }
+} 
 
 // --> displaying movements (on UI) ////////////////////////////////////////////
 const displayMovements = function(movements, entire_current_acc, sort = false){
@@ -138,12 +156,23 @@ const displayMovements = function(movements, entire_current_acc, sort = false){
   //                             ^-> creating copy of array so that 'sort' won't mutate our orignal movements array 
   movesT.forEach(function(moves,i){
 
+    const date = new Date(currentAccount.movementsDates[i]);
+
+    // const day = `${date.getDate()}`.padStart(2,0); // 1 --> padd it to 01, padding only work on strings
+    // const months = `${date.getMonth()}`.padStart(2,0);
+    // const year = date.getFullYear();
+
+    // const displayDates = `${day}/${months}/${year}`; // <-- moving this to above function
+
+    
+    const displayDates = formatMovementsdate(date); // <-- moving this to above function
 
     const type = moves > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
+        <div class="movements__date">${displayDates}</div>
         <div class="movements__value">${moves.toFixed(2)}</div>
       </div>
     `;
@@ -267,6 +296,54 @@ createUserName(accounts);
 
 let currentAccount;
 
+// FAKE ALWAYS LOGGED IN
+currentAccount = account1;
+displayMovements(currentAccount.movements, currentAccount);
+containerApp.style.opacity = 1;
+
+// --> Adding transactio, login, session, etc datae and time (on UI) /////////////////////////////
+
+// Experimenting 'Intl' api
+
+const nowLocal = new Date(); //                 lan-CONTERY
+
+const options = {
+  hour: 'numeric',
+  minute: 'numeric',
+  day: 'numeric',
+  month: 'long', // numeric // 2-digit
+  year: 'numeric',
+  weekday: 'long'
+}
+
+const loaclBrowser = navigator.language;
+console.log(loaclBrowser); // en-US
+
+// labelDate.textContent = new Intl.DateTimeFormat(loaclBrowser, options).format(nowLocal);
+// labelDate.textContent = new Intl.DateTimeFormat('en-IN', options).format(nowLocal);
+// 'ar-SY', en-US, hi-IN, en-IN , et-EE, gu-IN
+
+
+// Experimenting 'Intl' api end
+
+
+const nowDateObject = new Date();
+// const day = `${nowDateObject.getDate()}`.padStart(2,0); // 1 --> padd it to 01, padding only work on strings
+// const months = `${nowDateObject.getMonth()}`.padStart(2,0);
+// const year = nowDateObject.getFullYear();
+// const hours = `${nowDateObject.getHours()}`.padStart(2,0);
+// const minutes = `${nowDateObject.getMinutes()}`.padStart(2,0);
+
+// labelDate.textContent = `${day}/${months}/${year}, ${hours}:${minutes}`;
+//                    OR
+// console.log('local', nowDateObject.toLocaleDateString());
+// labelDate.textContent = `${nowDateObject.toLocaleDateString()}`;
+// labelDate.textContent = `${nowDateObject.toLocaleDateString()}, ${nowDateObject.toLocaleString().slice(6,-3)}`;
+//                     OR
+labelDate.textContent = new Intl.DateTimeFormat(loaclBrowser, options).format(nowLocal);
+// labelDate.textContent = new Intl.DateTimeFormat(currentAccount.locale, options).format(nowLocal); // --> make all 'numeric' in options object
+
+
 btnLogin.addEventListener('click', function(e){
   e.preventDefault(); // to privent form from automatically submetting
 
@@ -313,6 +390,11 @@ btnTransfer.addEventListener('click',function(e){
     currentAccount.movements.push(amount * -1);
     recipeantAcc?.movements.push(amount); // you can use arr.pushBack hence it will also update that @displayMovements
 
+    currentAccount.movementsDates.push(new Date().toISOString());
+    recipeantAcc?.movementsDates.push(new Date().toISOString());
+    
+    // console.log('this: ', new Date().toISOString());
+
     displayMovements(currentAccount.movements, currentAccount);
   }
   
@@ -329,6 +411,7 @@ btnLoan.addEventListener('click', function(e){
 
   if(amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)){
     currentAccount.movements.push(amount);
+    currentAccount.movementsDates.push(new Date().toISOString());
     displayMovements(currentAccount.movements, currentAccount);
   }
   inputLoanAmount.value = '';
@@ -607,10 +690,102 @@ console.log(11n/3n); // 3n (it will cut the decimal part automatically)
 console.log(11/3); // 3.666666666666666
 
 
+// ---------------- Dates and Times -----------------------------------
+
+// ways to create Date
+
+// syntex: new Date(year, monthIndex, day, hours, minutes, seconds, milliseconds);
+
+const now = new Date(); // <-- using Date() constructor function
+console.log(now); // Sat Jul 13 2024 14:03:31 GMT+0530 (India Standard Time)
+
+console.log(new Date('Jul 13 2024 14:03:31')); // Sat Jul 13 2024 14:03:31 GMT+0530 (India Standard Time) it will 'parse' a time based on that string
+console.log(new Date('December 24, 2015')); // Thu Dec 24 2015 00:00:00 GMT+0530 (India Standard Time)
+
+console.log(new Date(account1.movementsDates[0])); // Tue Nov 19 2019 03:01:17 GMT+0530 (India Standard Time)
+console.log(new Date(2037,10,19,15,23,5)); // Thu Nov 19 2037 15:23:05 GMT+0530 (India Standard Time)
+
+// months counting for this Date() constructor is '0' based :- new Date(year,month(0 based))
+
+console.log(new Date(2037,10,31)); // <-- it means Nov 31, which do not exist hence js is smart enough to convert it into: Tue Dec 01 2037
 
 
 
+console.log(new Date(0)); // birth of unix time: Thu Jan 01 1970 05:30:00 GMT+0530 (India Standard Time)
+console.log(new Date(3 * 24 * 60 * 60 * 1000)); // 3 days after birth of unix time: Sun Jan 04 1970 05:30:00 GMT+0530 (India Standard Time) --> * by 1000 to convert it into ms
 
+// 3 * 24 * 60 * 60 * 1000 = 259200000 (timestamps of day no 3)
+
+//working with dates
+
+const future = new Date(2037,10,19,15,2);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+console.log(future.getDay());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.getMilliseconds());
+// Thu Nov 19 2037 15:02:00 GMT+0530 (India Standard Time)
+// 2037
+// 10
+// 19
+// 4
+// 15
+// 2
+// 0
+// 0
+
+// convert a date into iso standred string
+console.log(future.toISOString()); // 2037-11-19T09:32:00.000Z
+
+// get time stamp
+console.log(future.getTime()); // 2142235920000
+// revers of above time stamp
+console.log(new Date(2142235920000)); // Sat Jul 13 2024 14:47:59 GMT+0530 (India Standard Time)
+
+// get current time stamp
+console.log(Date.now()); // 1720862389885
+
+// seting date
+future.setFullYear(2040);
+console.log(future); // Mon Nov 19 2040 15:02:00 GMT+0530 (India Standard Time)
+
+// conversions
+console.log( +future ); // 2236930320000
+
+// const noOfDaysPassed = (day1,day2) => `no. of days passed in between this two days are: ${day2.getTime() - day1.getTime()}`;
+
+
+const noOfDaysPassed = (day1, day2) => `Number of days passed between ${day1.toDateString()} and ${day2.toDateString()}: ${Math.floor((day2.getTime() - day1.getTime()) / (1000 * 3600 * 24))}`;
+
+// ---------------
+console.log(noOfDaysPassed(new Date(2001,11,24),new Date(2024,6,13))); // Number of days passed between Mon Dec 24 2001 and Sat Jul 13 2024: 8237
+// ---------------
+
+console.log(new Date()); // Sat Jul 13 2024 17:04:44 GMT+0530 (India Standard Time)
+console.log(new Date().toDateString()); // Sat Jul 13 2024
+console.log(new Date().toString()); // Sat Jul 13 2024 17:04:30 GMT+0530 (India Standard Time)
+console.log(new Date().toLocaleDateString()); // 7/13/2024
+console.log(new Date().toTimeString()); // 17:04:16 GMT+0530 (India Standard Time)
+console.log(new Date().toJSON()); // 2024-07-13T11:34:08.003Z
+
+// format : 'year-month-date'
+// console.log(noOfDaysPassed(new Date('2001-12-24'),new Date('2024-07-13'))); // Number of days passed between Mon Dec 24 2001 and Sat Jul 13 2024: 8237
+
+
+// console.log(new Date());
+// console.log(new Date());
+// console.log(new Date());
+// console.log(new Date());
+// console.log(new Date());
+
+// const = new Date()
+// const = new Date()
+// const = new Date()
+// const = new Date()
 
 
 
