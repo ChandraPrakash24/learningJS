@@ -126,6 +126,8 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // project
 
+// UTILITY
+
 // format movemensts date 
 
 const formatMovementsdate = function (date){
@@ -144,6 +146,28 @@ const formatMovementsdate = function (date){
     return `${day}/${months}/${year}`;
   }
 } 
+
+const formatedMoves = function(moves){
+  return new Intl.NumberFormat(currentAccount.locale, {
+    style: "currency", // <-- currency is independent of loacl (local can be hi-IN, but curreny can be 'USD')
+    // currency: "USD",
+    currency: currentAccount.currency,
+  }).format(moves);
+}
+
+const startLogOutTimer = function(){
+  let session = 100;
+  
+  const intervalId = setInterval(() => {
+    labelTimer.textContent = time;
+
+    time--;
+
+  }, 1000);
+}
+
+// startLogOutTimer();
+
 
 // --> displaying movements (on UI) ////////////////////////////////////////////
 const displayMovements = function(movements, entire_current_acc, sort = false){
@@ -173,9 +197,10 @@ const displayMovements = function(movements, entire_current_acc, sort = false){
       <div class="movements__row">
         <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
         <div class="movements__date">${displayDates}</div>
-        <div class="movements__value">${moves.toFixed(2)}</div>
-      </div>
-    `;
+        <div class="movements__value">${formatedMoves(moves)}</div>
+        </div>
+        `;
+        // <div class="movements__value">${moves.toFixed(2)}</div>
 
     containerMovements.insertAdjacentHTML('afterbegin',html);
 
@@ -188,7 +213,8 @@ const displayMovements = function(movements, entire_current_acc, sort = false){
     labelBalance.innerText = '';
     const balance = movements_array.reduce((acc,amount)=> acc + amount, 0);
     
-    labelBalance.innerText = balance.toFixed(2) + '€';
+    labelBalance.innerText = formatedMoves(balance);
+    // labelBalance.innerText = balance.toFixed(2) + '€';
   }
   displayBalance(movements);
   
@@ -199,10 +225,12 @@ const displayMovements = function(movements, entire_current_acc, sort = false){
 
   const displayTransactionSummery = function(curr_account){
     const income = curr_account.movements.filter(mov => mov > 0).reduce((acc,mov) => acc + mov, 0);
-    labelSumIn.textContent = `${income.toFixed(2)}€`;
+    labelSumIn.textContent = `${formatedMoves(income)}`;
 
     const spendeature = curr_account.movements.filter(mov => mov < 0).reduce((acc,mov) => acc + mov, 0);
-    labelSumOut.textContent = `${Math.abs(spendeature.toFixed(2))}€`;
+
+    labelSumOut.textContent = `${formatedMoves(Math.abs(spendeature))}`;
+    // labelSumOut.textContent = `${Math.abs(spendeature.toFixed(2))}€`;
 
     // intrest on each deposit of 1.2 %
     const interest = curr_account.movements
@@ -213,7 +241,8 @@ const displayMovements = function(movements, entire_current_acc, sort = false){
         return int >= 1;
       })
       .reduce((acc, int) => acc + int, 0);   // before new rule 60.24€, after 60.24 - 0.84 = 59.4€
-    labelSumInterest.textContent = `${interest.toFixed(2)}€`;
+    labelSumInterest.textContent = `${formatedMoves(interest)}`;
+    // labelSumInterest.textContent = `${interest.toFixed(2)}€`;
   }
 
   displayTransactionSummery(entire_current_acc); // move down to login
@@ -412,7 +441,8 @@ btnLoan.addEventListener('click', function(e){
   if(amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)){
     currentAccount.movements.push(amount);
     currentAccount.movementsDates.push(new Date().toISOString());
-    displayMovements(currentAccount.movements, currentAccount);
+    setTimeout(()=>displayMovements(currentAccount.movements, currentAccount),2000);
+    // displayMovements(currentAccount.movements, currentAccount);
   }
   inputLoanAmount.value = '';
   inputLoanAmount.blur();
@@ -776,16 +806,114 @@ console.log(new Date().toJSON()); // 2024-07-13T11:34:08.003Z
 // console.log(noOfDaysPassed(new Date('2001-12-24'),new Date('2024-07-13'))); // Number of days passed between Mon Dec 24 2001 and Sat Jul 13 2024: 8237
 
 
-// console.log(new Date());
-// console.log(new Date());
-// console.log(new Date());
-// console.log(new Date());
-// console.log(new Date());
 
-// const = new Date()
-// const = new Date()
-// const = new Date()
-// const = new Date()
+// -------- Experimenting 'Intl' api --------
+
+// const nowLocal = new Date(); //                 lan-CONTERY
+
+// const options = {
+//   hour: 'numeric',
+//   minute: 'numeric',
+//   day: 'numeric',
+//   month: 'long', // numeric // 2-digit
+//   year: 'numeric',
+//   weekday: 'long'
+// }
+
+// const loaclBrowser = navigator.language;
+// console.log(loaclBrowser); // en-US
+
+// labelDate.textContent = new Intl.DateTimeFormat(loaclBrowser, options).format(nowLocal);
+// labelDate.textContent = new Intl.DateTimeFormat('en-IN', options).format(nowLocal);
+// 'ar-SY', en-US, hi-IN, en-IN , et-EE, gu-IN
+
+
+// -------- Experimenting 'Intl' api end --------
+
+
+// const nowDateObject = new Date();
+// const day = `${nowDateObject.getDate()}`.padStart(2,0); // 1 --> padd it to 01, padding only work on strings
+// const months = `${nowDateObject.getMonth()}`.padStart(2,0);
+// const year = nowDateObject.getFullYear();
+// const hours = `${nowDateObject.getHours()}`.padStart(2,0);
+// const minutes = `${nowDateObject.getMinutes()}`.padStart(2,0);
+
+// labelDate.textContent = `${day}/${months}/${year}, ${hours}:${minutes}`;
+//                    OR
+// console.log('local', nowDateObject.toLocaleDateString());
+// labelDate.textContent = `${nowDateObject.toLocaleDateString()}`;
+// labelDate.textContent = `${nowDateObject.toLocaleDateString()}, ${nowDateObject.toLocaleString().slice(6,-3)}`;
+//                     OR
+// labelDate.textContent = new Intl.DateTimeFormat(loaclBrowser, options).format(nowLocal);
+// labelDate.textContent = new Intl.DateTimeFormat(currentAccount.locale, options).format(nowLocal); // --> make all 'numeric' in options object
+
+
+// ------- Internationalizing Numbers (Intl)  -----------
+
+// const num = 3884764.24;
+
+// const optionsNums = {
+//   style: "unit", // <-- now you can set this unit // percent // currency
+//   unit: "mile-per-hour" // celcius,
+//   // currency: "INR"
+//   // useGrouping: false 
+// }
+
+// console.log(new Intl.NumberFormat('en-US', optionsNums).format(num)); // 3,884,764.24
+// console.log(new Intl.NumberFormat('hi-IN', optionsNums).format(num)); // 38,84,764.24
+// console.log(new Intl.NumberFormat(navigator.language).format(num)); // 38,84,764.24
+
+
+// with options:
+// 3,884,764.24 mph
+// 38,84,764.24 मी॰प्र॰घं॰
+
+
+// ------------ setTimeout and setInterval -----------------
+// setTimeout ( run once after the set interval)
+// setInterval (runs forever untill we stop it)
+
+
+// setTimeout((arg1,arg2)=>{
+//   console.log('pizza with '+ arg1 + ' and ' + arg2);
+// },1000, 'oliv', 'spinich');
+// // },1000, arg1, arg2);
+// console.log('waiting....');
+
+// clearing setTimeout()
+
+const ingedridents = ['olivs', 'spinich', 'patato', 'maida'];
+
+const pizzaTimer  = setTimeout((arg1,arg2)=>{
+  console.log('pizza with '+ arg1 + ' and ' + arg2 );
+},1000, ...ingedridents);
+
+console.log('waiting....');
+
+if(ingedridents.includes('maida')) clearTimeout(pizzaTimer); // pizzaTimmer will not run
+// if(ingedridents.includes('maida')) clearTimeout(pizzaTimer, console.log('it conatin maida'));
+
+// setInterval()
+// setInterval(()=>{
+  // console.log(new Date().toISOString());
+// },3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
