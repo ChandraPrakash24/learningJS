@@ -156,14 +156,35 @@ const formatedMoves = function(moves){
 }
 
 const startLogOutTimer = function(){
-  let session = 100;
+  // labelTimer.textContent = `--:--`;
+  // labelTimer.textContent = `00:00`;
+  // labelTimer.textContent = `00:05`;
+
+  // let sessionTime = 120; // 2 min
+  let sessionTime = 30; // 30 sec
   
-  const intervalId = setInterval(() => {
-    labelTimer.textContent = time;
+  const tick = () => {
 
-    time--;
+    const min = String(Math.trunc(sessionTime / 60)).padStart(2,0); 
+    const sec = String(Math.trunc(sessionTime % 60)).padStart(2,0); 
+    
+    labelTimer.textContent = `${min}:${sec}`;
+    
+    if(sessionTime <= 0){
+      clearInterval(intervalId);
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+    
+    sessionTime--;
+    
+  }
 
-  }, 1000);
+  tick(); // to start time emideatly not after 1 sec
+  const intervalId = setInterval(tick, 1000);
+  
+  return intervalId;
+
 }
 
 // startLogOutTimer();
@@ -320,17 +341,16 @@ createUserName(accounts);
 
 
 
-
 // --> Implimenting Login (on UI) //////////////////////////////////////////////////
 
-let currentAccount;
+let currentAccount, intervalId;
 
 // FAKE ALWAYS LOGGED IN
-currentAccount = account1;
-displayMovements(currentAccount.movements, currentAccount);
-containerApp.style.opacity = 1;
+// currentAccount = account1;
+// displayMovements(currentAccount.movements, currentAccount);
+// containerApp.style.opacity = 1;
 
-// --> Adding transactio, login, session, etc datae and time (on UI) /////////////////////////////
+// --> Adding transactio, login, session, etc date and time (on UI) /////////////////////////////
 
 // Experimenting 'Intl' api
 
@@ -389,6 +409,11 @@ btnLogin.addEventListener('click', function(e){
 
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
+
+    if(intervalId) clearInterval(intervalId); // it works beacouse 'intervalId' var is declared globbaly
+
+    intervalId = startLogOutTimer();
+
     
     displayMovements(currentAccount.movements, currentAccount);
     // displayTransactionSummery(currentAccount);
@@ -425,6 +450,11 @@ btnTransfer.addEventListener('click',function(e){
     // console.log('this: ', new Date().toISOString());
 
     displayMovements(currentAccount.movements, currentAccount);
+
+    if(intervalId) clearInterval(intervalId); // it works beacouse 'intervalId' var is declared globbaly
+
+    intervalId = startLogOutTimer();
+
   }
   
   
@@ -446,6 +476,11 @@ btnLoan.addEventListener('click', function(e){
   }
   inputLoanAmount.value = '';
   inputLoanAmount.blur();
+
+  if(intervalId) clearInterval(intervalId); // it works beacouse 'intervalId' var is declared globbaly
+
+  intervalId = startLogOutTimer();
+
 });
 
 
