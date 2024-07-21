@@ -218,6 +218,119 @@ setTimeout(()=>h1.removeEventListener('mouseenter',eventOnH1Id),3000);
 // - event can be handled during bubbeling phase also
 // - some types of event is generated to the target element itself
 
+// Event Bubbeling Example 
+
+// const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+// const randomColor = () => `rgb(${randomInt(0,255)},${randomInt(0,255)},${randomInt(0,255)})`
+
+// document.querySelector('.nav__link').addEventListener('click', function(e) {
+//   e.preventDefault();
+//   this.style.backgroundColor = randomColor();
+//   console.log('LINK', e.target, e.currentTarget);
+//   console.log(e.currentTarget === this);
+  
+//   // stop event propogation (not good to use in real app)
+//   // e.stopImmediatePropagation();
+//   // e.stopPropagation();
+// });
+// document.querySelector('.nav__links').addEventListener('click', function(e) {
+//   e.preventDefault();
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER', e.target, e.currentTarget);
+//   // console.log(e.currentTarget === this);
+// });
+// document.querySelector('.nav').addEventListener('click', function(e) {
+//   e.preventDefault();
+//   this.style.backgroundColor = randomColor();
+//   console.log('NAV', e.target, e.currentTarget);
+//   // console.log(e.currentTarget === this);
+// });
+
+// in event bubbeling phase all the parent's event also get invoked as above if we just click to .nav__link it's above parent also ket invoked which are container, and nav
+// even bubbeling retruns to top from the middle if the middle elemnt is traget element in that case ex: CONTAINER
+// e.currentTarget is the elment in which the event listner was attached
+// e.target is the target element
+// if link was clicked then in console nav then container then nav bar (order or running)
+// if container was clicked then in console container then nav bar (order or running)
+
+// Capturing not used this days
+// event capturing (invoking a event listner in event capturing phase)
+
+// document.querySelector('.nav').addEventListener('click', function(e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('NAV', e.target, e.currentTarget);
+// }, true);
+//   ^ event capture parameter (third param)
+// navBar -> link -> container (new running order)
+
+// event delegation (power of event bubbeling) using below page navigation exaple of our bakist app
+// --> SMOOTH PAGE NAVIGATION //////////////////////////////////////////////////////////////////
+
+// document.querySelectorAll('.nav__link').forEach(function(el) {
+//   el.addEventListener('click',function(e) {
+//     e.preventDefault();
+//     const id = this.getAttribute('href');
+//     document.querySelector(id).scrollIntoView({behavior : 'smooth'});
+//   });
+// });
+
+// well in above code it's effectively attaching same code to three links what if we ahve thousends of links then it voilate dry principle and also cause performance issues
+
+// to solve this we use event delegation at bubbeling phase which is going to be attached to a 'comment parent element' to all the links that is 'container'
+
+document.querySelector('.nav__links').addEventListener('click', function(e) {
+  // self done
+  // e.preventDefault();
+  // console.log(e.target);
+  // console.log(e.target.getAttribute('href'));
+  // if(e.target.getAttribute('href')){
+  //   console.log('scrolled');
+  //   document.querySelector(e.target.getAttribute('href')).scrollIntoView({behavior : 'smooth'})
+  // }
+  // tutorial way
+  e.preventDefault();
+  console.log(e.target);
+  if(e.target.classList.contains('nav__link') && !e.target.classList.contains('btn--show-modal')){
+    console.log('link');
+    // const id = this.getAttribute('href'); // X
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({behavior : 'smooth'});
+  }
+});
+
+// so above way is optimize coz it also work for the links, buttons, etc which haven't loaded yet to the dom --> still we will able to hndle events triger by that button once it loaded via there comman aprent hence we do not need to write .addEventListner() to every button, links, etc. by ourslef
+
+// we have emplimented [ && !e.target.classList.contains('btn--show-modal') ] for this logic:
+// t t
+// t t
+// t t
+// t f < -- for open account btn
+
+// ------- DOM TRAVERSING -------
+
+// can selecet an element based on another element by traversiong dom
+// Or selecet an element relative to onother element (such in case like: a direct child element, or a direct parent element, or some time we even don't know the structure of dom at run time) in all this cases we need dom traversing
+
+// we move upwords, downwords, leftwords, rightwords
+
+// Going Downwords: selecting child
+console.log(h1.querySelectorAll('.highlight')); // NodeList(2) [span.highlight, span.highlight] // this not only select direct child but it can go deeper withing that selected parent tree, although in this case this are direct child of the parent element 'h1'
+console.log(h1.childNodes); // only work with direct child // NodeList(9) [text, comment, text, span.highlight, text, br, text, span.highlight, text] // but it selecet all kind of nodes even text, comment
+console.log(h1.children); // only work with direct child // but these selects only html elemnts // HTMLCollection(3) [span.highlight, br, span.highlight]
+console.log(h1.firstElementChild); // <span class="highlight">banking</span>
+console.log(h1.lastElementChild); // <span class="highlight">minimalist</span>
+
+// you can use above all way to set properties also
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'orangered';
+
+
+
+
+
+
+
+
 
 
 
