@@ -315,8 +315,8 @@ document.querySelector('.nav__links').addEventListener('click', function(e) {
 
 // Going Downwords: selecting child
 console.log(h1.querySelectorAll('.highlight')); // NodeList(2) [span.highlight, span.highlight] // this not only select direct child but it can go deeper withing that selected parent tree, although in this case this are direct child of the parent element 'h1'
-console.log(h1.childNodes); // only work with direct child // NodeList(9) [text, comment, text, span.highlight, text, br, text, span.highlight, text] // but it selecet all kind of nodes even text, comment
-console.log(h1.children); // only work with direct child // but these selects only html elemnts // HTMLCollection(3) [span.highlight, br, span.highlight]
+console.log(h1.childNodes); // only work for direct child // NodeList(9) [text, comment, text, span.highlight, text, br, text, span.highlight, text] // but it selecet all kind of nodes even text, comment
+console.log(h1.children); // only work for direct child // but these selects only html elemnts // HTMLCollection(3) [span.highlight, br, span.highlight]
 console.log(h1.firstElementChild); // <span class="highlight">banking</span>
 console.log(h1.lastElementChild); // <span class="highlight">minimalist</span>
 
@@ -324,6 +324,106 @@ console.log(h1.lastElementChild); // <span class="highlight">minimalist</span>
 h1.firstElementChild.style.color = 'white';
 h1.lastElementChild.style.color = 'orangered';
 
+// Going Upwords: selecting parents
+console.log(h1.parentNode); // div.header__title // Direct Parent
+console.log(h1.parentElement); // div.header__title // Direct Parent
+
+// imp: use often for event delegation
+// h1.closest('.header').style.background = `var(--gradient-secondary)`; // it selects tehe closest parent of 'h1' which has a className '.header' and apply style to it
+console.log(h1.closest('.header')); // will return there closest parent element
+console.log(h1.closest('h1')); // will return itself
+
+// closest() method is opposit of querySelector() beacouse closest() method find parent no matter how far up , whre else querySelector() find child no matter how deep
+
+// Going sisdeways: siblings
+// imp: we can only access direct siblings in js (previous and next)
+
+console.log(h1.previousElementSibling); // null
+console.log(h1.nextElementSibling); // h4
+
+console.log(h1.previousSibling); // #text
+console.log(h1.nextSibling); // #text
+
+// how to get all the siblings not just previous and next (it's a trick moving up yo parent element and then get all the children)
+console.log(h1.parentElement.children); // HTMLCollection(4) [h1, h4, button.btn--text.btn--scroll-to, img.header__img]
+// use in event delegation:-
+// [...h1.parentElement.children].forEach(el => {
+//   if (el !== h1) el.style.transform = 'scale(0.5)';
+// });
+
+
+// --> Tabbed Component ///////////////////////////////////////////////////////////////////////////
+
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+// tabs.forEach(t => t.addEventListener('click',()=>console.log('tab'))); // BAD PERACTIVE USE EVENT DELEGATION
+
+tabsContainer.addEventListener('click',(e)=>{
+  
+  const clicked = e.target.closest('.operations__tab'); // only getting button even though we can click on a span or anything inside button as well 
+
+  console.log(clicked);
+  
+  // Guard clause
+  if(!clicked) return; // if we click to conatiner not on button
+
+  tabs.forEach(t=>t.classList.remove('operations__tab--active')); // removing from all just before adding to the one
+  clicked.classList.add('operations__tab--active'); // adding active class
+
+  // display content using "data-" html attribute
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
+
+});
+
+// ------ passing argument in Eventhandler ------
+
+// --> Manu fade animation ////////////////////////////////////////////////////////////////////
+
+const nav = document.querySelector('.nav');
+// mouseover === mouseenter but mouseeneter does not bubble, and here we want that it bubble to reach up to nav beacouse we also want to fad nav logo as well
+nav.addEventListener('mouseover', function(e) {
+  console.log('hover');
+});
+nav.addEventListener('mouseup', function(e) {
+  console.log('hover');
+});
+
+// vid: 198
+
+// ---------- Lifecycle DOM Events ----------
+
+// from the moment page is first accessed until the use leaves it
+
+
+// ------------ GENERALS EVENTS ------------
+// 1st event: dom content loaded (all html and script is downloaded and parsed into dom tree and executed respectively)
+
+// this does not wait for image and external resources just only html and js
+document.addEventListener('DOMContentLoaded', function(e) {
+  console.log(e);
+  console.log('html parsed, dom tree generated and all  the scripts are executed');
+});
+
+// 2nd event: load (fires when all the page is loaded (html+js+image+external resources) nothing left to load more )
+// apply on window
+window.addEventListener('load', function(e) {
+  console.log(e);
+  console.log('COMPLETE PAGE IS LOADED');
+});
+
+// 3rd event: beforeunload (when you close the tab --> then show popup do you realy want to leave the page)
+// window.addEventListener('beforeunload', function(e) {
+//   e.preventDefault();
+//   console.log(e);
+//   e.returnValue = '';
+// });
+
+// async and deffer way to include script into html
+// BEST:- link script tag in <head></head> tag with defer 
+// FOR 3rd PARTY SCRIPTS WHERE OUR CODE DO NOT NEED TO INTERACT WITH THAT THING LIKE (google analytics):- link script tag in <head></head> tag with async 
 
 
 
