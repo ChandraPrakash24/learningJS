@@ -290,7 +290,7 @@ getCounteryData('utuy');
 // https://geocode.xyz/51.50354,-0.12768?geoit=xml
 // https://www.geonames.org/findNearbyPlaceName?lat=40.65&lng=-73.78
 
-*/
+
 
 // CODING CHALLENGE:-
 // which couentry i am base on lattitude and longitude
@@ -317,9 +317,74 @@ const whereAmI = function(lat,lon) {
 whereAmI(54.9824031826,9.2833114795); //denmark
 // whereAmI(789.9824031826,9.2833114795); //undefine
 
+*/
+
+// ------------- Event Loop in Practice (micro task queue > callback queue) -------------
+
+// Callstack (Global execution context)         WEB API Environment(async task like loading image, fetch ap, dom , timer, getGeoCorrdinate, etc. )
+//  event loop       <->       micro task queue
+//                             callback queue   
+
+// guess the order of the output:
+
+console.log('Start');
+setTimeout(()=>console.log('Timer'),0);
+Promise.resolve('Resolved Promise').then(res => console.log(res));
+console.log('End');
+
+// Start
+// End
+// Resolved Promise
+// Timer
 
 
 
+// Even though timer appear earlier about 0.000000000001 second and you think why event loop nort executed this first then, so event loop not work like that, leet go through the flow of event loop
+
+
+// 1: first event loop watches the aomplition of all top level code in callstack
+// 2: then event loop go to "Callback queue" from the path of "microtask queue"
+// 3: then if micro task is empty, then it will push one callback task to callstack and then agin emideately just after one task it watch the microtask room agin and if found one or many micro task then the event loop executes all of them first then rest of the reamaning callback queue is handled.
+
+
+// IMP: callBack queue is "time irrelevent" like is it possible that like an setTimeout is set to run in 5 sec it ill going to rubn in 10, or 12 or any sec if ther is lots of upfront task are pending in microtask queue or in callback queue
+
+
+
+// Event Loop Mechanics :-
+// Execution of Synchronous Code: JavaScript executes the synchronous code first, line by line.
+
+// Queueing of Tasks:
+
+// Microtasks (or Job Queue): Promises and other microtasks are queued in the microtask queue. Microtasks are generally executed immediately after the currently executing script and before any I/O tasks or other macrotasks.
+// Macrotasks (or Callback Queue): setTimeout, setInterval, and other asynchronous APIs place their callbacks in the macrotask queue. These tasks are scheduled to be executed after the microtask queue has been cleared.
+// Handling Tasks:
+
+// Microtasks Execution: After executing the current synchronous code, the event loop will process all microtasks before moving on to macrotasks. This ensures that promise callbacks are executed as soon as possible after the current script execution.
+// Macrotasks Execution: Once the microtask queue is empty, the event loop will process one macrotask from the callback queue.
+
+
+// Guess the output 2:-
+
+console.log('Start');
+setTimeout(()=>console.log('Timer'),2000);
+Promise.resolve('Resolved Promise').then(res => console.log(res));
+Promise.resolve('Holding timer').then(res => {
+    // for loop from i = 0 to i < 1000000000000000000 ->> [for(.....) {//do nothing}] 
+    console.log(res)
+});
+console.log('End');
+
+// Start
+// End
+// Resolved Promise
+// Holding timer (> after ~15 seconds due to heavy computation)
+// Timer (after additional ~2 seconds, so total around 17 seconds)
+
+// IMP :- so JS timer like setTimer or setInterval are very bad to use for very persiosion task related to time or any interval's of duretion speacialy in cunjustion with promises
+
+
+// --------------- Creating Promises ---------------
 
 
 
