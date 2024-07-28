@@ -386,6 +386,111 @@ console.log('End');
 
 // --------------- Creating Promises ---------------
 
+// SYNTEX: new PromiseConstructor(executerFunction(resolveFunArgs1, rejectFunArg2){}) <-- it return promise
+
+// const lotteryPromise = new Promise(function(resolve,reject){
+//     if(Math.random() >= 0.5){
+//         resolve('You win the lottery'); // this promise state (200 OK) is consume in .then
+//     } else {
+//         reject('Buying lottery is a waste of money'); // this promise state (Err) is handled in .catch
+//     }
+// });
+
+
+// lotteryPromise is a Promise object so you can direct attach .then or .catch
+// lotteryPromise.then(res => console.log(res)).catch(err => console.log(err)); // Buying lottery is a waste of money
+
+// The above example is not really asynchronous in nature; so below is modifyed one to make it asynchronous we can wraap it into Timers or in things which return promise by deafault
+
+// const lotteryPromise = new Promise(function(resolve,reject){
+//     setTimeout(()=>{
+//         if(Math.random() >= 0.5){
+//             resolve('You win the lottery');
+//         } else {
+//             reject(new Error('Buying lottery is a waste of money'));
+//         }
+//     },2000);
+// });
+// lotteryPromise.then(res => console.log(res)).catch(err => console.error(err)); // Error: Buying lottery is a waste of money
+
+
+// we generally use this new Promise constructor function when we have to wrapp a callBack based function into asynchronous based this is knowns as Promisifying
+// callback based asynchronous behavious --> into promise based asynchronous behaviour
+
+// ex:-
+// Promisifying setTimeout ( IMP )
+
+const wait = function(seconds) {
+    return new Promise(function(resolve) {
+        // timeout never fail so no need for reject args
+        setTimeout(resolve,seconds * 1000); 
+    });
+}
+
+// wait(2).then((res)=>{
+//     // this just means no you can write any code which you want to execute after 2 (almost) seconds using 'promise based asynchronous behaviour'
+//     console.log('2 second wait time');
+//     console.log(res); // undefined
+//     console.log(this); // Window
+//     return wait(1); // new Promise for 1 second
+// }).then(()=>console.log('1 second wait time'));
+
+//output:
+// 2 second wait time
+// undefined
+// Window
+// 1 second wait time
+
+// so multiple timer without callback hell using above method and below is the eloberated example
+
+// PREVIOUS
+
+// setTimeout(()=>{
+//     console.log('1 seconds')
+//     setTimeout(()=>{
+//         console.log('2 seconds')
+//         setTimeout(()=>{
+//             console.log('3 seconds')
+//             setTimeout(()=>{
+//                 console.log('4 seconds')
+//             },1000);
+//         },1000);
+//     },1000);
+// },1000);
+
+// NOW
+
+// wait(1).then(_=>{
+//     console.log('1 seconds')
+//     return wait(1);
+// })
+// .then(_=>{
+//     console.log('2 seconds')
+//     return wait(1);
+// })
+// .then(_=>{
+//     console.log('3 seconds')
+//     return wait(1);
+// })
+// .then(_=>{
+//     console.log('4 seconds')
+//     return wait(1);
+// })
+
+// 1 seconds
+// 2 seconds
+// 3 seconds
+// 4 seconds
+
+// resolve and reject this are static methods on Promise() constructor
+Promise.resolve('Wooooo').then(res=>console.log(res));
+Promise.reject('Nooooo').catch(err=>console.log(err));
+
+
+
+
+
+
 
 
 
