@@ -317,7 +317,7 @@ const whereAmI = function(lat,lon) {
 whereAmI(54.9824031826,9.2833114795); //denmark
 // whereAmI(789.9824031826,9.2833114795); //undefine
 
-*/
+
 
 // ------------- Event Loop in Practice (micro task queue > callback queue) -------------
 
@@ -488,11 +488,291 @@ Promise.reject('Nooooo').catch(err=>console.log(err));
 
 
 
+// ------- Promecifying Geolocation -------
+
+// async in nature
+// navigator.geolocation.getCurrentPosition(position => console.log(position), err => console.log(err));
+// console.log('getting position');
+
+const getLoaction = function(){
+    return new Promise((resolve, reject) => {
+        // navigator.geolocation.getCurrentPosition(position => resolve(position),err => reject(err));
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+    })
+}
+
+
+// getLoaction().then(response => {
+//     console.log(response)
+// }).catch(err => console.log(err));
+
+// ex:-
+// whre am i by asking user's browser to give there locall position
+
+getLoaction().then(response => {
+    // const {latitude: lat, longitude: lon} = response.coords; // from browser
+    // console.log(lat,lon); // 22.7195687 75.8577258 (Indore)
+    // return fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`);
+
+    return fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=54.9824031826&lon=9.2833114795&zoom=18&addressdetails=1`);
+})
+.then((response) => {
+    if(!response?.ok) throw new Error(`Wrong Lattitude or longitude values ${response.ststus}`);
+    return response.json();
+})
+.then((data) => {
+    console.log(data?.address?.country);
+})
+.catch((err) => {
+    console.error('Error is :- ',err);
+})
+.finally(() => {
+    console.log('FINNALY');
+});
 
 
 
 
+// -------------- Coding chalange --------------
 
+const wait = function(seconds){
+    const imgContainer = document.querySelector('.images');
+    const img = document.querySelector('img');
+    // img.remove();
+
+    // img.removeChild(img);
+    // img.style.disply = 'none'
+    // img.src = '';
+    return new Promise((resolve,_ ) => {
+        setTimeout(resolve, seconds * 1000); // retrun promise after 2 sec that means run resolve after 2 sec
+    });
+}
+
+const createImage = function(imgPath) {
+    
+    return new Promise((resolve, reject) => {
+        const img = document.createElement('img');
+        img.setAttribute('src',imgPath);
+        img.addEventListener('load',()=>{
+            const imageContaner = document.querySelector('.images');
+            imageContaner.insertAdjacentElement("beforeend",img);
+            resolve(img); 
+        })
+
+        img.addEventListener('error',()=>{
+            reject(new Error('Image not found'));
+        })
+    });
+}
+
+let currentInage;
+
+createImage("img/img-1.jpg")
+.then((result) => {
+    // console.log(result); this result in only withing this then to hide this image we need gloabal var
+    currentInage = result;
+    return wait(2);
+})
+.then(_=>{
+    currentInage.style.display= 'none';
+    // createImage("img/img-2.jpg")
+    // console.log(createImage("img/img-2.jpg"));
+    // console.log(res);
+    return createImage("img/img-2.jpg")
+})
+.then(result=>{
+    // console.log(result);
+    currentInage = result;
+    return wait(2);
+})
+.then(_=>{
+    currentInage.style.display= 'none';
+    return createImage("img/img-3.jpg")
+})
+.catch((err) => {
+    console.error(err);
+});
+
+
+// createImage("img/img-2.jpg") :- Implicit Behavior: The function createImage will be called and it will return a Promise. However, if you do not return this Promise from within the then handler, the Promise will not be directly passed down the chain. This means that the subsequent then handlers won't be able to wait for this Promise to resolve before they execute.
+// return createImage("img/img-2.jpg") :- Explicit Behavior: By using return, you ensure that the Promise returned by createImage is passed along to the next then handler. This allows the promise chain to wait for the Promise to resolve before executing the next then in the chain.
+
+
+
+
+// ----------- Async/Await -----------
+// better and easyer way to consume promises
+
+// async function logger(){}
+// const logger = async () => {}
+// const logger = async function() => {}
+
+// const whichCounteryIAm = async function(countryName){
+//     // fetch(`https://restcountries.com/v3.1/name/${countryName}`);
+//     // .then(res=>console.log(res))
+//     //           Equivalent of 
+//     const response = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
+//     console.log(response);
+// }
+
+// whichCounteryIAm('bharat');
+// console.log('FIRST'); // this will run first coz above function is asynchronouesly out of the way now 
+
+// completely making this function using async await syntex
+
+const whichCounteryIAm = async function(countryName){
+    try {
+        // get current loaction using getGiolocation() 
+        // const response = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
+        // const data = await response.json();
+        // console.log(data[0]);
+
+        return `2: you are in ${countryName}`;
+
+    } catch(err) {
+        console.log(err);
+        // Rejecting promise returned from asying function above so that it can propogate to catch block where it was called (beacouse this async function alsways return promise state as succesful even though it has error <-- only if you are trying to use .then and .catch where this functionis called )
+        throw err;
+    }
+}
+// whichCounteryIAm('bharat');
+
+
+// we can't use .actch with async await coz where to attach that but we use try catch in general
+
+// try{
+//     let y = 2;
+//     const x = 1;
+//     x = 3; // TypeError: Assignment to constant variable.
+// } catch(err) {
+//     console.log(err); // TypeError: Assignment to constant variable.
+//     //    at script.js:637:7
+//     console.log(err.message); // Assignment to constant variable.
+// }
+
+// try {
+//     let result = fetch('');
+//     if(!result.ok) throw new Error('Error for fetch'); // IMP: always use this coz fetch will not throw any error type error it will respond in like 404 (this not error hence can'y be catch by below catch block hence we ourself need to throw error in this cas if we not found !result.ok) 
+
+// } catch (error) {
+    
+// }
+
+// -------- retruning value from async function --------
+
+// console.log('1: below is the couentry you are in');
+// console.log(whichCounteryIAm('bharat')); // Promise {<pending>} (you expect that this is goin to be a third line)
+// console.log('3: above is the couentry you are in');
+
+// solution:-
+
+// console.log('1: below is the couentry you are in');
+// whichCounteryIAm('bharat').then(res=>console.log(res))
+// console.log('3: above is the couentry you are in');
+// out: (now as expected)
+// 1: below is the country you are in
+// 3: above is the country you are in
+// 2: you are in bharat
+
+
+// what if you want  1 then 2 then 3 do do this place '3's code in finally of 2'nd call
+// console.log('1: below is the country you are in');
+// whichCounteryIAm('bharat').then(res=>console.log(res)).catch(err=>console.log(err)).finally(()=>console.log('3: above is the country you are in'))
+// 1: below is the country you are in
+// 2: you are in bharat
+// 3: above is the country you are in
+
+
+// converting above code into pure async/await pattern
+
+// console.log('1: below is the couentry you are in');
+// (async function(){
+//     try {
+//         const res = await whichCounteryIAm('bharat');
+//         console.log(res);
+//     } catch (error) {
+//         console.log(error);
+//     }
+//     console.log('3: above is the couentry you are in');
+// })();
+
+// it produce weard error:-
+// (async function() {
+//     try {
+//         const res = await whichCounteryIAm('usa');
+//         console.log(res);
+//     } catch (error) {
+//         console.log(error);
+//     }
+//     console.log('1: below is the country you are in');
+//     console.log('3: above is the country you are in');
+// })();
+
+*/
+
+// ------------- Running Promises in Parallel -------------
+
+const convertIntoJSON = async function(responseData){
+
+    if(!responseData.ok) throw new Error('Error during fetch like 404');
+
+    const [data] = await responseData.json();
+
+        // const {capital} = data; // ['New Delhi']
+        const {capital} = data; // ['New Delhi']
+        // console.log(...data.capital); // New Delhi
+
+        // return capital[0]; //  we can do this as well then no need to spread in below function return
+        return capital; // [New Delhi]
+}
+
+
+const get4CouentryCapitalArray = async function(c1,c2,c3,c4) {
+    try {
+        const response1 = await fetch(`https://restcountries.com/v3.1/name/${c1}`);
+        const response2 = await fetch(`https://restcountries.com/v3.1/name/${c2}`);
+        const response3 = await fetch(`https://restcountries.com/v3.1/name/${c3}`);
+        const response4 = await fetch(`https://restcountries.com/v3.1/name/${c4}`);
+
+        const data1 = await convertIntoJSON(response1);
+        const data2 = await convertIntoJSON(response2);
+        const data3 = await convertIntoJSON(response3);
+        const data4 = await convertIntoJSON(response4);
+
+        // throw new Error('sample error');
+
+        return [...data1,...data2,...data3,...data4];
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+// Usage example:
+const country1 = 'usa';
+const country2 = 'canada';
+const country3 = 'india';
+const country4 = 'australia';
+
+// if use just like this it will log:-
+// const capitalArr = get4CouentryCapitalArray(country1, country2, country3, country4);
+// console.log('capitalArr: ', capitalArr); // capitalArr:  Promise {<pending>}
+
+//you can use .then() .catch() like (no need for capitalArr var as well):-
+// get4CouentryCapitalArray(country1, country2, country3, country4)
+// .then((result) => {
+//     console.log(result); // ['Washington, D.C.', 'Ottawa', 'New Delhi', 'Canberra']
+// }).catch((err) => {
+//     console.log(err);
+// });
+
+
+// also you can use iffi
+
+(async function(){
+    const result = await get4CouentryCapitalArray(country1, country2, country3, country4);
+    console.log(result);
+})();
 
 
 
