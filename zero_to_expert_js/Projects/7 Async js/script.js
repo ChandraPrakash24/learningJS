@@ -708,51 +708,53 @@ const whichCounteryIAm = async function(countryName){
 //     console.log('3: above is the country you are in');
 // })();
 
-*/
+
 
 // ------------- Running Promises in Parallel -------------
 
-const convertIntoJSON = async function(responseData){
+// const convertIntoJSON = async function(responseData){
 
-    if(!responseData.ok) throw new Error('Error during fetch like 404');
+//     if(!responseData.ok) throw new Error('Error during fetch like 404');
 
-    const [data] = await responseData.json();
+//     const [data] = await responseData.json();
 
-        // const {capital} = data; // ['New Delhi']
-        const {capital} = data; // ['New Delhi']
-        // console.log(...data.capital); // New Delhi
+//         // const {capital} = data; // ['New Delhi']
+//         const {capital} = data; // ['New Delhi']
+//         // console.log(...data.capital); // New Delhi
 
-        // return capital[0]; //  we can do this as well then no need to spread in below function return
-        return capital; // [New Delhi]
-}
+//         // return capital[0]; //  we can do this as well then no need to spread in below function return
+//         return capital; // [New Delhi]
+// }
 
 
-const get4CouentryCapitalArray = async function(c1,c2,c3,c4) {
-    try {
-        const response1 = await fetch(`https://restcountries.com/v3.1/name/${c1}`);
-        const response2 = await fetch(`https://restcountries.com/v3.1/name/${c2}`);
-        const response3 = await fetch(`https://restcountries.com/v3.1/name/${c3}`);
-        const response4 = await fetch(`https://restcountries.com/v3.1/name/${c4}`);
+// const get4CouentryCapitalArray = async function(c1,c2,c3,c4) {
+//     try {
+//         const response1 = await fetch(`https://restcountries.com/v3.1/name/${c1}`);
+//         const response2 = await fetch(`https://restcountries.com/v3.1/name/${c2}`);
+//         const response3 = await fetch(`https://restcountries.com/v3.1/name/${c3}`);
+//         const response4 = await fetch(`https://restcountries.com/v3.1/name/${c4}`);
 
-        const data1 = await convertIntoJSON(response1);
-        const data2 = await convertIntoJSON(response2);
-        const data3 = await convertIntoJSON(response3);
-        const data4 = await convertIntoJSON(response4);
+//         const data1 = await convertIntoJSON(response1);
+//         const data2 = await convertIntoJSON(response2);
+//         const data3 = await convertIntoJSON(response3);
+//         const data4 = await convertIntoJSON(response4);
 
-        // throw new Error('sample error');
 
-        return [...data1,...data2,...data3,...data4];
-    } catch (err) {
-        console.log(err);
-        throw err;
-    }
-}
 
-// Usage example:
-const country1 = 'usa';
-const country2 = 'canada';
-const country3 = 'india';
-const country4 = 'australia';
+//         // throw new Error('sample error');
+
+//         return [...data1,...data2,...data3,...data4];
+//     } catch (err) {
+//         console.log(err);
+//         throw err;
+//     }
+// }
+
+// // Usage example:
+// const country1 = 'usa';
+// const country2 = 'canada';
+// const country3 = 'india';
+// const country4 = 'australia';
 
 // if use just like this it will log:-
 // const capitalArr = get4CouentryCapitalArray(country1, country2, country3, country4);
@@ -769,10 +771,173 @@ const country4 = 'australia';
 
 // also you can use iffi
 
-(async function(){
-    const result = await get4CouentryCapitalArray(country1, country2, country3, country4);
+// (async function(){
+//     const result = await get4CouentryCapitalArray(country1, country2, country3, country4);
+//     console.log(result);
+// })();
+
+// the above ex is not realy parallel
+// to make above example to run all the fetch in parralle you can use Promise.all()
+// this function takes the array of promises thwn it will rerturn the new promise which will then run all the promises in the array simultaniously
+// if one promise reject --> entire promises reject
+// this operations like featching a data is non depend on each other henece we use Promise.all()
+
+
+const convertIntoJSON = async function(responseData) {
+    if (!responseData.ok) throw new Error('Error during fetch like 404');
+    const [data] = await responseData.json();
+    const { capital } = data;
+    return capital;
+}
+
+const get4CountryCapitalArray = async function(c1, c2, c3, c4) {
+    try {
+        const urls = [
+            `https://restcountries.com/v3.1/name/${c1}`,
+            `https://restcountries.com/v3.1/name/${c2}`,
+            `https://restcountries.com/v3.1/name/${c3}`,
+            `https://restcountries.com/v3.1/name/${c4}`
+        ];
+
+        const responses = await Promise.all(urls.map(url => fetch(url)));
+        console.log('responses: ', responses); // [Response, Response, Response, Response]
+        const dataArray = await Promise.all(responses.map(response => convertIntoJSON(response)));
+        console.log('dataArray: ', dataArray); // [Array(1), Array(1), Array(1), Array(1)]
+
+        return dataArray.flat(); // Flatten the array of arrays into a single array
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
+
+const country1 = 'usa';
+const country2 = 'canada';
+const country3 = 'india';
+const country4 = 'australia';
+
+get4CountryCapitalArray(country1, country2, country3, country4)
+    .then(capitals => {
+        console.log('Capitals:', capitals);
+    })
+    .catch(err => {
+        console.error('Error:', err);
+    });
+
+
+// More static combinators like .all :-
+
+// 1: .race() // return promise from promise array
+// result = which request settele first(no matter resolve (success) or rejected) (in terms of network response)
+
+(async ()=>{
+    const result = await Promise.race(
+        [
+            fetch('https://restcountries.com/v3.1/name/usa'),
+            fetch('https://restcountries.com/v3.1/name/bharat'),
+            fetch('https://restcountries.com/v3.1/name/nepal'),
+            fetch('https://restcountries.com/v3.1/name/bhutan'),
+        ]
+    );
     console.log(result);
 })();
+
+// use case : if you want one of the promise from that all the promise in that array finish before certain time then use an abort timer
+
+// const abortTimer = function(second) {
+//     return new Promise((_,reject) => {
+//         setTimeout(()=>reject('tok long rime to run hence aboarted'),second * 1000);
+//     })
+// }
+
+// this syntex of function worked but above one won't
+function abortTimer(second) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject('Timeout occurred');
+        }, second * 1000);
+    });
+}
+
+(async ()=>{
+    try {
+        const res = await Promise.race([
+            fetch('https://restcountries.com/v3.1/name/nepal'),
+            fetch('https://restcountries.com/v3.1/name/bhutan'),
+            abortTimer(1)
+        ]);
+        console.log('is aborated request:', res);
+    } catch (err) {
+        console.log(err);
+    }
+})();
+
+
+
+// .allSettled
+
+// take array of promises and return all the setteled promises (no matter resolve or rejected)
+// In Promise.all() if one call got rejected all rejected, but in .allSettled do not short circuits
+
+Promise.allSettled([
+    Promise.resolve('resolve 1'),
+    Promise.reject('404 bad gateway'),
+    Promise.resolve('resolve 2')
+]).then(response=>console.log(response)).catch(err=>console.log(err));
+
+// [{…}, {…}, {…}] // this is response (not error)
+//     0:{status: 'fulfilled', value: 'resolve 1'}
+//     1:{status: 'rejected', reason: '404 bad gateway'}
+//     2:{status: 'fulfilled', value: 'resolve 2'}
+//     length:3
+//     [[Prototype]]:Array(0)
+
+
+// if above example was use with .all() : Promise.all([ --< only log '404 bad gateway' beacouse it sort circuits
+
+// async version:
+// async function example() {
+//     try {
+//         const response = await Promise.allSettled([
+//             Promise.resolve('resolve 1'),
+//             Promise.reject('404 bad gateway'),
+//             Promise.resolve('resolve 2')
+//         ]);
+//         console.log(response);
+//     } catch (err) {
+//         console.log(err);
+//     }
+// }
+
+// example();
+
+
+
+// .any()
+// return first fullfiled promise, and rejected one are ignored unless all are rejected it is kind of same as .race() but race will return reject as well. 
+Promise.any([
+    Promise.resolve('resolve 1'),
+    Promise.reject('404 bad gateway'),
+    Promise.resolve('resolve 2')
+]).then(response=>console.log('from ANY',response)).catch(err=>console.log(err));
+// from ANY resolve 1
+
+*/
+
+// ---- Coding challenge -----
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
