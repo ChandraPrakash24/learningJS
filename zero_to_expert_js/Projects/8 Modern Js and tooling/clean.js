@@ -70,3 +70,5 @@ const bigExpenses = function (limit) {
   // console.log(output);
 };
 bigExpenses(1000);
+
+
